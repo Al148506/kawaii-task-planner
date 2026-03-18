@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap");
+
+/* ═══════════════════════════════════════════════════════════
+KAWAII CALENDAR 🌸
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Variables ─────────────────────────────────────────── */
+:root {
+  --bg-panel: #ffffff;
+  --bg-cell: #fff7fb;
+
+  --peach: #fec1b6;
+  --rose: #f3a6ba;
+  --pink: #df678f;
+  --lavender: #9391bc;
+  --mint: #7abcc4;
+
+  --pink-soft: #df678f22;
+  --lavender-soft: #9391bc33;
+
+  --text-primary: #6b5c75;
+  --text-muted: #a79bb3;
+  --text-disabled: #d6cfe0;
+
+  --border-soft: #e9dff0;
+  --border-strong: #d8cbe4;
+
+  --panel-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* ─── Wrapper ───────────────────────────────────────────── */
+.rdp {
+  --rdp-cell-size: 42px;
+  --rdp-accent-color: var(--pink);
+  --rdp-background-color: var(--bg-cell);
+
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 1.5rem;
+  box-shadow: var(--panel-shadow);
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  position: relative;
+}
+
+/* Fondo suave decorativo */
+.rdp::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, #fec1b622, transparent 40%),
+    radial-gradient(circle at 80% 80%, #7abcc422, transparent 40%);
+  pointer-events: none;
+}
+
+/* ─── Header ───────────────────────────────────────────── */
+.rdp-months {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.rdp-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.rdp-caption_label {
+  font-family: "Cinzel", serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+
+  background: linear-gradient(
+    90deg,
+    var(--peach),
+    var(--pink),
+    var(--lavender)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── Nav buttons ─────────────────────────────────────── */
+.rdp-nav {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.rdp-nav_button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border-soft);
+  background: #fff;
+  color: var(--lavender);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rdp-nav_button:hover {
+  background: var(--pink-soft);
+  transform: scale(1.1);
+}
+
+.rdp-nav_button svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ─── Weekdays ─────────────────────────────────────────── */
+.rdp-head_cell {
+  font-family: "Cinzel", serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.4rem 0;
+  width: var(--rdp-cell-size);
+}
+
+/* ─── Table ───────────────────────────────────────────── */
+.rdp-table {
+  border-collapse: separate;
+  border-spacing: 6px;
+}
+
+.rdp-cell {
+  padding: 0;
+}
+
+/* ─── Days ─────────────────────────────────────────────── */
+.rdp-button {
+  width: var(--rdp-cell-size);
+  height: var(--rdp-cell-size);
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  background: var(--bg-cell);
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background: var(--pink-soft);
+  transform: translateY(-2px);
+}
+
+/* ─── Today ───────────────────────────────────────────── */
+.rdp-day_today:not(.rdp-day_selected) {
+  background: #fff0f5;
+  border: 1px solid var(--pink);
+  color: var(--pink);
+  font-weight: 500;
+}
+
+/* ─── Selected ────────────────────────────────────────── */
+.rdp-day_selected {
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+  color: #fff !important;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4px 12px var(--pink-soft);
+}
+
+/* ─── Outside days ────────────────────────────────────── */
+.rdp-day_outside {
+  color: var(--text-disabled);
+  opacity: 0.5;
+}
+
+/* ─── Disabled ───────────────────────────────────────── */
+.rdp-day_disabled {
+  color: var(--text-disabled);
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Día con tareas — fondo más oscuro */
+.has-tasks {
+  background: #f5d8e8 !important; /* un tono más oscuro que --bg-cell: #fff7fb */
+  font-weight: 500;
+}
+
+/* Punto indicador */
+.has-tasks::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--pink);
+}
+
+/* Cuando está seleccionado, el gradiente gana */
+.rdp-day_selected.has-tasks {
+  background: linear-gradient(135deg, var(--peach), var(--pink)) !important;
+  color: #fff !important;
+}
+
+/* ─── Focus ───────────────────────────────────────────── */
+.rdp-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--lavender-soft);
+}
+
+/* ─── Animación ───────────────────────────────────────── */
+.rdp {
+  animation: fade-in 0.35s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
