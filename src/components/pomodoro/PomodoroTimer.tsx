@@ -3,11 +3,8 @@ import { usePomodoro } from "../../hooks/usePomodoro";
 import { usePomodoroContext } from "../../context/PomodoroContext";
 import { useTasksContext } from "../../context/TasksContext";
 import "./PomodoroTimer.css";
-const formatTime = (seconds: number) => {
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return `${m}:${s.toString().padStart(2, "0")}`;
-};
+import { formatTime } from "../../utils/utilFormatTime";
+
 
 const PomodoroTimer = () => {
   const { timeLeft, isRunning, start, pause, reset } = usePomodoro(1500);
