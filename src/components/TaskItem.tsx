@@ -1,13 +1,23 @@
 import type { Task } from "../types/Task";
 import { useTasksContext } from "../context/TasksContext";
-
+import { usePomodoroContext } from "../context/PomodoroContext";
+import { useNavigate } from "react-router-dom";
 interface Props {
   task: Task;
 }
 
 const TaskItem = ({ task }: Props) => {
-  const { deleteTask, completePomodoro } = useTasksContext();
+  const { deleteTask } = useTasksContext();
+  const { startPomodoro, activePomodoro } = usePomodoroContext();
+  const navigate = useNavigate(); // 👈 agregar esto
 
+  const handleStartPomodoro = (taskId: string, pomodoroId: string) => {
+    if (activePomodoro) return;
+
+    startPomodoro(taskId, pomodoroId, task.date, task.title);
+
+    navigate("/pomodoro");
+  };
   return (
     <div className="task-item">
       <div className="task-item__content">
@@ -17,9 +27,11 @@ const TaskItem = ({ task }: Props) => {
           {task.pomodoros.map((p) => (
             <button
               key={p.id}
-              className={`pomodoro-btn ${p.completed ? "completed" : ""}`}
+              className={`pomodoro-btn 
+    ${p.completed ? "completed" : ""} 
+    ${activePomodoro?.pomodoroId === p.id ? "active" : ""}`}
               disabled={p.completed}
-              onClick={() => completePomodoro(task.id, p.id)}
+              onClick={() => handleStartPomodoro(task.id, p.id)}
             >
               {p.completed ? "✔" : "🍅"}
             </button>

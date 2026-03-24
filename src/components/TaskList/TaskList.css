@@ -123,3 +123,19 @@ TASK LIST — KAWAII STYLE 🌸
 .pomodoro-btn:active:not(:disabled) {
   transform: scale(0.95);
 }
+
+.pomodoro-btn.active {
+  animation: pulse 1s infinite;
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+  color: #fff;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}

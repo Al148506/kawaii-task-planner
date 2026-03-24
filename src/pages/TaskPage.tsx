@@ -1,25 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "../components/calendar/Calendar";
 import TaskList from "../components/TaskList/TaskList";
 import TaskForm from "../components/TaskForm";
 import { useTasksContext } from "../context/TasksContext";
+import { usePomodoroContext } from "../context/PomodoroContext";
 import "./TaskPage.css";
 
+// 🔧 Convierte "YYYY-MM-DD" a Date local (sin bugs de zona horaria)
+const parseLocalDate = (dateStr: string): Date => {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day);
+};
+
+// 🔧 Convierte Date → "YYYY-MM-DD"
+const toFormattedDate = (date: Date): string =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
 const TasksPage = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const { tasks, getTasksByDate } = useTasksContext();
+  const { lastSelectedDate } = usePomodoroContext();
 
-  const formattedDate = `${selectedDate.getFullYear()}-${String(
-    selectedDate.getMonth() + 1,
-  ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`;
+  // 📅 Estado principal
+  const [selectedDate, setSelectedDate] = useState<Date>(() =>
+    lastSelectedDate ? parseLocalDate(lastSelectedDate) : new Date(),
+  );
 
-  const daysWithTasks = tasks.map((t) => {
-    const [year, month, day] = t.date.split("-").map(Number);
-    return new Date(year, month - 1, day);
-  });
+  // 🔥 Sincroniza cuando vienes del Pomodoro
+  useEffect(() => {
+    if (lastSelectedDate) {
+      setSelectedDate(parseLocalDate(lastSelectedDate));
+    }
+  }, [lastSelectedDate]);
 
+  // 📆 Formato para lógica
+  const formattedDate = toFormattedDate(selectedDate);
+
+  // 📆 Días con tareas (para el calendario)
+  const daysWithTasks = tasks.map((t) => parseLocalDate(t.date));
+
+  // 📋 Tareas del día seleccionado
   const tasksOfSelectedDay = getTasksByDate(formattedDate);
 
+  // 🧾 Texto bonito
   const displayDate = selectedDate.toLocaleDateString("es-MX", {
     weekday: "long",
     day: "numeric",
@@ -28,7 +50,7 @@ const TasksPage = () => {
 
   return (
     <div className="tasks-page">
-      {/* ── Top row: Calendar + Form ── */}
+      {/* ── Top: Calendario + Formulario ── */}
       <div className="tasks-page__top">
         <div className="tasks-page__calendar-col">
           <p className="tasks-section__label">Calendario</p>
@@ -50,7 +72,7 @@ const TasksPage = () => {
         </div>
       </div>
 
-      {/* ── Task list ── */}
+      {/* ── Lista de tareas ── */}
       <div className="tasks-page__list-section">
         <p className="tasks-section__label">Misiones del día</p>
 

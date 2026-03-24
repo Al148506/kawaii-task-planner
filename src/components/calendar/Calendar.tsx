@@ -10,7 +10,6 @@ const Calendar = ({ selectedDate, onSelectDate, daysWithTasks }: Props) => {
   const normalizeDate = (date: Date) =>
     new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-  console.log(daysWithTasks.map((d) => d.toDateString()));
   return (
     <DayPicker
       mode="single"
