@@ -5,6 +5,7 @@ import { TasksProvider } from "./context/TasksContext.tsx";
 import "react-day-picker/dist/style.css";
 import { PomodoroProvider } from "./context/PomodoroContext.tsx";
 import { BrowserRouter } from "react-router-dom";
+import "./index.css"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

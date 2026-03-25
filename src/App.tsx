@@ -6,16 +6,25 @@ import PomodoroPage from "./pages/PomodoroPage";
 function App() {
   return (
     <>
-      <h1>Pomodoro Senpai</h1>
-      
-      {/* Las rutas definen qué componente se monta según la URL */}
-      <Routes>
-        {/* Página principal: Lista de tareas */}
-        <Route path="/" element={<TasksPage />} />
-        
-        {/* Página del temporizador */}
-        <Route path="/pomodoro" element={<PomodoroPage />} />
-      </Routes>
+      {/* <header className="app-header">
+        <div className="app-header-inner">
+          <span className="header-ornament">estudio · descanso · flujo</span>
+          <h1>Pomodoro Senpai</h1>
+          <p className="app-subtitle">your kawaii productivity companion</p>
+          <div className="header-divider">
+            <div className="header-divider-line" />
+            <span className="header-divider-icon">✦</span>
+            <div className="header-divider-line" />
+          </div>
+        </div>
+      </header> */}
+
+      <main className="app-main">
+        <Routes>
+          <Route path="/" element={<TasksPage />} />
+          <Route path="/pomodoro" element={<PomodoroPage />} />
+        </Routes>
+      </main>
     </>
   );
 }

@@ -1,111 +1,277 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap");
+
+/* ═══════════════════════════════════════════════════════════
+KAWAII PASTEL DESIGN SYSTEM 🌸
+Theme: Soft / Cute / Cozy Productivity
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Design Tokens ──────────────────────────────────────── */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Fondos */
+  --bg-void: #fff5f8;
+  --bg-deep: #fde8f4;
+  --bg-surface: #ffffff;
+  --bg-elevated: #fdf0fa;
+  --bg-overlay: #f0ecf8;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Paleta pastel — rosa → lila → periwinkle */
+  --peach: #f9b8cc;
+  --rose: #f48fb1;
+  --pink: #d97ba8;
+  --lavender: #c89fc8;
+  --mint: #85bfc8;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Versiones suaves */
+  --peach-soft: #f9b8cc33;
+  --rose-soft: #f48fb133;
+  --pink-soft: #d97ba822;
+  --lavender-soft: #c89fc833;
+  --mint-soft: #85bfc833;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* Texto */
+  --text-hero: #5c4a72;
+  --text-primary: #7a5e8a;
+  --text-secondary: #9e80ae;
+  --text-muted: #bda8cc;
+  --text-ghost: #ddd0e8;
+
+  /* Bordes */
+  --border-subtle: #f0d8e8;
+  --border-default: #e0c8e0;
+  --border-bright: #cdb8d8;
+
+  /* El resto no cambia */
+  --shadow-panel: 0 8px 25px rgba(90, 50, 120, 0.06);
+  --font-display: "Cinzel Decorative", serif;
+  --font-title: "Cinzel", serif;
+  --font-body: "Noto Sans JP", sans-serif;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+/* ─── Reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
+/* ─── Base ─────────────────────────────────────────────── */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: linear-gradient(160deg, #fce4ec 0%, #f3e5f5 40%, #e8eaf6 100%);
+  min-height: 100dvh;
+}
+
+/* Fondo decorativo suave */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 15%, var(--peach-soft), transparent 40%),
+    radial-gradient(circle at 85% 85%, var(--mint-soft), transparent 40%),
+    radial-gradient(circle at 50% 50%, var(--lavender-soft), transparent 50%);
+  pointer-events: none;
+}
+
+/* ─── Root ─────────────────────────────────────────────── */
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
+  position: relative;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  align-items: center;
 }
 
-body {
-  margin: 0;
+/* Layout */
+.app-wrapper,
+#root > * {
+  width: 100%;
+  max-width: 1100px;
+  padding: var(--space-xl) var(--space-lg);
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
+/* ─── Títulos ──────────────────────────────────────────── */
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2.4rem);
+  font-weight: 900;
+  text-align: center;
+  padding: var(--space-xl) 0;
+
+  background: linear-gradient(
+    135deg,
+    var(--peach),
+    var(--pink),
+    var(--lavender),
+    var(--mint)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
+  font-family: var(--font-title);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+h3 {
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ─── Cards ────────────────────────────────────────────── */
+.panel,
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-panel);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.panel:hover,
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ✨ detalle cute */
+.card::after {
+  content: "✨";
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  opacity: 0.6;
+}
+
+/* ─── Botones ──────────────────────────────────────────── */
+button {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  border-radius: 999px;
+  padding: 0.6rem 1.3rem;
+  cursor: pointer;
+  border: none;
+}
+
+/* Primary */
+.btn-primary,
+button[type="submit"] {
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+  color: white;
+  box-shadow: 0 4px 12px var(--pink-soft);
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+
+/* Ghost */
+.btn-ghost {
+  background: white;
+  border: 1px solid var(--border-default);
+}
+
+/* Danger */
+.btn-danger {
+  background: #ffe4ea;
+  color: #d6456b;
+}
+
+/* ─── Inputs ───────────────────────────────────────────── */
+input,
+textarea,
+select {
+  background: white;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  width: 100%;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px var(--pink-soft);
+  outline: none;
+}
+
+/* ─── Texto ───────────────────────────────────────────── */
+p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--pink);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+small {
+  color: var(--text-muted);
+}
+
+/* ─── Scroll ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--lavender-soft);
+  border-radius: 999px;
+}
+
+/* ─── Animación entrada ───────────────────────────────── */
+#root > * {
+  animation: fade-in 0.4s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
-p {
-  margin: 0;
-}
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
+/* ─── Responsive ───────────────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --space-xl: 1.5rem;
+  }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  h1 {
+    font-size: 1.6rem;
+  }
 }

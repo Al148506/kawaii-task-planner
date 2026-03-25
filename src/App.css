@@ -1,281 +1,78 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
-
-/* ═══════════════════════════════════════════════════════════
-KAWAII PASTEL DESIGN SYSTEM 🌸
-Theme: Soft / Cute / Cozy Productivity
-═══════════════════════════════════════════════════════════ */
-
-/* ─── Design Tokens ──────────────────────────────────────── */
-:root {
-/* Fondos */
---bg-void:        #fef6f9;
---bg-deep:        #fdeedd;
---bg-surface:     #ffffff;
---bg-elevated:    #fff7fb;
---bg-overlay:     #f3e8f5;
-
-/* Paleta pastel */
---peach:          #fec1b6;
---rose:           #f3a6ba;
---pink:           #df678f;
---lavender:       #9391bc;
---mint:           #7abcc4;
-
-/* Versiones suaves */
---peach-soft:     #fec1b633;
---rose-soft:      #f3a6ba33;
---pink-soft:      #df678f22;
---lavender-soft:  #9391bc33;
---mint-soft:      #7abcc433;
-
-/* Texto */
---text-hero:      #5a4a66;
---text-primary:   #6b5c75;
---text-secondary: #8a7c95;
---text-muted:     #b3a7bd;
---text-ghost:     #d6cfe0;
-
-/* Bordes */
---border-subtle:  #e9dff0;
---border-default: #d8cbe4;
---border-bright:  #cbb8dd;
-
-/* Sombras */
---shadow-panel:   0 8px 25px rgba(0,0,0,0.05);
-
-/* Tipografías */
---font-display:    'Cinzel Decorative', serif;
---font-title:      'Cinzel', serif;
---font-body:       'Noto Sans JP', sans-serif;
-
-/* Espaciado */
---space-xs:  0.25rem;
---space-sm:  0.5rem;
---space-md:  1rem;
---space-lg:  1.5rem;
---space-xl:  2.5rem;
---space-2xl: 4rem;
-
-/* Bordes redondeados */
---radius-sm:  0.5rem;
---radius-md:  1rem;
---radius-lg:  1.5rem;
---radius-xl:  2rem;
+/* ── App Header ─────────────────────────────────────────── */
+.app-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem 1.5rem 0;
 }
 
-/* ─── Reset ─────────────────────────────────────────────── */
-*, *::before, *::after {
-box-sizing: border-box;
-margin: 0;
-padding: 0;
+.app-header-inner {
+  width: 100%;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
-/* ─── Base ─────────────────────────────────────────────── */
-html {
-font-size: 16px;
-scroll-behavior: smooth;
+.header-ornament {
+  font-family: var(--font-title);
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-body {
-font-family: var(--font-body);
-color: var(--text-primary);
-background: linear-gradient(135deg, #fef6f9, #fdeedd, #f3e8f5);
-min-height: 100dvh;
+.header-ornament::before,
+.header-ornament::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-default));
 }
 
-/* Fondo decorativo suave */
-body::before {
-content: '';
-position: fixed;
-inset: 0;
-background:
-radial-gradient(circle at 20% 20%, var(--peach-soft), transparent 40%),
-radial-gradient(circle at 80% 80%, var(--mint-soft), transparent 40%);
-pointer-events: none;
+.header-ornament::after {
+  background: linear-gradient(90deg, var(--border-default), transparent);
 }
 
-/* ─── Root ─────────────────────────────────────────────── */
-#root {
-position: relative;
-min-height: 100dvh;
-display: flex;
-flex-direction: column;
-align-items: center;
+.app-subtitle {
+  font-family: var(--font-title);
+  font-size: 0.62rem;
+  letter-spacing: 0.35em;
+  color: var(--text-muted);
+  text-transform: uppercase;
 }
 
-/* Layout */
-.app-wrapper,
-#root > * {
-width: 100%;
-max-width: 1100px;
-padding: var(--space-xl) var(--space-lg);
+.header-divider {
+  margin-top: 14px;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* ─── Títulos ──────────────────────────────────────────── */
-h1 {
-font-family: var(--font-display);
-font-size: clamp(1.4rem, 4vw, 2.4rem);
-font-weight: 900;
-text-align: center;
-padding: var(--space-xl) 0;
-
-background: linear-gradient(
-135deg,
-var(--peach),
-var(--pink),
-var(--lavender),
-var(--mint)
-);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
+.header-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-default), transparent);
 }
 
-h2 {
-font-family: var(--font-title);
-font-size: 1.1rem;
-letter-spacing: 0.1em;
-color: var(--text-primary);
-margin-bottom: var(--space-md);
+.header-divider-icon {
+  font-size: 12px;
+  opacity: 0.45;
+  color: var(--text-muted);
 }
 
-h3 {
-font-family: var(--font-title);
-font-size: 0.9rem;
-color: var(--text-secondary);
-}
-
-/* ─── Cards ────────────────────────────────────────────── */
-.panel,
-.card {
-background: var(--bg-surface);
-border: 1px solid var(--border-subtle);
-border-radius: var(--radius-lg);
-padding: var(--space-lg);
-box-shadow: var(--shadow-panel);
-position: relative;
-transition: all 0.2s ease;
-}
-
-.panel:hover,
-.card:hover {
-transform: translateY(-4px);
-box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-}
-
-/* ✨ detalle cute */
-.card::after {
-content: "✨";
-position: absolute;
-top: 10px;
-right: 12px;
-opacity: 0.6;
-}
-
-/* ─── Botones ──────────────────────────────────────────── */
-button {
-font-family: var(--font-title);
-font-size: 0.75rem;
-letter-spacing: 0.1em;
-border-radius: 999px;
-padding: 0.6rem 1.3rem;
-cursor: pointer;
-border: none;
-}
-
-/* Primary */
-.btn-primary,
-button[type="submit"] {
-background: linear-gradient(135deg, var(--peach), var(--pink));
-color: white;
-box-shadow: 0 4px 12px var(--pink-soft);
-}
-
-.btn-primary:hover {
-transform: scale(1.05);
-}
-
-/* Ghost */
-.btn-ghost {
-background: white;
-border: 1px solid var(--border-default);
-}
-
-/* Danger */
-.btn-danger {
-background: #ffe4ea;
-color: #d6456b;
-}
-
-/* ─── Inputs ───────────────────────────────────────────── */
-input,
-textarea,
-select {
-background: white;
-border: 1px solid var(--border-subtle);
-border-radius: 999px;
-padding: 0.6rem 1rem;
-width: 100%;
-}
-
-input:focus,
-textarea:focus {
-border-color: var(--pink);
-box-shadow: 0 0 0 3px var(--pink-soft);
-outline: none;
-}
-
-/* ─── Texto ───────────────────────────────────────────── */
-p {
-font-size: 0.9rem;
-color: var(--text-secondary);
-}
-
-a {
-color: var(--pink);
-text-decoration: none;
-}
-
-a:hover {
-text-decoration: underline;
-}
-
-small {
-color: var(--text-muted);
-}
-
-/* ─── Scroll ───────────────────────────────────────────── */
-::-webkit-scrollbar {
-width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-background: var(--lavender-soft);
-border-radius: 999px;
-}
-
-/* ─── Animación entrada ───────────────────────────────── */
-#root > * {
-animation: fade-in 0.4s ease;
-}
-
-@keyframes fade-in {
-from {
-opacity: 0;
-transform: translateY(10px);
-}
-to {
-opacity: 1;
-transform: translateY(0);
-}
-}
-
-/* ─── Responsive ───────────────────────────────────────── */
-@media (max-width: 640px) {
-:root {
---space-xl: 1.5rem;
-}
-
-h1 {
-font-size: 1.6rem;
-}
+/* ── App Main ────────────────────────────────────────────── */
+.app-main {
+  width: 100%;
+  max-width: 1100px;
+  padding: 1.5rem var(--space-lg);
+  flex: 1;
 }

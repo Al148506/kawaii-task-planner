@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { usePomodoroContext } from "../context/PomodoroContext";
-import { toFormattedDate } from "../utils/utilFormatDate";
+import { utilFormattedDate } from "../utils/utilFormatDate";
 
 // helpers internos
 const parseLocalDate = (dateStr: string): Date => {
@@ -25,7 +25,7 @@ export const useTaskDate = () => {
     }
   }, [lastSelectedDate]);
 
-  const formattedDate = toFormattedDate(selectedDate);
+  const formattedDate = utilFormattedDate(selectedDate);
 
   const displayDate = selectedDate.toLocaleDateString("es-MX", {
     weekday: "long",
