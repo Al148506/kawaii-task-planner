@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import type { PomodoroType } from "../types/PomodoroSettings";
 import type { Task } from "../types/Task";
-import { calculatePomodoros } from "../utils/pomodoroCalculator";
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>(() => {
@@ -12,6 +11,7 @@ export const useTasks = () => {
       return [];
     }
   });
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
@@ -19,25 +19,22 @@ export const useTasks = () => {
   const addTask = (
     title: string,
     date: string,
-    plannedHours: number,
+    pomodoroCount: number,
     pomodoroType: PomodoroType,
-    customDuration?: number,
+    customDuration?: number
   ) => {
-    const pomodoroCount = calculatePomodoros(
-      plannedHours,
-      pomodoroType,
-      customDuration,
-    );
     const newTask: Task = {
+      id: crypto.randomUUID(),
+      title,
+      date,
+      pomodoroType,
+      customDuration: pomodoroType === "custom" ? customDuration : undefined,
+
+      // 🔥 ahora se crean directo los pomodoros
+      pomodoros: Array.from({ length: pomodoroCount }, () => ({
         id: crypto.randomUUID(),
-        title,
-        date,
-        pomodoros: Array.from({ length: pomodoroCount }, () => ({
-            id: crypto.randomUUID(),
-            completed: false,
-        })),
-        plannedHours: 0,
-        pomodoroType: "short"
+        completed: false,
+      })),
     };
 
     setTasks((prev) => [...prev, newTask]);
@@ -54,11 +51,11 @@ export const useTasks = () => {
           ? {
               ...task,
               pomodoros: task.pomodoros.map((p) =>
-                p.id === pomodoroId ? { ...p, completed: true } : p,
+                p.id === pomodoroId ? { ...p, completed: true } : p
               ),
             }
-          : task,
-      ),
+          : task
+      )
     );
   };
 

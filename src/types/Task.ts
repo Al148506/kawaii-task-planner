@@ -6,9 +6,8 @@ export interface Task {
   title: string;
   date: string;
 
-  plannedHours: number;
   pomodoroType: PomodoroType;
-  customPomodoroDuration?: number;
-
+  customDuration?: number;
+  
   pomodoros: Pomodoro[];
 }

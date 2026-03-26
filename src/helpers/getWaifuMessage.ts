@@ -5,5 +5,5 @@ export const getWaifuMessage = (mood: string, timeLeft: number) => {
   if (mood === "upset") return "¡Yamerooooo! 😣";
   if (timeLeft < 300) return "Sigue así, vas muy bien 🔥";
 
-  return "Concéntrate en tu misión ⚔️";
+  return "Gambare Gambare Sempaii";
 };

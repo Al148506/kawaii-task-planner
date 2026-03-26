@@ -3,9 +3,10 @@ import TaskItem from "../TaskItem.tsx";
 import "./TaskList.css";
 interface Props {
   tasks: Task[];
+  onStartPomodoro: () => void;
 }
 
-const TaskList = ({ tasks }: Props) => {
+const TaskList = ({ tasks, onStartPomodoro }: Props) => {
   if (tasks.length === 0) {
     return (
       <div className="tasks-page__empty">
@@ -19,7 +20,7 @@ const TaskList = ({ tasks }: Props) => {
   return (
     <div className="task-list">
       {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} />
+        <TaskItem key={task.id} task={task} onStartPomodoro={onStartPomodoro} />
       ))}
     </div>
   );

@@ -1,17 +1,17 @@
-import { type PomodoroType, PomodoroDurations } from "../types/PomodoroSettings";
+// import { type PomodoroType, PomodoroDurations } from "../types/PomodoroSettings";
 
-export const calculatePomodoros = (
-  hours: number,
-  type: PomodoroType,
-  customMinutes?: number
-) => {
+// export const calculatePomodoros = (
+//   hours: number,
+//   type: PomodoroType,
+//   customMinutes?: number
+// ) => {
 
-  const totalMinutes = hours * 60;
+//   const totalMinutes = hours * 60;
 
-  const duration =
-    type === "custom"
-      ? customMinutes ?? 25
-      : PomodoroDurations[type];
+//   const duration =
+//     type === "custom"
+//       ? customMinutes ?? 25
+//       : PomodoroDurations[type];
 
-  return Math.ceil(totalMinutes / duration);
-};
+//   return Math.ceil(totalMinutes / duration);
+// };

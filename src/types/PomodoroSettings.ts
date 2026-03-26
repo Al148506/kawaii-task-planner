@@ -1,11 +1,7 @@
-export type PomodoroType =
-  | "short"
-  | "classic"
-  | "long"
-  | "custom";
+export type PomodoroType = "classic" | "52_17" | "50_10" | "custom";
 
-export const PomodoroDurations = {
-  short: 15,
+export const PomodoroDurations: Record<Exclude<PomodoroType, "custom">, number> = {
   classic: 25,
-  long: 50
+  "52_17": 52,
+  "50_10": 50,
 };

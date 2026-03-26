@@ -5,17 +5,22 @@ interface ActivePomodoro {
   pomodoroId: string;
   selectedDate: string;
   taskTitle: string;
+
+  duration: number; // 🔥 NUEVO (minutos)
 }
 
 interface PomodoroContextType {
   activePomodoro: ActivePomodoro | null;
   lastSelectedDate: string | null;
+
   startPomodoro: (
     taskId: string,
     pomodoroId: string,
     selectedDate: string,
-    taskTitle: string
+    taskTitle: string,
+    duration: number // 🔥 NUEVO
   ) => void;
+
   clearPomodoro: () => void;
 }
 
@@ -26,25 +31,35 @@ export const PomodoroProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [activePomodoro, setActivePomodoro] = useState<ActivePomodoro | null>(null);
-  const [lastSelectedDate, setLastSelectedDate] = useState<string | null>(null);
+  const [activePomodoro, setActivePomodoro] =
+    useState<ActivePomodoro | null>(null);
+
+  const [lastSelectedDate, setLastSelectedDate] =
+    useState<string | null>(null);
 
   const startPomodoro = (
     taskId: string,
     pomodoroId: string,
     selectedDate: string,
-    taskTitle: string
+    taskTitle: string,
+    duration: number
   ) => {
     // 🔥 Guardamos la última fecha SIEMPRE
     setLastSelectedDate(selectedDate);
 
-    // 🔥 Guardamos el pomodoro activo
-    setActivePomodoro({ taskId, pomodoroId, selectedDate, taskTitle });
+    // 🔥 Guardamos pomodoro con duración real
+    setActivePomodoro({
+      taskId,
+      pomodoroId,
+      selectedDate,
+      taskTitle,
+      duration,
+    });
   };
 
   const clearPomodoro = () => {
     setActivePomodoro(null);
-    // ⚠️ NO borramos lastSelectedDate (esto es intencional)
+    // ⚠️ NO borramos lastSelectedDate (intencional)
   };
 
   return (

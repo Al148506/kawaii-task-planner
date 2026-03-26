@@ -1,19 +1,30 @@
 import { useState } from "react";
 import { useTasksContext } from "../context/TasksContext";
-import type { PomodoroType } from "../types/PomodoroSettings";
+import {
+  type PomodoroType,
+  PomodoroDurations,
+} from "../types/PomodoroSettings";
 
 interface Props {
   date: string;
 }
 
 const TaskForm = ({ date }: Props) => {
-
   const { addTask } = useTasksContext();
 
   const [title, setTitle] = useState("");
-  const [plannedHours, setPlannedHours] = useState(1);
+  const [pomodoroCount, setPomodoroCount] = useState(1);
   const [pomodoroType, setPomodoroType] = useState<PomodoroType>("classic");
   const [customDuration, setCustomDuration] = useState(25);
+
+  // 🧮 Calcular duración base
+  const baseDuration =
+    pomodoroType === "custom"
+      ? customDuration
+      : PomodoroDurations[pomodoroType];
+
+  // 🧮 Total
+  const totalMinutes = baseDuration * pomodoroCount;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,38 +34,38 @@ const TaskForm = ({ date }: Props) => {
     addTask(
       title,
       date,
-      plannedHours,
+      pomodoroCount,
       pomodoroType,
-      pomodoroType === "custom" ? customDuration : 0
+      pomodoroType === "custom" ? customDuration : 0,
     );
 
     setTitle("");
-    setPlannedHours(1);
+    setPomodoroCount(1);
     setPomodoroType("classic");
     setCustomDuration(25);
   };
 
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
-
       <input
         placeholder="Nueva tarea..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
 
+      {/*Cantidad de pomodoros */}
       <div style={{ marginTop: "0.5rem" }}>
-        <label>Horas planeadas:</label>
+        <label>Pomodoros:</label>
 
         <input
           type="number"
-          min="0.5"
-          step="0.5"
-          value={plannedHours}
-          onChange={(e) => setPlannedHours(Number(e.target.value))}
+          min="1"
+          value={pomodoroCount}
+          onChange={(e) => setPomodoroCount(Number(e.target.value))}
         />
       </div>
 
+      {/*Tipo */}
       <div style={{ marginTop: "0.5rem" }}>
         <label>Tipo de Pomodoro:</label>
 
@@ -62,13 +73,14 @@ const TaskForm = ({ date }: Props) => {
           value={pomodoroType}
           onChange={(e) => setPomodoroType(e.target.value as PomodoroType)}
         >
-          <option value="short">Corto (15 min)</option>
-          <option value="classic">Clásico (25 min)</option>
-          <option value="long">Largo (50 min)</option>
+          <option value="classic">Clásico (25/5)</option>
+          <option value="52_17">52/17</option>
+          <option value="50_10">50/10</option>
           <option value="custom">Custom</option>
         </select>
       </div>
 
+      {/* Custom */}
       {pomodoroType === "custom" && (
         <div style={{ marginTop: "0.5rem" }}>
           <label>Duración custom (minutos):</label>
@@ -81,11 +93,15 @@ const TaskForm = ({ date }: Props) => {
           />
         </div>
       )}
+      {/* 📊 Resumen */}
+      <div style={{ marginTop: "0.75rem", fontSize: "0.9rem", opacity: 0.8 }}>
+        <p>
+          ⏳ Tiempo total: <strong>{totalMinutes} min</strong> (
+          {(totalMinutes / 60).toFixed(1)} hrs)
+        </p>
+      </div>
 
-      <button style={{ marginTop: "1rem" }}>
-        Agregar
-      </button>
-
+      <button style={{ marginTop: "1rem" }}>Agregar</button>
     </form>
   );
 };

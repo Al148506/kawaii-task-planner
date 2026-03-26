@@ -7,9 +7,9 @@
 }
 
 .waifu-image-wrap {
-  width: 400px;
-  height: 500px;
-  border-radius: 24px 24px 0 0;
+  width: 260px; /* ↓ era 400px */
+  height: 300px; /* ↓ era 500px */
+  border-radius: 20px 20px 0 0;
   overflow: hidden;
   border: 2.5px solid rgba(240, 184, 200, 0.6);
   border-bottom: none;
@@ -17,10 +17,14 @@
 }
 
 .waifu-image-wrap::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, transparent 60%, rgba(253, 240, 248, 0.55) 100%);
+  background: linear-gradient(
+    to bottom,
+    transparent 60%,
+    rgba(253, 240, 248, 0.55) 100%
+  );
   pointer-events: none;
 }
 
@@ -33,24 +37,24 @@
 }
 
 .waifu-dialog {
-  width: 400px;
+  width: 260px; /* ↓ era 400px */
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.72);
   border: 2px solid #f0b8c8;
   border-top: none;
-  border-radius: 0 0 20px 20px;
-  padding: 14px 20px 16px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.88rem;
+  border-radius: 0 0 16px 16px;
+  padding: 10px 14px 12px; /* ↓ era 14px 20px 16px */
+  font-family: "Nunito", sans-serif;
+  font-size: 0.8rem; /* ↓ era 0.88rem */
   color: #b56b90;
   text-align: center;
-  line-height: 1.6;
+  line-height: 1.5;
   backdrop-filter: blur(4px);
   position: relative;
 }
 
 .waifu-dialog::before {
-  content: '♡';
+  content: "♡";
   position: absolute;
   top: -11px;
   left: 50%;
@@ -66,4 +70,191 @@
   align-items: center;
   justify-content: center;
   line-height: 18px;
+}
+
+/* ─── Image: clickable ──────────────────────────────────────── */
+.waifu-image-wrap {
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.waifu-image-wrap--active {
+  border-color: rgba(199, 125, 204, 0.8);
+}
+
+/* ─── Hint overlay ──────────────────────────────────────────── */
+.waifu-music-hint {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(4px);
+  border: 1.5px solid rgba(199, 125, 204, 0.4);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #c77dcc;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Mostrar hint en hover */
+.waifu-image-wrap:hover .waifu-music-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hint visible cuando panel está abierto */
+.waifu-music-hint--visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Hint visible (con color diferente) cuando hay música sonando pero panel cerrado */
+.waifu-music-hint--playing {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  background: rgba(255, 228, 236, 0.9);
+  border-color: rgba(199, 125, 204, 0.6);
+  color: #a855b5;
+}
+
+/* ─── Music panel ───────────────────────────────────────────── */
+.waifu-music-panel {
+  width: 260px;
+  box-sizing: border-box;
+  background: rgba(255, 245, 252, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(199, 125, 204, 0.35);
+  border-top: none;
+  border-bottom: none;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  /* Oculto por defecto sin desmontar el DOM (el iframe sigue vivo) */
+  visibility: hidden;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition:
+    opacity 0.2s ease,
+    max-height 0.25s ease,
+    padding 0.2s ease;
+}
+
+.waifu-music-panel--visible {
+  visibility: visible;
+  opacity: 1;
+  max-height: 400px;
+  padding-top: 10px;
+  padding-bottom: 12px;
+}
+
+.waifu-music-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.waifu-music-title {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #b56b90;
+  flex: 1;
+  text-align: center;
+}
+
+.waifu-music-shuffle {
+  background: none;
+  border: 1.5px solid rgba(199, 125, 204, 0.35);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c77dcc;
+  transition:
+    background 0.15s,
+    transform 0.2s;
+  flex-shrink: 0;
+}
+
+.waifu-music-shuffle:hover {
+  background: rgba(255, 228, 236, 0.8);
+  transform: rotate(180deg);
+}
+
+.waifu-music-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.waifu-music-btn {
+  width: 100%;
+  padding: 5px 12px;
+  border-radius: 50px;
+  border: 1.5px solid rgba(240, 184, 200, 0.6);
+  background: rgba(255, 255, 255, 0.7);
+  color: #c77dcc;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    transform 0.12s;
+}
+
+.waifu-music-btn__icon {
+  font-size: 0.65rem;
+  width: 12px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.waifu-music-btn__emoji {
+  flex-shrink: 0;
+}
+
+.waifu-music-btn:hover {
+  background: #fce4ec;
+  border-color: #f0b8c8;
+  transform: translateX(2px);
+}
+
+.waifu-music-btn--active {
+  background: rgba(255, 228, 236, 0.9);
+  border-color: #c77dcc;
+  color: #a855b5;
+}
+
+.waifu-music-player {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid rgba(199, 125, 204, 0.25);
+  /* SoundCloud widget: solo audio, height 80px es suficiente */
 }

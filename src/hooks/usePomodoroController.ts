@@ -2,16 +2,22 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePomodoro } from "./usePomodoro";
 import { usePomodoroContext } from "../context/PomodoroContext";
-import { useTasksContext } from "../context/TasksContext";
+import { useTasksContext  } from "../context/TasksContext";
 import { useWaifuMood } from "./useWaifuMood";
 import { getWaifuMessage } from "../helpers/getWaifuMessage";
 
 export const usePomodoroController = () => {
   const navigate = useNavigate();
 
-  const { timeLeft, isRunning, start, pause, reset } = usePomodoro(1500);
   const { activePomodoro, clearPomodoro } = usePomodoroContext();
   const { completePomodoro } = useTasksContext();
+
+  const durationInSeconds = activePomodoro
+    ? activePomodoro.duration * 60
+    : 0;
+
+  const { timeLeft, isRunning, start, pause, reset } =
+    usePomodoro(durationInSeconds);
 
   const selectedDate = activePomodoro?.selectedDate ?? "";
   const taskTitle = activePomodoro?.taskTitle ?? "";
@@ -19,7 +25,6 @@ export const usePomodoroController = () => {
   const [wasCancelled, setWasCancelled] = useState(false);
 
   const mood = useWaifuMood(isRunning, timeLeft, wasCancelled);
-
   const message = getWaifuMessage(mood, timeLeft);
 
   // 🚨 Validación
@@ -38,10 +43,10 @@ export const usePomodoroController = () => {
     }
   }, [timeLeft]);
 
-  // ▶ Inicio automático
+  // ▶ Inicio automático con duración correcta
   useEffect(() => {
     if (activePomodoro) {
-      reset();
+      reset(activePomodoro.duration * 60); 
       start();
     } else {
       navigate("/");
@@ -55,7 +60,7 @@ export const usePomodoroController = () => {
       reset();
       clearPomodoro();
       navigate("/");
-    }, 800); // 👈 tiempo para ver reacció
+    }, 800);
   };
 
   return {

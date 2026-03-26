@@ -6,7 +6,7 @@ import PomodoroPage from "./pages/PomodoroPage";
 function App() {
   return (
     <>
-      {/* <header className="app-header">
+      <header className="app-header">
         <div className="app-header-inner">
           <span className="header-ornament">estudio · descanso · flujo</span>
           <h1>Pomodoro Senpai</h1>
@@ -17,7 +17,7 @@ function App() {
             <div className="header-divider-line" />
           </div>
         </div>
-      </header> */}
+      </header>
 
       <main className="app-main">
         <Routes>

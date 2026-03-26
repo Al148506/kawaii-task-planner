@@ -1,44 +1,48 @@
 import { useEffect, useRef, useState } from "react";
 
 export const usePomodoro = (initialSeconds: number = 1500) => {
-const [timeLeft, setTimeLeft] = useState(initialSeconds);
-const [isRunning, setIsRunning] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(initialSeconds);
+  const [isRunning, setIsRunning] = useState(false);
 
-const intervalRef = useRef<number | null>(null);
+  const intervalRef = useRef<number | null>(null);
 
-useEffect(() => {
-if (!isRunning) return;
+  // ⏱ Timer
+  useEffect(() => {
+    if (!isRunning) return;
 
+    intervalRef.current = window.setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(intervalRef.current!);
+          setIsRunning(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
-intervalRef.current = window.setInterval(() => {
-  setTimeLeft((prev) => {
-    if (prev <= 1) {
-      clearInterval(intervalRef.current!);
-      setIsRunning(false);
-      return 0;
-    }
-    return prev - 1;
-  });
-}, 1000);
+    return () => clearInterval(intervalRef.current!);
+  }, [isRunning]);
 
-return () => clearInterval(intervalRef.current!);
+  // ▶ Start
+  const start = () => setIsRunning(true);
 
+  // ⏸ Pause
+  const pause = () => setIsRunning(false);
 
-}, [isRunning]);
+  // 🔄 Reset (ahora acepta duración dinámica)
+  const reset = (newTime?: number) => {
+    clearInterval(intervalRef.current!); // 🔥 importante evitar interval duplicado
+    setIsRunning(false);
+    setTimeLeft(newTime ?? initialSeconds);
+  };
 
-const start = () => setIsRunning(true);
-const pause = () => setIsRunning(false);
-const reset = () => {
-setIsRunning(false);
-setTimeLeft(initialSeconds);
-};
-
-return {
-timeLeft,
-isRunning,
-start,
-pause,
-reset,
-setTimeLeft,
-};
+  return {
+    timeLeft,
+    isRunning,
+    start,
+    pause,
+    reset,
+    setTimeLeft,
+  };
 };
