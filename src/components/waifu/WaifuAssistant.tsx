@@ -1,25 +1,32 @@
 import { useState } from "react";
-import { waifuImages, type WaifuMood } from "./waifuExpressions";
-import { getRandomTracks, type MusicTrack } from "../../assets/music/MusicTracks";
+import type { WaifuMood, WaifuId } from "../../types/waifuTypes";
+import { waifus } from "../../data/waifus/index";
+import {
+  getRandomTracks,
+  type MusicTrack,
+} from "../../assets/music/MusicTracks";
+
 import "./WaifuAssistant.css";
 
 interface Props {
   mood: WaifuMood;
   message: string;
+  waifuId: WaifuId;
 }
 
-const WaifuAssistant = ({ mood, message }: Props) => {
-  const [showMusic, setShowMusic]     = useState(false);
+const WaifuAssistant = ({ mood, message, waifuId = "waifu1" }: Props) => {
+  const [showMusic, setShowMusic] = useState(false);
   const [activeTrack, setActiveTrack] = useState<string | null>(null);
   // 3 tracks aleatorios al montar el componente
-  const [visibleTracks, setVisibleTracks] = useState<MusicTrack[]>(() => getRandomTracks(3));
+  const [visibleTracks, setVisibleTracks] = useState<MusicTrack[]>(() =>
+    getRandomTracks(3),
+  );
 
   const handleImageClick = () => setShowMusic((prev) => !prev);
 
   const handleTrack = (url: string) => {
     setActiveTrack((prev) => (prev === url ? null : url));
   };
-
   const handleShuffle = () => {
     const next = getRandomTracks(3);
     setVisibleTracks(next);
@@ -29,6 +36,8 @@ const WaifuAssistant = ({ mood, message }: Props) => {
     }
   };
 
+   const waifu = waifus[waifuId];
+
   return (
     <div className="waifu-container">
       <div
@@ -36,15 +45,15 @@ const WaifuAssistant = ({ mood, message }: Props) => {
         onClick={handleImageClick}
         title="Clic para música de ambiente ♪"
       >
-        <img src={waifuImages[mood]} alt="waifu" className="waifu-image" />
+        <img src={waifu.images[mood]} alt="waifu" className="waifu-image" />
 
         <div
           className={`waifu-music-hint ${
             showMusic
               ? "waifu-music-hint--visible"
               : activeTrack
-              ? "waifu-music-hint--playing"
-              : ""
+                ? "waifu-music-hint--playing"
+                : ""
           }`}
         >
           {showMusic ? "✕ cerrar" : activeTrack ? "♫ sonando" : "♪ música"}

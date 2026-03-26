@@ -1,6 +1,6 @@
 import { usePomodoroController } from "../hooks/usePomodoroController";
 import { usePomodoroDisplay } from "../hooks/usePomodoroDisplay";
-import WaifuAssistant from "../components/waifu/WaifuAssitant";
+import WaifuAssistant from "../components/waifu/WaifuAssistant";
 import "./PomodoroPage.css";
 import { useState } from "react";
 
@@ -20,6 +20,8 @@ const PomodoroPage = ({ onClose }: Props) => {
     selectedDate,
     mood,
     message,
+    remainingCount,
+    totalCount,
   } = usePomodoroController();
 
   const { formattedDate, formatTime } = usePomodoroDisplay(selectedDate);
@@ -30,7 +32,9 @@ const PomodoroPage = ({ onClose }: Props) => {
       {/* ✨ Decorative */}
       <span className="pomodoro-sparkle pomodoro-sparkle--left">♡ ˖ ✦</span>
       <span className="pomodoro-sparkle pomodoro-sparkle--right">✦ ˖ ♡</span>
-
+      <p className="pomodoro-progress">
+        🍅 {remainingCount} / {totalCount} restantes
+      </p>
       {/* ⏱ Timer */}
       <div className="pomodoro-header">
         <h1 className={`pomodoro-time${isRunning ? " is-running" : ""}`}>
@@ -68,7 +72,7 @@ const PomodoroPage = ({ onClose }: Props) => {
             <button onClick={pause}>⏸ Pause</button>
           )}
 
-          {/* 🔄 Reset CORRECTO */} 
+          {/* 🔄 Reset CORRECTO */}
           <button onClick={() => reset()}>🔄 Reset</button>
         </div>
       )}
