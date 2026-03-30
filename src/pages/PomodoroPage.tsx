@@ -1,6 +1,6 @@
 import { usePomodoroController } from "../hooks/usePomodoroController";
 import { usePomodoroDisplay } from "../hooks/usePomodoroDisplay";
-import WaifuAssistant from "../components/waifu/WaifuAssistant";
+import { WaifuAssistant } from "../components/waifu/WaifuAssistant";
 import "./PomodoroPage.css";
 import { useState } from "react";
 
@@ -46,12 +46,9 @@ const PomodoroPage = ({ onClose }: Props) => {
       <div className="pomodoro-waifu-wrapper">
         <WaifuAssistant
           mood={showConfirm ? "sad" : mood}
-          message={
-            showConfirm
-              ? "¿Ya te vas tan rápido? 😢 Pensé que nos estábamos divirtiendo..."
-              : message
-          }
-        />
+          message={showConfirm
+            ? "¿Ya te vas tan rápido? 😢 Pensé que nos estábamos divirtiendo..."
+            : message} waifuId={"waifu1"}        />
       </div>
 
       {/* 📌 Contexto */}

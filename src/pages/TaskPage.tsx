@@ -10,6 +10,7 @@ import { useTasksOfDay } from "../hooks/useTasksOfDay";
 import { usePomodoroContext } from "../context/PomodoroContext";
 
 import "./TaskPage.css";
+import DayProgress from "../components/progress/DayProgress";
 
 const TasksPage = () => {
   const { selectedDate, setSelectedDate, formattedDate, displayDate } =
@@ -57,7 +58,9 @@ const TasksPage = () => {
           <TaskForm date={formattedDate} />
         </div>
       </div>
-
+      <div className="day-progress">
+        <DayProgress tasks={tasksOfSelectedDay} />
+      </div>
       {/* ── Lista de tareas ── */}
       <div className="tasks-page__list-section">
         <p className="tasks-section__label">Misiones del día</p>

@@ -246,3 +246,13 @@
   transform: translateY(0);
 }
 
+.pomodoro-progress{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  color: white;
+  background: linear-gradient(90deg, #c77dcc, #d49fd8);
+  border-radius: 2px;
+  z-index: 1;
+}
