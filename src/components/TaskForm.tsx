@@ -7,6 +7,7 @@ import {
 import type { RepetitionSettings } from "../types/repetitionSettings";
 import {generateDatesByRepetition} from "../utils/generateDatesByRepetition"
 import { createTasks } from "../helpers/createTasks";
+import { showDuplicateTaskAlert } from "../utils/alerts";
 interface Props {
   date: string;
 }
@@ -36,14 +37,25 @@ const handleSubmit = (e: React.FormEvent) => {
 
   if (!title.trim()) return;
 
-  createTasks({
+ const tasks = createTasks({
     title,
     date,
     pomodoroCount,
     pomodoroType,
     customDuration,
     repetitionType,
-  }).forEach(addTask);
+  });
+
+    let duplicates = 0;
+
+  tasks.forEach((task) => {
+    const added = addTask(task);
+    if (!added) duplicates++;
+  });
+
+  if (duplicates > 0) {
+    showDuplicateTaskAlert(duplicates);
+  }
 
   // reset (mejor fuera del if)
   setTitle("");

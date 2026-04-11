@@ -16,8 +16,25 @@ export const useTasks = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
- const addTask = (task: Task) => {
-  setTasks((prev) => [...prev, task]);
+  const addTask = (task: Task): boolean => {
+  let wasAdded = true;
+
+  setTasks((prev) => {
+    const exists = prev.some(
+      (t) =>
+        t.date === task.date &&
+        t.title.trim().toLowerCase() === task.title.trim().toLowerCase()
+    );
+
+    if (exists) {
+      wasAdded = false;
+      return prev;
+    }
+
+    return [...prev, task];
+  });
+
+  return wasAdded;
 };
 
   const deleteTask = (taskId: string) => {
@@ -31,11 +48,11 @@ export const useTasks = () => {
           ? {
               ...task,
               pomodoros: task.pomodoros.map((p) =>
-                p.id === pomodoroId ? { ...p, completed: true } : p
+                p.id === pomodoroId ? { ...p, completed: true } : p,
               ),
             }
-          : task
-      )
+          : task,
+      ),
     );
   };
 
