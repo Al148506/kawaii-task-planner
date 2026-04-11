@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTasksContext } from "../context/TasksContext";
 import {
   type PomodoroType,
   PomodoroDurations,
 } from "../types/PomodoroSettings";
-
+import type { RepetitionSettings } from "../types/repetitionSettings";
+import {generateDatesByRepetition} from "../utils/generateDatesByRepetition"
+import { createTasks } from "../helpers/createTasks";
 interface Props {
   date: string;
 }
@@ -26,24 +28,32 @@ const TaskForm = ({ date }: Props) => {
   // 🧮 Total
   const totalMinutes = baseDuration * pomodoroCount;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const [repetitionType, setRepetitionType] =
+    useState<RepetitionSettings>("None");
 
-    if (!title.trim()) return;
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
 
-    addTask(
-      title,
-      date,
-      pomodoroCount,
-      pomodoroType,
-      pomodoroType === "custom" ? customDuration : 0,
-    );
+  if (!title.trim()) return;
 
-    setTitle("");
-    setPomodoroCount(1);
-    setPomodoroType("classic");
-    setCustomDuration(25);
-  };
+  createTasks({
+    title,
+    date,
+    pomodoroCount,
+    pomodoroType,
+    customDuration,
+    repetitionType,
+  }).forEach(addTask);
+
+  // reset (mejor fuera del if)
+  setTitle("");
+  setPomodoroCount(1);
+  setPomodoroType("classic");
+  setCustomDuration(25);
+  setRepetitionType("None");
+};
+
+
 
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
@@ -80,6 +90,23 @@ const TaskForm = ({ date }: Props) => {
         </select>
       </div>
 
+      {/*Tipo */}
+      <div style={{ marginTop: "0.5rem" }}>
+        <label>Ciclo de Repetición:</label>
+
+        <select
+          value={repetitionType}
+          onChange={(e) =>
+            setRepetitionType(e.target.value as RepetitionSettings)
+          }
+        >
+          <option value="None">Ninguno</option>
+          <option value="Daily">Todos los dias</option>
+          <option value="Weekdays">De Lunes a Viernes</option>
+          <option value="Weekends">Fines de Semena</option>
+        </select>
+      </div>
+
       {/* Custom */}
       {pomodoroType === "custom" && (
         <div style={{ marginTop: "0.5rem" }}>
@@ -105,5 +132,4 @@ const TaskForm = ({ date }: Props) => {
     </form>
   );
 };
-
 export default TaskForm;

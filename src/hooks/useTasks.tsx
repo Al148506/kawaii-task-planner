@@ -16,29 +16,9 @@ export const useTasks = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  const addTask = (
-    title: string,
-    date: string,
-    pomodoroCount: number,
-    pomodoroType: PomodoroType,
-    customDuration?: number
-  ) => {
-    const newTask: Task = {
-      id: crypto.randomUUID(),
-      title,
-      date,
-      pomodoroType,
-      customDuration: pomodoroType === "custom" ? customDuration : undefined,
-
-      // 🔥 ahora se crean directo los pomodoros
-      pomodoros: Array.from({ length: pomodoroCount }, () => ({
-        id: crypto.randomUUID(),
-        completed: false,
-      })),
-    };
-
-    setTasks((prev) => [...prev, newTask]);
-  };
+ const addTask = (task: Task) => {
+  setTasks((prev) => [...prev, task]);
+};
 
   const deleteTask = (taskId: string) => {
     setTasks((prev) => prev.filter((task) => task.id !== taskId));

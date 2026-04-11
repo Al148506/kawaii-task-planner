@@ -7,6 +7,7 @@ export interface Task {
   date: string;
 
   pomodoroType: PomodoroType;
+
   customDuration?: number;
   
   pomodoros: Pomodoro[];
