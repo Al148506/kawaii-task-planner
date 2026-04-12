@@ -22,6 +22,7 @@ const PomodoroPage = ({ onClose }: Props) => {
     message,
     remainingCount,
     totalCount,
+    phase,
   } = usePomodoroController();
 
   const { formattedDate, formatTime } = usePomodoroDisplay(selectedDate);
@@ -46,9 +47,13 @@ const PomodoroPage = ({ onClose }: Props) => {
       <div className="pomodoro-waifu-wrapper">
         <WaifuAssistant
           mood={showConfirm ? "sad" : mood}
-          message={showConfirm
-            ? "¿Ya te vas tan rápido? 😢 Pensé que nos estábamos divirtiendo..."
-            : message} waifuId={"waifu1"}        />
+          message={
+            showConfirm
+              ? "¿Ya te vas tan rápido? 😢 Pensé que nos estábamos divirtiendo..."
+              : message
+          }
+          waifuId={"waifu1"}
+        />
       </div>
 
       {/* 📌 Contexto */}
@@ -59,6 +64,8 @@ const PomodoroPage = ({ onClose }: Props) => {
           📅 {formattedDate}
         </p>
       )}
+
+      <p>{phase === "focus" ? "🔥 Enfoque" : "🌸 Descanso"}</p>
 
       {/* 🎮 Controles */}
       {!showConfirm && (

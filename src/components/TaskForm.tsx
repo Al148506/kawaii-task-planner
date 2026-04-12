@@ -4,7 +4,7 @@ import {
   type PomodoroType,
   PomodoroDurations,
 } from "../types/PomodoroSettings";
-import type { RepetitionSettings } from "../types/repetitionSettings";
+import type { RepetitionSettings } from "../types/RepetitionSettings";
 import {generateDatesByRepetition} from "../utils/generateDatesByRepetition"
 import { createTasks } from "../helpers/createTasks";
 import { showDuplicateTaskAlert } from "../utils/alerts";
@@ -57,7 +57,6 @@ const handleSubmit = (e: React.FormEvent) => {
     showDuplicateTaskAlert(duplicates);
   }
 
-  // reset (mejor fuera del if)
   setTitle("");
   setPomodoroCount(1);
   setPomodoroType("classic");

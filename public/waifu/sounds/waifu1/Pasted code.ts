@@ -13,11 +13,9 @@ type PomodoroPhase = "focus" | "break";
 const createAndPlayAudio = (src: string, volume = 0.7) => {
   const audio = new Audio(src);
   audio.volume = volume;
-  audio
-    .play()
-    .catch(() =>
-      console.warn("No se pudo reproducir el sonido automáticamente"),
-    );
+  audio.play().catch(() =>
+    console.warn("No se pudo reproducir el sonido automáticamente")
+  );
 };
 
 const playCompletionSound = () =>
@@ -32,44 +30,37 @@ export const usePomodoroController = () => {
   const navigate = useNavigate();
   const { activePomodoro, clearPomodoro } = usePomodoroContext();
   const { completePomodoro, tasks } = useTasksContext();
+
   // ─── Estados ───────────────────────────────────────────────────────────────
   const [wasCancelled, setWasCancelled] = useState(false);
   const [phase, setPhase] = useState<PomodoroPhase>("focus");
   const [showConfetti, setShowConfetti] = useState(false);
-  const [hasHandledCompletion, setHasHandledCompletion] = useState(false);
 
   // ─── Derivaciones memorizadas ──────────────────────────────────────────────
   const activeTask = useMemo(
     () => tasks.find((t) => t.id === activePomodoro?.taskId),
-    [tasks, activePomodoro?.taskId],
+    [tasks, activePomodoro?.taskId]
   );
 
   const { completedCount, totalCount, remainingCount } = useMemo(() => {
     const completed =
       activeTask?.pomodoros.filter((p) => p.completed).length ?? 0;
     const total = activeTask?.pomodoros.length ?? 0;
-    return {
-      completedCount: completed,
-      totalCount: total,
-      remainingCount: total - completed,
-    };
+    return { completedCount: completed, totalCount: total, remainingCount: total - completed };
   }, [activeTask?.pomodoros]);
 
   const breakDuration = useMemo(() => {
     switch (activeTask?.pomodoroType) {
-      case "52_17":
-        return 17 * 60;
-      case "50_10":
-        return 10 * 60;
+      case "52_17": return 17 * 60;
+      case "50_10": return 10 * 60;
       case "classic":
-      default:
-        return 5 * 60;
+      default:      return 5 * 60;
     }
   }, [activeTask?.pomodoroType]);
 
   const durationInSeconds = useMemo(
     () => (activePomodoro ? activePomodoro.duration * 60 : 0),
-    [activePomodoro?.duration],
+    [activePomodoro?.duration]
   );
 
   // ─── Timer ─────────────────────────────────────────────────────────────────
@@ -109,17 +100,13 @@ export const usePomodoroController = () => {
 
   // ─── Efecto: lógica de finalización de fase ────────────────────────────────
   useEffect(() => {
-    if (timeLeft !== 0 || !activePomodoro || hasHandledCompletion) return;
-    setHasHandledCompletion(true); // 🔒 bloquea re-ejecución
+    if (timeLeft !== 0 || !activePomodoro) return;
 
     if (phase === "focus") {
       // Completar el pomodoro actual
       completePomodoro(activePomodoro.taskId, activePomodoro.pomodoroId);
 
-      const pendingPomodoros =
-        activeTask?.pomodoros.filter((p) => !p.completed) ?? [];
-
-      const isLastPomodoro = pendingPomodoros.length === 1;
+      const isLastPomodoro = remainingCount <= 1;
 
       if (isLastPomodoro) {
         // 🏁 Fin de todos los pomodoros
@@ -137,6 +124,7 @@ export const usePomodoroController = () => {
       setPhase("break");
       reset(breakDuration);
       start();
+
     } else {
       // 🔁 Fin del descanso → volver a focus
       setPhase("focus");
@@ -149,7 +137,6 @@ export const usePomodoroController = () => {
     activePomodoro,
     remainingCount,
     breakDuration,
-    hasHandledCompletion,
     reset,
     start,
     navigate,
@@ -167,12 +154,6 @@ export const usePomodoroController = () => {
     }, 800);
   }, [reset, clearPomodoro, navigate]);
 
-  //Resetear el flag cuando el tiempo cambie
-  useEffect(() => {
-    if (timeLeft > 0) {
-      setHasHandledCompletion(false);
-    }
-  }, [timeLeft]);
   // ─── API pública del hook ──────────────────────────────────────────────────
   return {
     timeLeft,
