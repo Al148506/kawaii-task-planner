@@ -4,10 +4,11 @@ import { WaifuAssistant } from "../components/waifu/WaifuAssistant";
 import "./PomodoroPage.css";
 import { useState } from "react";
 
+export const waifuId = "waifu1";
+
 interface Props {
   onClose?: () => void;
 }
-
 const PomodoroPage = ({ onClose }: Props) => {
   const {
     timeLeft,
@@ -52,7 +53,7 @@ const PomodoroPage = ({ onClose }: Props) => {
               ? "¿Ya te vas tan rápido? 😢 Pensé que nos estábamos divirtiendo..."
               : message
           }
-          waifuId={"waifu1"}
+          waifuId={waifuId}
         />
       </div>
 

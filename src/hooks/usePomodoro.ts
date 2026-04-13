@@ -24,6 +24,8 @@ export const usePomodoro = (initialSeconds: number = 1500) => {
     return () => clearInterval(intervalRef.current!);
   }, [isRunning]);
 
+  
+
   // ▶ Start
   const start = () => setIsRunning(true);
 

@@ -5,28 +5,12 @@ import { usePomodoroContext } from "../context/PomodoroContext";
 import { useTasksContext } from "../context/TasksContext";
 import { useWaifuMood } from "./useWaifuMood";
 import { getWaifuMessage } from "../helpers/getWaifuMessage";
+import { useAudio } from "./useAudio";
+import { useCelebration } from "./useCelebration";
+import { waifu1 } from "../data/waifus/waifu1";
 
 // ─── Tipos ────────────────────────────────────────────────────────────────────
 type PomodoroPhase = "focus" | "break";
-
-// ─── Funciones puras (fuera del hook para no recrearse) ───────────────────────
-const createAndPlayAudio = (src: string, volume = 0.7) => {
-  const audio = new Audio(src);
-  audio.volume = volume;
-  audio
-    .play()
-    .catch(() =>
-      console.warn("No se pudo reproducir el sonido automáticamente"),
-    );
-};
-
-const playCompletionSound = () =>
-  createAndPlayAudio("/waifu/sounds/waifu1/waifuFelicitacion.mp3");
-
-const playFinalSound = () =>
-  createAndPlayAudio("/waifu/sounds/waifu1/waifuFinal.m4a", 0.8);
-
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const usePomodoroController = () => {
   const navigate = useNavigate();
@@ -35,8 +19,11 @@ export const usePomodoroController = () => {
   // ─── Estados ───────────────────────────────────────────────────────────────
   const [wasCancelled, setWasCancelled] = useState(false);
   const [phase, setPhase] = useState<PomodoroPhase>("focus");
-  const [showConfetti, setShowConfetti] = useState(false);
   const [hasHandledCompletion, setHasHandledCompletion] = useState(false);
+  const { playCompletionSound, playFinalSound, playStartSound } =
+    useAudio("waifu1");
+  const { showConfetti, triggerCelebration, resetCelebration } =
+    useCelebration();
 
   // ─── Derivaciones memorizadas ──────────────────────────────────────────────
   const activeTask = useMemo(
@@ -101,7 +88,7 @@ export const usePomodoroController = () => {
       return;
     }
     setPhase("focus");
-    setShowConfetti(false);
+    playStartSound();
     reset(activePomodoro.duration * 60);
     start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,22 +96,29 @@ export const usePomodoroController = () => {
 
   // ─── Efecto: lógica de finalización de fase ────────────────────────────────
   useEffect(() => {
-    if (timeLeft !== 0 || !activePomodoro || hasHandledCompletion) return;
+    if (
+      timeLeft !== 0 ||
+      !activePomodoro ||
+      hasHandledCompletion ||
+      !activeTask
+    )
+      return;
     setHasHandledCompletion(true); // 🔒 bloquea re-ejecución
 
     if (phase === "focus") {
       // Completar el pomodoro actual
-      completePomodoro(activePomodoro.taskId, activePomodoro.pomodoroId);
 
       const pendingPomodoros =
         activeTask?.pomodoros.filter((p) => !p.completed) ?? [];
 
       const isLastPomodoro = pendingPomodoros.length === 1;
 
+      completePomodoro(activePomodoro.taskId, pendingPomodoros[0].id);
+
       if (isLastPomodoro) {
         // 🏁 Fin de todos los pomodoros
         playFinalSound();
-        setShowConfetti(true);
+        triggerCelebration();
         setTimeout(() => {
           clearPomodoro();
           navigate("/");
@@ -140,22 +134,11 @@ export const usePomodoroController = () => {
     } else {
       // 🔁 Fin del descanso → volver a focus
       setPhase("focus");
+      resetCelebration();
       reset(activePomodoro.duration * 60);
       start();
     }
-  }, [
-    timeLeft,
-    phase,
-    activePomodoro,
-    remainingCount,
-    breakDuration,
-    hasHandledCompletion,
-    reset,
-    start,
-    navigate,
-    clearPomodoro,
-    completePomodoro,
-  ]);
+  }, [timeLeft, phase, activePomodoro, remainingCount, breakDuration, hasHandledCompletion, reset, start, navigate, clearPomodoro, completePomodoro, activeTask?.pomodoros, playCompletionSound, playFinalSound, triggerCelebration, resetCelebration, activeTask]);
 
   // ─── Cancelación manual ────────────────────────────────────────────────────
   const cancelPomodoro = useCallback(() => {
