@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-interface ActivePomodoro {
+export interface ActivePomodoro {
   taskId: string;
   pomodoroId: string;
   selectedDate: string;
@@ -9,7 +9,7 @@ interface ActivePomodoro {
   duration: number; // 🔥 NUEVO (minutos)
 }
 
-interface PomodoroContextType {
+export interface PomodoroContextType {
   activePomodoro: ActivePomodoro | null;
   lastSelectedDate: string | null;
 

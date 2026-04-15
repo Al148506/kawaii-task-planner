@@ -46,5 +46,6 @@ export const usePomodoro = (initialSeconds: number = 1500) => {
     pause,
     reset,
     setTimeLeft,
+    setIsRunning,
   };
 };
