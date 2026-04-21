@@ -3,8 +3,9 @@ import { usePomodoroDisplay } from "../hooks/usePomodoroDisplay";
 import { WaifuAssistant } from "../components/waifuAssistant/WaifuAssistant";
 import "./PomodoroPage.css";
 import { useState } from "react";
+import { useWaifu } from "../hooks/useWaifu";
 
-export const waifuId = "waifu1";
+
 
 interface Props {
   onClose?: () => void;
@@ -44,6 +45,8 @@ const PomodoroPage = ({ onClose }: Props) => {
       className={`pomodoro-dot${i < completedCount ? " done" : ""}`}
     />
   ));
+
+  const { waifuId } = useWaifu();
 
   const phaseLabel =
     phase === "focus"
