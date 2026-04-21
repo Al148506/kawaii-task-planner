@@ -36,21 +36,13 @@ const TasksPage = () => {
     setIsPomodoroOpen(false);
   };
 
-  const [isWaifuModalOpen, setIsWaifuModalOpen] = useState(false);
-
-  const handleOpenWaifuModal = () => {
-    setIsWaifuModalOpen(true);
-  };
-
-  const handleCloseWaifuModal = () => {
-    setIsWaifuModalOpen(false);
-  };
+  
 
   return (
     <div className="tasks-page">
       {/* ── Top: Calendario + Formulario ── */}
       <div className="tasks-page__top">
-        <button onClick={handleOpenWaifuModal}>🧑‍🎤 Cambiar Waifu</button>
+       
 
         <div className="tasks-page__calendar-col">
           <p className="tasks-section__label">Calendario</p>
@@ -96,9 +88,7 @@ const TasksPage = () => {
         <PomodoroPage onClose={handleClosePomodoro} />
       </GenericModal>
       {/* ── Modal Waifu Selector ── */}
-      <GenericModal isOpen={isWaifuModalOpen} onClose={handleCloseWaifuModal}>
-        <WaifuSelector onClose={handleCloseWaifuModal} />
-      </GenericModal>
+     
     </div>
   );
 };
