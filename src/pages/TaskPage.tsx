@@ -11,6 +11,7 @@ import { usePomodoroContext } from "../context/PomodoroContext";
 
 import "./TaskPage.css";
 import DayProgress from "../components/progress/DayProgress";
+import WaifuSelector from "../components/waifuSelector/WaifuSelector";
 
 const TasksPage = () => {
   const { selectedDate, setSelectedDate, formattedDate, displayDate } =
@@ -35,10 +36,22 @@ const TasksPage = () => {
     setIsPomodoroOpen(false);
   };
 
+  const [isWaifuModalOpen, setIsWaifuModalOpen] = useState(false);
+
+  const handleOpenWaifuModal = () => {
+    setIsWaifuModalOpen(true);
+  };
+
+  const handleCloseWaifuModal = () => {
+    setIsWaifuModalOpen(false);
+  };
+
   return (
     <div className="tasks-page">
       {/* ── Top: Calendario + Formulario ── */}
       <div className="tasks-page__top">
+        <button onClick={handleOpenWaifuModal}>🧑‍🎤 Cambiar Waifu</button>
+
         <div className="tasks-page__calendar-col">
           <p className="tasks-section__label">Calendario</p>
           <Calendar
@@ -81,6 +94,10 @@ const TasksPage = () => {
       {/* ── Modal Pomodoro ── */}
       <GenericModal isOpen={isPomodoroOpen} onClose={handleClosePomodoro}>
         <PomodoroPage onClose={handleClosePomodoro} />
+      </GenericModal>
+      {/* ── Modal Waifu Selector ── */}
+      <GenericModal isOpen={isWaifuModalOpen} onClose={handleCloseWaifuModal}>
+        <WaifuSelector onClose={handleCloseWaifuModal} />
       </GenericModal>
     </div>
   );

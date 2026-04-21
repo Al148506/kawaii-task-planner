@@ -1,6 +1,6 @@
 import { usePomodoroController } from "../hooks/usePomodoroController";
 import { usePomodoroDisplay } from "../hooks/usePomodoroDisplay";
-import { WaifuAssistant } from "../components/waifu/WaifuAssistant";
+import { WaifuAssistant } from "../components/waifuAssistant/WaifuAssistant";
 import "./PomodoroPage.css";
 import { useState } from "react";
 

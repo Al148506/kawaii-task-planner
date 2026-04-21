@@ -3,9 +3,10 @@ export type WaifuMood =
   | "blush"
   | "sad"
   | "surprised"
-  | "angry";
+  | "angry"
+  | "focused";
 
-export type WaifuId = "waifu1" | "waifu2" | "waifu3";
+export type WaifuId = string;
 
 export type WaifuConfig = {
   id: WaifuId;
