@@ -1,64 +1,208 @@
+/* Kawaii pastel palette */
 .waifu-selector {
-  text-align: center;
+  position: relative;
+  padding: 2rem 1.5rem 2.5rem;
+  background: linear-gradient(135deg, #ffe0f0 0%, #fff5fb 50%, #e6f0ff 100%);
+  border-radius: 28px;
+  box-shadow:
+    0 10px 40px rgba(255, 182, 213, 0.35),
+    0 0 0 4px #fff inset,
+    0 0 0 6px #ffd6ec inset;
+  font-family: "Quicksand", "Comic Sans MS", system-ui, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
+/* floating sparkles background */
+.waifu-selector::before,
+.waifu-selector::after {
+  content: "✿";
+  position: absolute;
+  font-size: 2rem;
+  color: #ffc2dd;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.waifu-selector::before {
+  top: 14px;
+  left: 18px;
+  transform: rotate(-15deg);
+}
+.waifu-selector::after {
+  bottom: 14px;
+  right: 22px;
+  transform: rotate(20deg);
+}
+
+.waifu-selector h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1.75rem;
+  color: #d6336c;
+  letter-spacing: 0.5px;
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 #ffd1e6;
+}
+.waifu-selector h2::before {
+  content: "♡ ";
+  color: #ff8fc5;
+}
+.waifu-selector h2::after {
+  content: " ♡";
+  color: #ff8fc5;
+}
+
+/* grid */
 .waifu-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 1.25rem;
+  padding: 0.5rem;
 }
 
+/* card */
 .waifu-card {
+  position: relative;
+  background: #ffffff;
+  border: 3px solid #ffd6ec;
+  border-radius: 22px;
+  padding: 0.9rem 0.75rem 1rem;
   cursor: pointer;
-  padding: 10px;
-  border-radius: 12px;
-  background: #1e1e2f;
-  transition: 0.2s;
+  text-align: center;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  box-shadow:
+    0 4px 0 #ffd6ec,
+    0 8px 18px rgba(255, 170, 210, 0.25);
 }
 
 .waifu-card:hover {
-  transform: scale(1.05);
+  transform: translateY(-6px) rotate(-1deg);
+  border-color: #ffaed1;
+  box-shadow:
+    0 8px 0 #ffaed1,
+    0 14px 26px rgba(255, 140, 195, 0.35);
 }
 
 .waifu-card img {
   width: 100%;
-  border-radius: 10px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff0f7, #e8f3ff);
+  border: 2px dashed #ffc2dd;
+  margin-bottom: 0.6rem;
 }
 
+.waifu-card p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #b83268;
+  letter-spacing: 0.3px;
+}
+
+/* selected state */
 .waifu-card.selected {
-  border: 2px solid #ff69b4;
-  box-shadow: 0 0 10px #ff69b4;
+  border-color: #ff6fae;
+  background: linear-gradient(180deg, #fff5fb 0%, #ffe3f1 100%);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 6px 0 #ff6fae,
+    0 12px 28px rgba(255, 111, 174, 0.45);
+  animation: kawaii-pop 0.4s ease;
 }
 
+.waifu-card.selected::after {
+  content: "♥";
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: #ff6fae;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 1rem;
+  box-shadow:
+    0 3px 0 #d6458a,
+    0 6px 12px rgba(255, 111, 174, 0.5);
+  animation: heart-beat 1.2s ease-in-out infinite;
+}
+
+/* close button */
 .modal-close-btn {
   position: absolute;
   top: 12px;
   right: 12px;
-
-  width: 44px;
-  height: 44px;
-
-  background: #ff4d6d;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   border: none;
   border-radius: 50%;
-
-  color: white;
-  font-size: 26px;
-  font-weight: bold;
-
-  display: flex;
+  background: #ffd1e8;
+  color: #ff4f93;
+  font-size: 22px;
+  line-height: 1; /* clave: evita el offset vertical */
+  font-family:
+    Arial, sans-serif; /* "×" se centra mejor que en fuentes display */
+  display: inline-flex; /* flex para centrar horizontal + vertical */
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
-
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
+  box-shadow: 0 3px 8px rgba(255, 105, 180, 0.25);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
-
 .modal-close-btn:hover {
-  transform: scale(1.1);
-  background: #ff3355;
+  background: #ff6fae;
+  transform: scale(1.08);
+}
+.modal-close-btn:active {
+  transform: scale(0.92);
 }
 
+/* animations */
+@keyframes kawaii-pop {
+  0% {
+    transform: scale(0.95);
+  }
+  60% {
+    transform: scale(1.06) translateY(-6px);
+  }
+  100% {
+    transform: translateY(-4px) scale(1.02);
+  }
+}
+@keyframes heart-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+}
 
+/* mobile */
+@media (max-width: 480px) {
+  .waifu-selector {
+    padding: 1.5rem 1rem 2rem;
+    border-radius: 20px;
+  }
+  .waifu-selector h2 {
+    font-size: 1.5rem;
+  }
+  .waifu-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+  }
+}

@@ -1,4 +1,4 @@
-import type { WaifuConfig } from "../../types/waifuTypes";
+import type { WaifuConfig, WaifuMood } from "../../types/waifuTypes";
 
 // ─── Asset Globs ────────────────────────────────────────────────────────────
 
@@ -20,7 +20,7 @@ const configs = import.meta.glob("/src/assets/waifus/*/config.ts", {
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
-type Mood = "happy" | "sad" | "angry" | "blush" | "surprised" | "focused";
+type Mood = WaifuMood;
 
 type GlobRecord = Record<string, string>;
 type ConfigModule = { default?: Partial<WaifuConfig> };
@@ -61,11 +61,34 @@ const buildImageMap = (
     {}
   );
 
+  //Builder para sonidos
+
+  const buildSoundMap = () => {
+  return Object.entries(sounds as GlobRecord).reduce<
+    Record<string, Record<string, string>>
+  >((acc, [path, url]) => {
+    const waifuId = extractSegment(path, -3);
+    const soundName = extractSegment(path, -1).replace(".mp3", "");
+
+    if (!acc[waifuId]) acc[waifuId] = {};
+    acc[waifuId][soundName] = url;
+
+    return acc;
+  }, {});
+};
+
 // ─── Builder ─────────────────────────────────────────────────────────────────
 
 const buildWaifus = (): Record<string, WaifuConfig> => {
   const configMap = buildConfigMap();
-  return buildImageMap(configMap);
+  const waifuMap = buildImageMap(configMap);
+  const soundMap = buildSoundMap();
+
+  Object.keys(waifuMap).forEach((id) => {
+    waifuMap[id].sounds = soundMap[id] ?? {};
+  });
+
+  return waifuMap;
 };
 
 export const waifus = buildWaifus();

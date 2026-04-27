@@ -4,7 +4,8 @@ export type WaifuMood =
   | "sad"
   | "surprised"
   | "angry"
-  | "focused";
+  | "focused"
+  | "selected";
 
 export type WaifuId = string;
 
