@@ -7,17 +7,21 @@ import { usePomodoroContext } from "../context/PomodoroContext";
 import { useTasksContext } from "../context/TasksContext";
 import { useWaifuMood } from "./useWaifuMood";
 
-import { useAudio } from "./useAudio";
+// import { useAudio } from "./useAudio";
 import { useCelebration } from "./useCelebration";
 import { useActiveTask } from "./useActiveTask";
 import { getBreakDuration } from "../utils/pomodoroUtils";
 import { usePomodoroMessage } from "./usePomodoroMessage";
 import { usePomodoroDebug } from "./usePomodoroDebug";
+import { useWaifuContext } from "../context/WaifuContext";
 
 import { pomodoroReducer, initialState } from "./usePomodoroReducer";
+import { useWaifuSound } from "./useWaifuSound";
+import { usePomodoroPlaySound } from "./usePomodoroPlaySound";
 
 export const usePomodoroController = () => {
   const navigate = useNavigate();
+  const { waifu } = useWaifuContext();
 
   const { activePomodoro, clearPomodoro } = usePomodoroContext();
   const { completePomodoro, tasks } = useTasksContext();
@@ -29,8 +33,7 @@ export const usePomodoroController = () => {
   const [wasCancelled, setWasCancelled] = useState(false);
 
   // 🎵 Audio & 🎉 Celebración
-  const { playCompletionSound, playFinalSound, playStartSound } =
-    useAudio("waifu1");
+  const playPomodoroSound = usePomodoroPlaySound();
 
   const { triggerCelebration, resetCelebration } = useCelebration();
 
@@ -74,7 +77,7 @@ export const usePomodoroController = () => {
 
     dispatch({ type: "START_FOCUS" });
     resetCelebration();
-    playStartSound();
+    playPomodoroSound("focusStart");
 
     reset(activePomodoro.duration * 60);
     start();
@@ -96,7 +99,8 @@ export const usePomodoroController = () => {
 
       if (isLastPomodoro) {
         dispatch({ type: "FINISH_ALL" });
-        playFinalSound();
+        // playFinalSound();
+        playPomodoroSound("finished");
         triggerCelebration();
 
         setTimeout(() => {
@@ -108,12 +112,13 @@ export const usePomodoroController = () => {
 
       // ☕ descanso
       dispatch({ type: "START_BREAK" });
-      playCompletionSound();
+      // playCompletionSound();
+      playPomodoroSound("breakStart");
       reset(breakDuration);
       start();
     } else if (phase === "break") {
       dispatch({ type: "START_FOCUS" });
-      playStartSound();
+      playPomodoroSound("focusStart");
       resetCelebration();
       reset(activePomodoro.duration * 60);
       start();
@@ -129,8 +134,8 @@ export const usePomodoroController = () => {
     navigate,
     clearPomodoro,
     completePomodoro,
-    playCompletionSound,
-    playFinalSound,
+    // playCompletionSound,
+    // playFinalSound,
     triggerCelebration,
     resetCelebration,
   ]);
@@ -138,13 +143,13 @@ export const usePomodoroController = () => {
   // ❌ Cancelar
   const cancelPomodoro = useCallback(() => {
     setWasCancelled(true);
-
+    playPomodoroSound("cancelled"); // 👈 aquí
     setTimeout(() => {
       reset();
       clearPomodoro();
       navigate("/");
     }, 800);
-  }, [reset, clearPomodoro, navigate]);
+  }, [playPomodoroSound, reset, clearPomodoro, navigate]);
 
   // 🧪 Debug
   const debug = usePomodoroDebug({
@@ -160,7 +165,7 @@ export const usePomodoroController = () => {
     pause,
     reset,
     cancelPomodoro,
-
+    playPomodoroSound,
     taskTitle,
     selectedDate,
     mood,

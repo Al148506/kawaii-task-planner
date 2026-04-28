@@ -5,3 +5,9 @@ export const PomodoroDurations: Record<Exclude<PomodoroType, "custom">, number> 
   "52_17": 52,
   "50_10": 50,
 };
+
+export type PomodoroSoundEvent =
+  | "focusStart"
+  | "breakStart"
+  | "finished"
+  | "cancelled";

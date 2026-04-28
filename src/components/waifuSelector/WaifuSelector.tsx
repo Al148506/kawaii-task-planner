@@ -1,47 +1,43 @@
-import { useEffect, useState } from "react";
 import { waifus } from "../../data/waifus";
 import { useSound } from "../../hooks/useSound";
 import "./WaifuSelector.css";
-
-const LOCAL_KEY = "selectedWaifu";
+import { useWaifuContext } from "../../context/WaifuContext";
 
 type Props = {
   onClose: () => void;
 };
 
 const WaifuSelector = ({ onClose }: Props) => {
-  const [selectedWaifu, setSelectedWaifu] = useState<string | null>(null);
+  const { waifu: currentWaifu, setWaifu } = useWaifuContext();
   const { play } = useSound();
-  // 🔥 cargar desde localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem(LOCAL_KEY);
-    if (saved) setSelectedWaifu(saved);
-  }, []);
 
-  // 🔥 guardar en localStorage
   const handleSelect = (id: string) => {
-    setSelectedWaifu(id);
-    localStorage.setItem(LOCAL_KEY, id);
-    const waifu = waifus[id];
-    const sound = waifu?.sounds?.selected;
+    const selected = waifus[id];
+    if (!selected) return;
 
-    play(sound, { volume: 0.8, interrupt: true });
+    setWaifu(id); 
+
+    const sound = selected.sounds?.selected;
+    if (sound) {
+      play(sound, { volume: 0.8, interrupt: true });
+    }
   };
-
-  console.log("🧪 waifus object:", waifus);
 
   return (
     <div className="waifu-selector">
       <button className="modal-close-btn" onClick={onClose}>
         ×
       </button>
+
       <h2>Elige tu Waifu</h2>
 
       <div className="waifu-grid">
         {Object.values(waifus).map((waifu) => (
           <div
             key={waifu.id}
-            className={`waifu-card ${selectedWaifu === waifu.id ? "selected" : ""}`}
+            className={`waifu-card ${
+              currentWaifu?.id === waifu.id ? "selected" : ""
+            }`}
             onClick={() => handleSelect(waifu.id)}
           >
             <img src={waifu.images.happy} alt={waifu.name} />

@@ -7,6 +7,8 @@ export type WaifuMood =
   | "focused"
   | "selected";
 
+  
+
 export type WaifuId = string;
 
 export type WaifuConfig = {
