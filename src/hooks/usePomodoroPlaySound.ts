@@ -4,10 +4,10 @@ import type { PomodoroSoundEvent } from "../types/PomodoroSettings";
 const usePomodoroPlaySound = () => {
   const { playSound } = useWaifuSound();
 
-   const playPomodoroSound = (event: PomodoroSoundEvent) => {
+  const playPomodoroSound = (event: PomodoroSoundEvent) => {
     switch (event) {
       case "focusStart":
-        playSound("focused");
+        playSound("focus");
         break;
       case "breakStart":
         playSound("happy");

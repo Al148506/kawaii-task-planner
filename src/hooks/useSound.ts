@@ -33,7 +33,9 @@ export const useSound = () => {
       }
 
       audio.currentTime = 0;
-      audio.play().catch(() => {});
+      audio.play().catch((error) => {
+        console.warn("Error reproduciendo audio:", error);
+      });
 
       currentAudio.current = audio;
     } catch (error) {

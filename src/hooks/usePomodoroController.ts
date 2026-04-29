@@ -13,15 +13,12 @@ import { useActiveTask } from "./useActiveTask";
 import { getBreakDuration } from "../utils/pomodoroUtils";
 import { usePomodoroMessage } from "./usePomodoroMessage";
 import { usePomodoroDebug } from "./usePomodoroDebug";
-import { useWaifuContext } from "../context/WaifuContext";
 
 import { pomodoroReducer, initialState } from "./usePomodoroReducer";
-import { useWaifuSound } from "./useWaifuSound";
 import { usePomodoroPlaySound } from "./usePomodoroPlaySound";
 
 export const usePomodoroController = () => {
   const navigate = useNavigate();
-  const { waifu } = useWaifuContext();
 
   const { activePomodoro, clearPomodoro } = usePomodoroContext();
   const { completePomodoro, tasks } = useTasksContext();
