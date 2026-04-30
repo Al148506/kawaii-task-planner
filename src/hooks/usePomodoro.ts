@@ -39,6 +39,8 @@ export const usePomodoro = (initialSeconds: number = 1500) => {
     setTimeLeft(newTime ?? initialSeconds);
   };
 
+  const isCompleted = timeLeft === 0;
+
   return {
     timeLeft,
     isRunning,
@@ -47,5 +49,6 @@ export const usePomodoro = (initialSeconds: number = 1500) => {
     reset,
     setTimeLeft,
     setIsRunning,
+    isCompleted,
   };
 };

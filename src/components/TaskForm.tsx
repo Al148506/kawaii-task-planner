@@ -139,7 +139,17 @@ const handleSubmit = (e: React.FormEvent) => {
         </p>
       </div>
 
-      <button style={{ marginTop: "1rem" }}>Agregar</button>
+      <button
+        style={{
+          marginTop: "1rem",
+          background: "linear-gradient(135deg, #f9bfd8, #ef9fc5)",
+          border: "1px solid #e285b3",
+          color: "#ffffff",
+          boxShadow: "0 6px 14px #ef9fc566",
+        }}
+      >
+        Agregar
+      </button>
     </form>
   );
 };

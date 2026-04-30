@@ -1,13 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap");
 
 /* ═══════════════════════════════════════════════════════════
-KAWAII CALENDAR 🌸
+KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 ═══════════════════════════════════════════════════════════ */
 
 /* ─── Variables ─────────────────────────────────────────── */
 :root {
-  --bg-panel: #ffffff;
+  --bg-panel:  var(--bg-elevated);
   --bg-cell: #fff7fb;
+
 
   --peach: #fec1b6;
   --rose: #f3a6ba;
@@ -26,13 +27,23 @@ KAWAII CALENDAR 🌸
   --border-strong: #d8cbe4;
 
   --panel-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+
+  --calendar-accent-pastel: #e598be;
 }
 
-/* ─── Wrapper ───────────────────────────────────────────── */
-.rdp {
+/* ─── Wrapper (v9 raíz: .rdp-root) ─────────────────────── */
+.rdp-root {
   --rdp-cell-size: 42px;
-  --rdp-accent-color: var(--pink);
+  /* !important: el style.css de la librería define blue en el mismo bloque */
+  --rdp-accent-color: var(--calendar-accent-pastel) !important;
+  --rdp-accent-background-color: #fff5f9 !important;
+  --rdp-today-color: var(--calendar-accent-pastel) !important;
+  --rdp-selected-border: 2px solid var(--calendar-accent-pastel) !important;
   --rdp-background-color: var(--bg-cell);
+  --rdp-day_button-border-radius: 0.75rem;
+  --rdp-day_button-width: var(--rdp-cell-size);
+  --rdp-day_button-height: var(--rdp-cell-size);
+
 
   margin: 0;
   padding: 1.5rem;
@@ -44,10 +55,11 @@ KAWAII CALENDAR 🌸
   font-size: 0.85rem;
   color: var(--text-primary);
   position: relative;
+  animation: fade-in 0.35s ease;
 }
 
 /* Fondo suave decorativo */
-.rdp::before {
+.rdp-root::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -64,7 +76,8 @@ KAWAII CALENDAR 🌸
   gap: 1rem;
 }
 
-.rdp-caption {
+.rdp-caption,
+.rdp-month_caption {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -73,7 +86,7 @@ KAWAII CALENDAR 🌸
 
 .rdp-caption_label {
   font-family: "Cinzel", serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.08em;
 
@@ -93,53 +106,72 @@ KAWAII CALENDAR 🌸
   gap: 0.4rem;
 }
 
-.rdp-nav_button {
+.rdp-nav_button,
+.rdp-button_previous,
+.rdp-button_next {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 1px solid var(--border-soft);
-  background: #fff;
-  color: var(--lavender);
+  border: 1px solid #f0c4da;
+  background: linear-gradient(135deg, #fff4fa, #fde6f3);
+  color: var(--calendar-accent-pastel);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-shadow: 0 3px 10px #ef9fc533;
   transition: all 0.2s ease;
 }
 
-.rdp-nav_button:hover {
-  background: var(--pink-soft);
+.rdp-nav_button:hover,
+.rdp-button_previous:hover,
+.rdp-button_next:hover {
+  background: linear-gradient(135deg, #ffd8ea, #f8c8e4);
+  color: #bf4f87;
   transform: scale(1.1);
+  box-shadow: 0 5px 12px #ef9fc555;
 }
 
-.rdp-nav_button svg {
+.rdp-nav_button svg,
+.rdp-button_previous svg,
+.rdp-button_next svg {
   width: 14px;
   height: 14px;
 }
 
+.rdp-nav_button .rdp-chevron,
+.rdp-button_previous .rdp-chevron,
+.rdp-button_next .rdp-chevron {
+  fill: var(--calendar-accent-pastel);
+  stroke: var(--calendar-accent-pastel);
+}
+
 /* ─── Weekdays ─────────────────────────────────────────── */
-.rdp-head_cell {
+.rdp-head_cell,
+.rdp-weekday {
   font-family: "Cinzel", serif;
-  font-size: 0.65rem;
+  font-size: 0.9rem;
   letter-spacing: 0.12em;
-  color: var(--text-muted);
+  color: var(--text-primary);
   text-align: center;
   padding: 0.4rem 0;
   width: var(--rdp-cell-size);
 }
 
 /* ─── Table ───────────────────────────────────────────── */
-.rdp-table {
+.rdp-table,
+.rdp-month_grid {
   border-collapse: separate;
   border-spacing: 6px;
 }
 
-.rdp-cell {
+.rdp-cell,
+.rdp-day {
   padding: 0;
 }
 
-/* ─── Days ─────────────────────────────────────────────── */
-.rdp-button {
+/* ─── Days (v9: botón .rdp-day_button dentro de td .rdp-day) ─ */
+.rdp-day_button {
   width: var(--rdp-cell-size);
   height: var(--rdp-cell-size);
   border-radius: 0.75rem;
@@ -155,36 +187,62 @@ KAWAII CALENDAR 🌸
 }
 
 /* Hover */
-.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+.rdp-day:not(.rdp-selected):not(.rdp-disabled)
+  .rdp-day_button:hover:not(:disabled) {
   background: var(--pink-soft);
   transform: translateY(-2px);
 }
 
-/* ─── Today ───────────────────────────────────────────── */
-.rdp-day_today:not(.rdp-day_selected) {
+/* ─── Today (no seleccionado) ─────────────────────────── */
+.rdp-today:not(.rdp-selected):not(.rdp-outside) {
   background: #fff0f5;
+  border-radius: 0.75rem;
+  color: var(--pink);
+}
+
+.rdp-today:not(.rdp-selected):not(.rdp-outside) .rdp-day_button {
   border: 1px solid var(--pink);
   color: var(--pink);
   font-weight: 500;
 }
 
 /* ─── Selected ────────────────────────────────────────── */
-.rdp-day_selected {
-  background: linear-gradient(135deg, var(--peach), var(--pink));
+.rdp-selected {
+  background: linear-gradient(135deg, #ffb6d3, #e88bbb);
   color: #fff !important;
   font-weight: 600;
-  border: none;
-  box-shadow: 0 4px 12px var(--pink-soft);
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 14px #e88bbb66;
+}
+/*
+.rdp-selected .rdp-day_button {
+  color: #fff !important;
+  border: 1px solid #d46ea2 !important;
+  background: transparent;
+}
+
+
+ * Hoy + seleccionado: la librería aplica .rdp-today:not(.rdp-outside) { color: var(--rdp-today-color) }
+ * con mayor especificidad que .rdp-selected, y el número queda azul/rosa acento. Forzar texto blanco.
+ */
+.rdp-day.rdp-selected.rdp-today:not(.rdp-outside),
+.rdp-selected.rdp-today:not(.rdp-outside) {
+  color: #fff !important;
+}
+
+.rdp-selected.rdp-today .rdp-day_button {
+  color: #fff !important;
+  border-color: #d46ea2 !important;
 }
 
 /* ─── Outside days ────────────────────────────────────── */
-.rdp-day_outside {
+.rdp-outside {
   color: var(--text-disabled);
   opacity: 0.5;
 }
 
 /* ─── Disabled ───────────────────────────────────────── */
-.rdp-day_disabled {
+.rdp-disabled {
   color: var(--text-disabled);
   opacity: 0.3;
   cursor: not-allowed;
@@ -192,12 +250,12 @@ KAWAII CALENDAR 🌸
 
 /* Día con tareas — fondo más oscuro */
 .has-tasks {
-  background: #f5d8e8 !important; /* un tono más oscuro que --bg-cell: #fff7fb */
+  background: #f5d8e8 !important;
   font-weight: 500;
 }
 
 /* Punto indicador */
-.has-tasks::after {
+.has-tasks .rdp-day_button::after {
   content: "";
   position: absolute;
   bottom: 6px;
@@ -210,20 +268,19 @@ KAWAII CALENDAR 🌸
 }
 
 /* Cuando está seleccionado, el gradiente gana */
-.rdp-day_selected.has-tasks {
+.rdp-selected.has-tasks {
   background: linear-gradient(135deg, var(--peach), var(--pink)) !important;
   color: #fff !important;
 }
 
-/* ─── Focus ───────────────────────────────────────────── */
-.rdp-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px var(--lavender-soft);
+.rdp-selected.has-tasks .rdp-day_button {
+  color: #fff !important;
 }
 
-/* ─── Animación ───────────────────────────────────────── */
-.rdp {
-  animation: fade-in 0.35s ease;
+/* ─── Focus ───────────────────────────────────────────── */
+.rdp-day_button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--lavender-soft);
 }
 
 @keyframes fade-in {

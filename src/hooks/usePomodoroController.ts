@@ -46,11 +46,11 @@ export const usePomodoroController = () => {
   const durationInSeconds = activePomodoro ? activePomodoro.duration * 60 : 0;
 
   // ⏱ Timer
-  const { timeLeft, isRunning, start, pause, reset, setTimeLeft } =
+  const { timeLeft, isRunning, isCompleted, start, pause, reset, setTimeLeft } =
     usePomodoro(durationInSeconds);
 
   // 🧠 Mood + mensaje
-  const mood = useWaifuMood(isRunning, timeLeft, wasCancelled);
+  const mood = useWaifuMood(isRunning, timeLeft, wasCancelled, isCompleted);
 
   const message = usePomodoroMessage({
     phase,

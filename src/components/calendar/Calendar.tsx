@@ -1,4 +1,5 @@
 import { DayPicker } from "react-day-picker";
+import { es } from "date-fns/locale";
 import "./Calendar.css";
 interface Props {
   selectedDate: Date;
@@ -13,6 +14,7 @@ const Calendar = ({ selectedDate, onSelectDate, daysWithTasks }: Props) => {
   return (
     <DayPicker
       mode="single"
+      locale={es}
       selected={normalizeDate(selectedDate)}
       onSelect={(date) => {
         if (date) onSelectDate(normalizeDate(date));
