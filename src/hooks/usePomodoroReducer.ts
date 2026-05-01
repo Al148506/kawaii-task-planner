@@ -1,11 +1,13 @@
+//usePomodoroReducer.ts
+
 export type PomodoroPhase = "focus" | "break" | "finished";
 
-type State = {
+export type State = {
   phase: PomodoroPhase;
   showConfetti: boolean;
 };
 
-type Action =
+export type Action =
   | { type: "START_FOCUS" }
   | { type: "START_BREAK" }
   | { type: "FINISH_ALL" };

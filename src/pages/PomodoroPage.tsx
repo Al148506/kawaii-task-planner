@@ -5,28 +5,17 @@ import "./PomodoroPage.css";
 import { useState } from "react";
 import { useWaifu } from "../hooks/useWaifu";
 
-
-
 interface Props {
   onClose?: () => void;
 }
 
 const PomodoroPage = ({ onClose }: Props) => {
-  const {
-    timeLeft,
-    isRunning,
-    start,
-    pause,
-    reset,
-    cancelPomodoro,
-    taskTitle,
-    selectedDate,
-    mood,
-    message,
-    remainingCount,
-    totalCount,
-    phase,
-  } = usePomodoroController();
+  const { timer, task, ui, actions } = usePomodoroController();
+
+  const { timeLeft, isRunning, start, pause, reset } = timer;
+  const { taskTitle, selectedDate, remainingCount, totalCount } = task;
+  const { mood, message, phase } = ui;
+  const { cancelPomodoro } = actions;
 
   const { formattedDate, formatTime } = usePomodoroDisplay(selectedDate);
   const [showConfirm, setShowConfirm] = useState(false);

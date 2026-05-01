@@ -6,6 +6,7 @@ export type WaifuMood =
   | "angry"
   | "focused"
   | "selected"
+  | "break"
   | "success";
 
   

@@ -3,6 +3,7 @@ export type WaifuMood =
   | "blush"
   | "sad"
   | "surprised"
+  | "focused"
   | "angry";
 
 export const waifuImages: Record<WaifuMood, string> = {
@@ -10,5 +11,7 @@ export const waifuImages: Record<WaifuMood, string> = {
   blush: "../waifu/blush.png",
   sad: "../waifu/sad.png",
   surprised: "../waifu/surprised.png",
+  focused: "../waifu/focused.png",
   angry: "../waifu/angry.png",
+
 };

@@ -1,21 +1,21 @@
-import { useCallback, useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useConfetti } from "./useConfetti";
-
 import { usePomodoro } from "./usePomodoro";
 import { usePomodoroContext } from "../context/PomodoroContext";
 import { useTasksContext } from "../context/TasksContext";
 import { useWaifuMood } from "./useWaifuMood";
-
-// import { useAudio } from "./useAudio";
 import { useCelebration } from "./useCelebration";
-import { useActiveTask } from "./useActiveTask";
-import { getBreakDuration } from "../utils/pomodoroUtils";
+import { useWaifuValidation } from "./useWaifuValidation.ts"; // 👈 ver nota abajo
 import { usePomodoroMessage } from "./usePomodoroMessage";
 import { usePomodoroDebug } from "./usePomodoroDebug";
-
-import { pomodoroReducer, initialState } from "./usePomodoroReducer";
 import { usePomodoroPlaySound } from "./usePomodoroPlaySound";
+import { pomodoroReducer, initialState } from "./usePomodoroReducer";
+
+import { usePomodoroSession } from "./usePomodoroSession";
+import { usePomodoroAutoStart } from "./usePomodoroAutoStart";
+import { usePomodoroCycle } from "./usePomodoroCycle";
+import { usePomodoroCancel } from "./usePomodoroCancel";
 
 export const usePomodoroController = () => {
   const navigate = useNavigate();
@@ -23,27 +23,28 @@ export const usePomodoroController = () => {
   const { activePomodoro, clearPomodoro } = usePomodoroContext();
   const { completePomodoro, tasks } = useTasksContext();
 
-  // 🎯 Reducer (estado central)
   const [state, dispatch] = useReducer(pomodoroReducer, initialState);
   const { phase, showConfetti } = state;
 
   const [wasCancelled, setWasCancelled] = useState(false);
 
-  // 🎵 Audio & 🎉 Celebración
+  // 🎵 Sonidos
   const playPomodoroSound = usePomodoroPlaySound();
 
+  // 🎉 Celebración
   const { triggerCelebration, resetCelebration } = useCelebration();
 
-  // 📊 Task
-  const { activeTask, completedCount, totalCount, remainingCount } =
-    useActiveTask(tasks, activePomodoro);
-
-  const taskTitle = activePomodoro?.taskTitle ?? "";
-  const selectedDate = activePomodoro?.selectedDate ?? "";
-
-  const breakDuration = getBreakDuration(activeTask?.pomodoroType);
-
-  const durationInSeconds = activePomodoro ? activePomodoro.duration * 60 : 0;
+  // 📊 Sesión: task info + duraciones
+  const {
+    activeTask,
+    taskTitle,
+    selectedDate,
+    durationInSeconds,
+    breakDuration,
+    completedCount,
+    totalCount,
+    remainingCount,
+  } = usePomodoroSession(tasks, activePomodoro);
 
   // ⏱ Timer
   const { timeLeft, isRunning, isCompleted, start, pause, reset, setTimeLeft } =
@@ -51,130 +52,65 @@ export const usePomodoroController = () => {
 
   // 🧠 Mood + mensaje
   const mood = useWaifuMood(isRunning, timeLeft, wasCancelled, isCompleted);
+  const message = usePomodoroMessage({ phase, mood, timeLeft, showConfetti });
 
-  const message = usePomodoroMessage({
-    phase,
-    mood,
-    timeLeft,
-    showConfetti,
-  });
-
+  // 🎊 Confetti visual
   useConfetti(showConfetti);
 
-  // 🚨 Validación
-  useEffect(() => {
-    if (!activePomodoro) {
-      navigate("/");
-    }
-  }, [activePomodoro, navigate]);
+  // 🚨 Validación: redirige si no hay pomodoro activo
+  useWaifuValidation(activePomodoro, navigate); // 👈 ver nota abajo
 
-  // ▶️ Inicio automático
-  useEffect(() => {
-    if (!activePomodoro) return;
+  // ▶️ Inicio automático al montar / cambiar pomodoro
+  usePomodoroAutoStart({
+    activePomodoro,
+    durationInSeconds,
+    dispatch,
+    reset,
+    start,
+    resetCelebration,
+    playPomodoroSound,
+  });
 
-    dispatch({ type: "START_FOCUS" });
-    resetCelebration();
-    playPomodoroSound("focusStart");
-
-    reset(activePomodoro.duration * 60);
-    start();
-  }, [activePomodoro?.pomodoroId]);
-
-  // 🔥 Lógica principal (ciclo)
-  useEffect(() => {
-    if (timeLeft !== 0 || !activePomodoro || !activeTask) return;
-
-    if (phase === "focus") {
-      const pendingPomodoros = activeTask.pomodoros.filter((p) => !p.completed);
-
-      const isLastPomodoro = pendingPomodoros.length === 1;
-
-      const nextPomodoro = pendingPomodoros[0];
-      if (!nextPomodoro) return;
-
-      completePomodoro(activePomodoro.taskId, nextPomodoro.id);
-
-      if (isLastPomodoro) {
-        dispatch({ type: "FINISH_ALL" });
-        // playFinalSound();
-        playPomodoroSound("finished");
-        triggerCelebration();
-
-        setTimeout(() => {
-          clearPomodoro();
-        }, 4000);
-
-        return;
-      }
-
-      // ☕ descanso
-      dispatch({ type: "START_BREAK" });
-      // playCompletionSound();
-      playPomodoroSound("breakStart");
-      reset(breakDuration);
-      start();
-    } else if (phase === "break") {
-      dispatch({ type: "START_FOCUS" });
-      playPomodoroSound("focusStart");
-      resetCelebration();
-      reset(activePomodoro.duration * 60);
-      start();
-    }
-  }, [
+  // 🔥 Ciclo focus → break → focus → finish
+  usePomodoroCycle({
     timeLeft,
     phase,
     activePomodoro,
     activeTask,
     breakDuration,
+    dispatch,
     reset,
     start,
-    navigate,
     clearPomodoro,
     completePomodoro,
-    // playCompletionSound,
-    // playFinalSound,
     triggerCelebration,
     resetCelebration,
-  ]);
-
-  // ❌ Cancelar
-  const cancelPomodoro = useCallback(() => {
-    setWasCancelled(true);
-    playPomodoroSound("cancelled"); // 👈 aquí
-    setTimeout(() => {
-      reset();
-      clearPomodoro();
-      navigate("/");
-    }, 800);
-  }, [playPomodoroSound, reset, clearPomodoro, navigate]);
-
-  // 🧪 Debug
-  const debug = usePomodoroDebug({
-    setTimeLeft,
-    dispatch,
+    playPomodoroSound,
   });
 
-  // 📦 API
-  return {
-    timeLeft,
-    isRunning,
-    start,
-    pause,
-    reset,
-    cancelPomodoro,
+  // ❌ Cancelación
+  const { cancelPomodoro } = usePomodoroCancel({
     playPomodoroSound,
-    taskTitle,
-    selectedDate,
-    mood,
-    message,
+    reset,
+    clearPomodoro,
+    setWasCancelled,
+  });
 
-    completedCount,
-    remainingCount,
-    totalCount,
+  // 🧪 Debug
+  const debug = usePomodoroDebug({ setTimeLeft, dispatch });
 
-    phase,
-    showConfetti,
-
+  // 📦 API agrupada por dominio
+  return {
+    timer: { timeLeft, isRunning, start, pause, reset },
+    task: {
+      taskTitle,
+      selectedDate,
+      completedCount,
+      remainingCount,
+      totalCount,
+    },
+    ui: { mood, message, phase, showConfetti },
+    actions: { cancelPomodoro },
     debug,
   };
 };
