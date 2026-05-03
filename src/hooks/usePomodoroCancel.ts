@@ -19,14 +19,13 @@ export const usePomodoroCancel = ({
 
   const cancelPomodoro = useCallback(() => {
     setWasCancelled(true);
-    playPomodoroSound("cancelled");
 
     setTimeout(() => {
       reset();
       clearPomodoro();
       navigate("/");
     }, 800);
-  }, [playPomodoroSound, reset, clearPomodoro, navigate, setWasCancelled]);
+  }, [reset, clearPomodoro, navigate, setWasCancelled]);
 
   return { cancelPomodoro };
 };

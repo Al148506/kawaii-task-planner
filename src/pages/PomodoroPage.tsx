@@ -15,7 +15,7 @@ const PomodoroPage = ({ onClose }: Props) => {
   const { timeLeft, isRunning, start, pause, reset } = timer;
   const { taskTitle, selectedDate, remainingCount, totalCount } = task;
   const { mood, message, phase } = ui;
-  const { cancelPomodoro } = actions;
+  const { cancelPomodoro, playPomodoroSound } = actions;
 
   const { formattedDate, formatTime } = usePomodoroDisplay(selectedDate);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -115,7 +115,10 @@ const PomodoroPage = ({ onClose }: Props) => {
           {!showConfirm ? (
             <button
               className="pomodoro-cancel"
-              onClick={() => setShowConfirm(true)}
+              onClick={() => {
+                playPomodoroSound("cancelled");
+                setShowConfirm(true);
+              }}
             >
               ❌ Cancelar Pomodoro
             </button>

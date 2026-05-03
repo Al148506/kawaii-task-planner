@@ -110,7 +110,7 @@ export const usePomodoroController = () => {
       totalCount,
     },
     ui: { mood, message, phase, showConfetti },
-    actions: { cancelPomodoro },
+    actions: { cancelPomodoro, playPomodoroSound },
     debug,
   };
 };
