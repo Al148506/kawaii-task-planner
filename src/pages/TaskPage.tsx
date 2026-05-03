@@ -11,7 +11,6 @@ import { usePomodoroContext } from "../context/PomodoroContext";
 
 import "./TaskPage.css";
 import DayProgress from "../components/progress/DayProgress";
-import WaifuSelector from "../components/waifuSelector/WaifuSelector";
 
 const TasksPage = () => {
   const { selectedDate, setSelectedDate, formattedDate, displayDate } =

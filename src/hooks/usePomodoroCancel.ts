@@ -10,7 +10,6 @@ type Params = {
 };
 
 export const usePomodoroCancel = ({
-  playPomodoroSound,
   reset,
   clearPomodoro,
   setWasCancelled,

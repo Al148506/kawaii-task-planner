@@ -9,5 +9,9 @@ export const waifu2: WaifuConfig = {
     sad: "/waifu/images/waifu2/sad.png",
     surprised: "/waifu/images/waifu2/surprised.png",
     angry: "/waifu/images/waifu2/angry.png",
+    focused: "",
+    selected: "",
+    break: "",
+    success: ""
   },
 };

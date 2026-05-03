@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useTasksContext } from "../context/TasksContext";
 import {
   type PomodoroType,
   PomodoroDurations,
 } from "../types/PomodoroSettings";
 import type { RepetitionSettings } from "../types/RepetitionSettings";
-import {generateDatesByRepetition} from "../utils/generateDatesByRepetition"
 import { createTasks } from "../helpers/createTasks";
 import { showDuplicateTaskAlert } from "../utils/alerts";
 interface Props {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import type { PomodoroType } from "../types/PomodoroSettings";
 import type { Task } from "../types/Task";
 
 export const useTasks = () => {

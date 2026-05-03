@@ -3,7 +3,7 @@ import { usePomodoro } from "../../hooks/usePomodoro";
 import { usePomodoroContext } from "../../context/PomodoroContext";
 import { useTasksContext } from "../../context/TasksContext";
 import "./PomodoroTimer.css";
-import { formatTime } from "../../utils/utilFormatTime";
+import { utilFormatTime } from "../../utils/utilFormatTime";
 
 
 const PomodoroTimer = () => {
@@ -28,14 +28,14 @@ const PomodoroTimer = () => {
   return (
     <div className="pomodoro-timer">
       {" "}
-      <h2>{formatTime(timeLeft)}</h2>
+      <h2>{utilFormatTime(timeLeft)}</h2>
       <div className="pomodoro-controls">
         {!isRunning ? (
           <button onClick={start}>Start</button>
         ) : (
           <button onClick={pause}>Pause</button>
         )}
-        <button onClick={reset}>Reset</button>
+        <button onClick={() => reset()}>Reset</button>
       </div>
     </div>
   );

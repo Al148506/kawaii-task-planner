@@ -1,7 +1,6 @@
 import { useWaifuMusic } from "../../hooks/useWaifuMusic";
-import type { WaifuId } from "../../types/waifuTypes";
+import type { WaifuId, WaifuMood } from "../../types/waifuTypes";
 import WaifuAvatar from "./WaifuAvatar";
-import type { WaifuMood } from "./waifuExpressions";
 import WaifuMusicPanel from "./WaifuMusicPanel";
 import "./WaifuAssistant.css";
 interface Props {

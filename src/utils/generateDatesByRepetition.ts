@@ -1,8 +1,8 @@
-import type { RepetitionSettings } from "../types/repetitionSettings";
+import type { RepetitionSettings } from "../types/RepetitionSettings";
 
 export const generateDatesByRepetition = (
   startDate: string,
-  repetition: RepetitionSettings
+  repetition: RepetitionSettings,
 ) => {
   const dates: string[] = [];
 
