@@ -1,0 +1,152 @@
+/* ═══════════════════════════════════════════════════════════
+TASK PAGE — KAWAII QUEST LOG 🌸
+═══════════════════════════════════════════════════════════ */
+
+/* ─── Page shell ─────────────────────────────────────────── */
+.tasks-page {
+width: 100%;
+max-width: 1100px;
+margin: 0 auto;
+padding: 0 var(--space-lg) var(--space-2xl);
+display: flex;
+flex-direction: column;
+gap: var(--space-lg);
+}
+
+/* ─── Top layout ────────────────────────────────────────── */
+.tasks-page__top {
+display: grid;
+grid-template-columns: auto 1fr;
+gap: var(--space-lg);
+align-items: start;
+}
+
+/* ─── Section label ─────────────────────────────────────── */
+.tasks-section__label {
+font-family: var(--font-title);
+font-size: 0.65rem;
+font-weight: 700;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(--text-muted);
+display: flex;
+align-items: center;
+gap: var(--space-sm);
+margin-bottom: var(--space-md);
+}
+
+/* 🎀 Puntito kawaii */
+.tasks-section__label::before {
+content: "🌸";
+font-size: 0.7rem;
+opacity: 0.8;
+}
+
+/* Línea suave */
+.tasks-section__label::after {
+content: "";
+flex: 1;
+height: 1px;
+background: linear-gradient(90deg, var(--border-subtle), transparent);
+}
+
+/* ─── Columns ───────────────────────────────────────────── */
+.tasks-page__calendar-col {
+animation: fade-up 0.4s ease 0.1s both;
+}
+
+.tasks-page__form-col {
+animation: fade-up 0.4s ease 0.2s both;
+}
+
+/* ─── Date display ─────────────────────────────────────── */
+.tasks-page__date-display {
+font-family: var(--font-title);
+font-size: 0.85rem;
+font-weight: 600;
+color: var(--text-secondary);
+
+background: var(--bg-elevated);
+border: 1px solid var(--border-subtle);
+border-radius: 999px;
+padding: var(--space-sm) var(--space-md);
+
+display: inline-flex;
+align-items: center;
+gap: var(--space-sm);
+
+box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+}
+
+/* Gradiente cute */
+.tasks-page__date-display span {
+background: linear-gradient(
+90deg,
+var(--peach),
+var(--pink),
+var(--lavender)
+);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+
+/* ─── Task list ────────────────────────────────────────── */
+.tasks-page__list-section {
+animation: fade-up 0.4s ease 0.3s both;
+}
+
+/* ─── Empty state ─────────────────────────────────────── */
+.tasks-page__empty {
+text-align: center;
+padding: var(--space-2xl) var(--space-lg);
+color: var(--text-muted);
+font-family: var(--font-title);
+font-size: 0.8rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: var(--space-md);
+}
+
+/* 🧸 Icono flotante */
+.tasks-page__empty-icon {
+font-size: 2.5rem;
+opacity: 0.5;
+animation: float 3s ease-in-out infinite;
+}
+
+/* ─── Animaciones ──────────────────────────────────────── */
+@keyframes fade-up {
+from {
+opacity: 0;
+transform: translateY(12px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes float {
+0%, 100% {
+transform: translateY(0);
+}
+50% {
+transform: translateY(-6px);
+}
+}
+
+/* ─── Responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+.tasks-page__top {
+grid-template-columns: 1fr;
+}
+
+.tasks-page__calendar-col {
+display: flex;
+justify-content: center;
+}
+}

@@ -1,0 +1,18 @@
+.pomodoro-timer {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  text-align: center;
+  box-shadow: var(--shadow-panel);
+}
+
+.pomodoro-timer h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.pomodoro-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
