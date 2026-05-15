@@ -19,6 +19,12 @@ type Params = {
   triggerCelebration: () => void;
   resetCelebration: () => void;
   playPomodoroSound: (event: PomodoroSoundEvent) => void;
+  onFocusStart?: () => void;
+  onFocusComplete?: (params: {
+    task: Task;
+    pomodoroId: string;
+    completedAt: Date;
+  }) => void;
 };
 
 export const usePomodoroCycle = ({
@@ -35,6 +41,8 @@ export const usePomodoroCycle = ({
   triggerCelebration,
   resetCelebration,
   playPomodoroSound,
+  onFocusStart,
+  onFocusComplete,
 }: Params) => {
   useEffect(() => {
     if (timeLeft !== 0 || !activePomodoro || !activeTask) return;
@@ -47,6 +55,11 @@ export const usePomodoroCycle = ({
       if (!nextPomodoro) return;
 
       completePomodoro(activePomodoro.taskId, nextPomodoro.id);
+      onFocusComplete?.({
+        task: activeTask,
+        pomodoroId: nextPomodoro.id,
+        completedAt: new Date(),
+      });
 
       if (isLastPomodoro) {
         dispatch({ type: "FINISH_ALL" });
@@ -67,7 +80,8 @@ export const usePomodoroCycle = ({
       playPomodoroSound("focusStart");
       resetCelebration();
       reset(activePomodoro.duration * 60);
+      onFocusStart?.();
       start();
     }
-  }, [timeLeft, phase, activePomodoro, activeTask, breakDuration, reset, start, clearPomodoro, completePomodoro, triggerCelebration, resetCelebration, dispatch, playPomodoroSound]);
+  }, [timeLeft, phase, activePomodoro, activeTask, breakDuration, reset, start, clearPomodoro, completePomodoro, triggerCelebration, resetCelebration, dispatch, playPomodoroSound, onFocusStart, onFocusComplete]);
 };

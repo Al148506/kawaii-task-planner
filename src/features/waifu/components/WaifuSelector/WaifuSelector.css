@@ -107,6 +107,34 @@
   letter-spacing: 0.3px;
 }
 
+.waifu-skin-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.waifu-skin-chip {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border-subtle);
+}
+
+.waifu-skin-chip.is-selected {
+  color: #fff;
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+}
+
+.waifu-skin-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
 /* selected state */
 .waifu-card.selected {
   border-color: #ff6fae;

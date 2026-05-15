@@ -8,6 +8,15 @@ const images = import.meta.glob<string>("/src/assets/waifus/*/images/*.png", {
   import: "default",
 });
 
+const skinImages = import.meta.glob<string>(
+  "/src/assets/waifus/*/skins/*/images/*.png",
+  {
+    eager: true,
+    query: "?url",
+    import: "default",
+  },
+);
+
 const sounds = import.meta.glob<string>("/src/assets/waifus/*/sounds/*.mp3", {
   eager: true,
   query: "?url",
@@ -77,6 +86,21 @@ const buildImageMap = (
   }, {});
 };
 
+const attachSkinImages = (waifuMap: Record<string, WaifuConfig>) => {
+  Object.entries(skinImages as GlobRecord).forEach(([path, url]) => {
+    const parts = path.split("/");
+    const waifuId = parts.at(-5) ?? "";
+    const skinId = parts.at(-3) ?? "";
+    const mood = (parts.at(-1) ?? "").replace(".png", "") as Mood;
+
+    if (!waifuMap[waifuId]) return;
+
+    waifuMap[waifuId].skins ??= {};
+    waifuMap[waifuId].skins[skinId] ??= {};
+    waifuMap[waifuId].skins[skinId][mood] = url;
+  });
+};
+
 // ─── Builder ─────────────────────────────────────────────────────────────────
 
 const buildWaifus = (): Record<string, WaifuConfig> => {
@@ -87,6 +111,8 @@ const buildWaifus = (): Record<string, WaifuConfig> => {
   Object.keys(waifuMap).forEach((id) => {
     waifuMap[id].sounds = soundMap[id] ?? {};
   });
+
+  attachSkinImages(waifuMap);
 
   return waifuMap;
 };

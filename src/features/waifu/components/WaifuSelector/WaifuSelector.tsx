@@ -2,13 +2,21 @@ import { waifus } from "@/features/waifu/data/waifus";
 import { useSound } from "@/shared/hooks/useSound";
 import "./WaifuSelector.css";
 import { useWaifuContext } from "@/features/waifu/context/WaifuContext";
+import { useProgressionContext } from "@/features/progression/context/ProgressionContext";
+import { waifuSkinUnlocks } from "@/features/progression/utils/achievementsCatalog";
 
 type Props = {
   onClose: () => void;
 };
 
 const WaifuSelector = ({ onClose }: Props) => {
-  const { waifu: currentWaifu, setWaifu } = useWaifuContext();
+  const {
+    waifu: currentWaifu,
+    selectedSkinByWaifu,
+    setWaifu,
+    setWaifuSkin,
+  } = useWaifuContext();
+  const { progress } = useProgressionContext();
   const { play } = useSound();
 
   const handleSelect = (id: string) => {
@@ -42,6 +50,29 @@ const WaifuSelector = ({ onClose }: Props) => {
           >
             <img src={waifu.images.happy} alt={waifu.name} />
             <p>{waifu.name}</p>
+            <div className="waifu-skin-list">
+              {waifuSkinUnlocks
+                .filter((skin) => skin.waifuId === waifu.id)
+                .map((skin) => {
+                  const isUnlocked = progress.unlockedSkinIds.includes(skin.id);
+                  const isSelected = selectedSkinByWaifu[waifu.id] === skin.skinId;
+
+                  return (
+                    <button
+                      key={skin.id}
+                      className={`waifu-skin-chip${isSelected ? " is-selected" : ""}`}
+                      disabled={!isUnlocked}
+                      type="button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (isUnlocked) setWaifuSkin(waifu.id, skin.skinId);
+                      }}
+                    >
+                      {isUnlocked ? skin.name : `Lv. ${skin.requiredLevel}`}
+                    </button>
+                  );
+                })}
+            </div>
           </div>
         ))}
       </div>

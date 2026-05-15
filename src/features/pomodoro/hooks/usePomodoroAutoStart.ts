@@ -11,6 +11,7 @@ type Params = {
   start: () => void;
   resetCelebration: () => void;
   playPomodoroSound: (event: PomodoroSoundEvent) => void;
+  onFocusStart?: () => void;
 };
 
 export const usePomodoroAutoStart = ({
@@ -21,6 +22,7 @@ export const usePomodoroAutoStart = ({
   start,
   resetCelebration,
   playPomodoroSound,
+  onFocusStart,
 }: Params) => {
   useEffect(() => {
     if (!activePomodoro) return;
@@ -28,6 +30,7 @@ export const usePomodoroAutoStart = ({
     dispatch({ type: "START_FOCUS" });
     resetCelebration();
     playPomodoroSound("focusStart");
+    onFocusStart?.();
     reset(durationInSeconds);
     start();
   }, [activePomodoro?.pomodoroId]);

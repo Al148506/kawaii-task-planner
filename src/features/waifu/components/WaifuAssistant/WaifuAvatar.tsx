@@ -1,5 +1,6 @@
 import type { WaifuMood, WaifuId } from "@/features/waifu/types/waifuTypes";
 import { waifus } from "@/features/waifu/data/waifus";
+import { useWaifuContext } from "@/features/waifu/context/WaifuContext";
 
 interface Props {
   mood: WaifuMood;
@@ -11,13 +12,18 @@ interface Props {
 
 const WaifuAvatar = ({ mood, waifuId, onClick, isActive, isPlaying }: Props) => {
   const waifu = waifus[waifuId];
+  const { selectedSkinByWaifu } = useWaifuContext();
+  const selectedSkin = selectedSkinByWaifu[waifuId];
+  const image = selectedSkin
+    ? waifu.skins?.[selectedSkin]?.[mood] ?? waifu.images[mood]
+    : waifu.images[mood];
 
   return (
     <div
       className={`waifu-image-wrap ${isActive ? "waifu-image-wrap--active" : ""}`}
       onClick={onClick}
     >
-      <img src={waifu.images[mood]} alt={waifu.name} className="waifu-image" />
+      <img src={image} alt={waifu.name} className="waifu-image" />
 
       <div
         className={`waifu-music-hint ${

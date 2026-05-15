@@ -3,6 +3,7 @@ import "./App.css";
 import TasksPage from "@/features/tasks/pages/TaskPage";
 import PomodoroPage from "@/features/pomodoro/pages/PomodoroPage";
 import DashboardPage from "@/features/dashboard/pages/DashboardPage";
+import ProgressionPage from "@/features/progression/pages/ProgressionPage";
 import { useState } from "react";
 import GenericModal from "@/shared/components/modal/GenericModal";
 import WaifuSelector from "@/features/waifu/components/WaifuSelector/WaifuSelector";
@@ -39,6 +40,12 @@ function App() {
             >
               Dashboard
             </NavLink>
+            <NavLink
+              to="/progress"
+              className={({ isActive }) => (isActive ? "is-active" : undefined)}
+            >
+              Progreso
+            </NavLink>
           </nav>
           <button onClick={handleOpenWaifuModal}>💕 Seleccionar Acompañante</button>
         </div>
@@ -48,6 +55,7 @@ function App() {
         <Routes>
           <Route path="/" element={<TasksPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/progress" element={<ProgressionPage />} />
           <Route path="/pomodoro" element={<PomodoroPage />} />
         </Routes>
         <GenericModal isOpen={isWaifuModalOpen} onClose={handleCloseWaifuModal}>

@@ -7,15 +7,21 @@ import { PomodoroProvider } from "@/features/pomodoro/context/PomodoroContext";
 import { BrowserRouter } from "react-router-dom";
 import "@/index.css";
 import { WaifuProvider } from "@/features/waifu/context/WaifuProvider";
+import { PomodoroSessionsProvider } from "@/features/sessions/context/PomodoroSessionsContext";
+import { ProgressionProvider } from "@/features/progression/context/ProgressionContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <WaifuProvider>
         <TasksProvider>
-          <PomodoroProvider>
-            <App />
-          </PomodoroProvider>
+          <PomodoroSessionsProvider>
+            <ProgressionProvider>
+              <PomodoroProvider>
+                <App />
+              </PomodoroProvider>
+            </ProgressionProvider>
+          </PomodoroSessionsProvider>
         </TasksProvider>
       </WaifuProvider>
     </BrowserRouter>
