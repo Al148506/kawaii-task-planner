@@ -13,10 +13,15 @@ interface Props {
 const WaifuAvatar = ({ mood, waifuId, onClick, isActive, isPlaying }: Props) => {
   const waifu = waifus[waifuId];
   const { selectedSkinByWaifu } = useWaifuContext();
+
+  if (!waifu) return null;
+
   const selectedSkin = selectedSkinByWaifu[waifuId];
   const image = selectedSkin
-    ? waifu.skins?.[selectedSkin]?.[mood] ?? waifu.images[mood]
-    : waifu.images[mood];
+    ? waifu.skins?.[selectedSkin]?.[mood] ?? waifu.images[mood] ?? waifu.images.happy
+    : waifu.images[mood] ?? waifu.images.happy;
+
+  if (!image) return null;
 
   return (
     <div

@@ -92,7 +92,9 @@
   padding: var(--space-1, 0.25rem);
   border: 1px solid var(--border-subtle);
   border-radius: 9999px;
-  background: oklch(from var(--bg-glass, white) l c h / 0.58);
+  background: var(--bg-control);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-panel);
 }
 
 .app-nav a {
@@ -113,8 +115,8 @@
 
 .app-nav a:hover,
 .app-nav a.is-active {
-  color: #fff;
-  background: linear-gradient(135deg, var(--peach), var(--pink));
+  color: var(--text-on-primary);
+  background: var(--primary-gradient);
   transform: translateY(-1px);
 }
 
@@ -133,18 +135,18 @@
   font-weight: 800;
   letter-spacing: 0.06em;
   cursor: pointer;
-  border: 1.5px solid oklch(from var(--pink, #f2849e) l c h / 0.45);
+  border: 1.5px solid var(--border-bright);
   border-radius: 9999px;
   padding: var(--space-2, 0.5rem) var(--space-5, 1.25rem);
   /* Evita fondo gradient en botón — usa solid con alpha más refinado */
-  background: color-mix(in oklch, var(--peach, #ffc2d1) 40%, transparent);
-  color: var(--ink-soft);
+  background: color-mix(in srgb, var(--peach) 34%, transparent);
+  color: var(--text-primary);
   backdrop-filter: blur(8px);
   transition:
     transform 150ms cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
     background 180ms cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 12px oklch(from var(--pink, #f2849e) l c h / 0.15);
+  box-shadow: var(--shadow-panel);
   /* Touch target mínimo 44px */
   min-height: 44px;
   display: inline-flex;
@@ -154,9 +156,9 @@
 
 .btn-companion:hover {
   transform: translateY(-2px) scale(1.02);
-  background: color-mix(in oklch, var(--pink, #f2849e) 30%, transparent);
-  box-shadow: 0 6px 20px oklch(from var(--pink, #f2849e) l c h / 0.28);
-  color: var(--ink);
+  background: color-mix(in srgb, var(--pink) 24%, transparent);
+  box-shadow: var(--shadow-glow);
+  color: var(--text-hero);
 }
 
 .btn-companion:active {

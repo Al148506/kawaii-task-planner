@@ -1,11 +1,11 @@
-//usePomodoroPlaySound.ts
+import { useCallback } from "react";
 import { useWaifuSound } from "@/features/waifu/hooks/useWaifuSound";
 import type { PomodoroSoundEvent } from "@/features/pomodoro/types/PomodoroSettings";
 
 const usePomodoroPlaySound = () => {
   const { playSound } = useWaifuSound();
 
-  const playPomodoroSound = (event: PomodoroSoundEvent) => {
+  const playPomodoroSound = useCallback((event: PomodoroSoundEvent) => {
     switch (event) {
       case "focusStart":
         playSound("focused");
@@ -20,7 +20,7 @@ const usePomodoroPlaySound = () => {
         playSound("sad");
         break;
     }
-  };
+  }, [playSound]);
 
   return playPomodoroSound;
 };

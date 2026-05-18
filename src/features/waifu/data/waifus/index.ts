@@ -60,7 +60,7 @@ const buildImageMap = (
         waifuMap[waifuId] = {
           id: waifuId,
           name: config.name ?? waifuId,
-          images: {} as Record<Mood, string>,
+          images: {},
         };
       }
 
@@ -74,10 +74,10 @@ const buildImageMap = (
 
   const buildSoundMap = () => {
   return Object.entries(sounds as GlobRecord).reduce<
-    Record<string, Record<string, string>>
+    Record<string, Partial<Record<Mood, string>>>
   >((acc, [path, url]) => {
     const waifuId = extractSegment(path, -3);
-    const soundName = extractSegment(path, -1).replace(".mp3", "");
+    const soundName = extractSegment(path, -1).replace(".mp3", "") as Mood;
 
     if (!acc[waifuId]) acc[waifuId] = {};
     acc[waifuId][soundName] = url;

@@ -8,7 +8,6 @@ import { useWaifuMood } from "@/features/waifu/hooks/useWaifuMood";
 import { useCelebration } from "./useCelebration";
 import { useWaifuValidation } from "@/features/waifu/hooks/useWaifuValidation";
 import { usePomodoroMessage } from "./usePomodoroMessage";
-import { usePomodoroDebug } from "./usePomodoroDebug";
 import { usePomodoroPlaySound } from "./usePomodoroPlaySound";
 import { pomodoroReducer, initialState } from "./usePomodoroReducer";
 
@@ -114,7 +113,7 @@ export const usePomodoroController = () => {
   } = usePomodoroSession(tasks, activePomodoro);
 
   // ⏱ Timer
-  const { timeLeft, isRunning, isCompleted, start, pause, reset, setTimeLeft } =
+  const { timeLeft, isRunning, isCompleted, start, pause, reset } =
     usePomodoro(durationInSeconds);
 
   const pauseWithTracking = useCallback(() => {
@@ -174,9 +173,6 @@ export const usePomodoroController = () => {
     setWasCancelled,
   });
 
-  // 🧪 Debug
-  const debug = usePomodoroDebug({ setTimeLeft, dispatch });
-
   // 📦 API agrupada por dominio
   return {
     timer: { timeLeft, isRunning, start, pause: pauseWithTracking, reset },
@@ -189,6 +185,5 @@ export const usePomodoroController = () => {
     },
     ui: { mood, message, phase, showConfetti },
     actions: { cancelPomodoro, playPomodoroSound },
-    debug,
   };
 };

@@ -33,7 +33,7 @@ const TaskItem = ({ task, onStartPomodoro }: Props) => {
         <div className="task-item__title-row">
           <span
             className="task-item__category-badge"
-            style={{ background: `${category.color}33`, color: category.color, border: `1px solid ${category.color}55` }}
+            style={{ "--category-color": category.color } as React.CSSProperties}
           >
             {category.emoji}
           </span>
@@ -58,7 +58,7 @@ const TaskItem = ({ task, onStartPomodoro }: Props) => {
         </div>
 
         {/* ⏱ Info opcional (muy útil para UX) */}
-        <div style={{ fontSize: "0.8rem", opacity: 0.7, marginTop: "0.25rem" }}>
+        <div className="task-item__meta">
           {task.pomodoroType === "custom"
             ? `Custom (${task.customDuration ?? 25} min)`
             : `${task.pomodoroType} ${getTotalTaskDuration(task)} min)`

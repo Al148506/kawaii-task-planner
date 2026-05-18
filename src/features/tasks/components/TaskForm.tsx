@@ -71,7 +71,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
+    <form className="task-form" onSubmit={handleSubmit}>
       <input
         placeholder="Nueva tarea..."
         value={title}
@@ -79,26 +79,18 @@ const handleSubmit = (e: React.FormEvent) => {
       />
 
       {/* Categoría */}
-      <div style={{ marginTop: "0.75rem" }}>
-        <label style={{ display: "block", marginBottom: "0.35rem", fontSize: "0.85rem" }}>
+      <div className="task-form__field">
+        <label>
           Categoría:
         </label>
-        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+        <div className="task-form__category-list">
           {TASK_CATEGORIES.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => setCategory(cat.id)}
-              style={{
-                padding: "4px 10px",
-                borderRadius: "999px",
-                border: category === cat.id ? `2px solid ${cat.color}` : "1px solid var(--border-subtle)",
-                background: category === cat.id ? `${cat.color}33` : "transparent",
-                color: "var(--text-primary)",
-                fontSize: "0.8rem",
-                cursor: "pointer",
-                transition: "all 0.15s ease",
-              }}
+              className={`task-form__category-chip${category === cat.id ? " is-active" : ""}`}
+              style={{ "--category-color": cat.color } as React.CSSProperties}
             >
               {cat.emoji} {cat.label}
             </button>
@@ -107,7 +99,7 @@ const handleSubmit = (e: React.FormEvent) => {
       </div>
 
       {/*Cantidad de pomodoros */}
-      <div style={{ marginTop: "0.5rem" }}>
+      <div className="task-form__field">
         <label>Pomodoros:</label>
 
         <input
@@ -119,7 +111,7 @@ const handleSubmit = (e: React.FormEvent) => {
       </div>
 
       {/*Tipo */}
-      <div style={{ marginTop: "0.5rem" }}>
+      <div className="task-form__field">
         <label>Tipo de Pomodoro:</label>
 
         <select
@@ -134,7 +126,7 @@ const handleSubmit = (e: React.FormEvent) => {
       </div>
 
       {/*Tipo */}
-      <div style={{ marginTop: "0.5rem" }}>
+      <div className="task-form__field">
         <label>Ciclo de Repetición:</label>
 
         <select
@@ -152,7 +144,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
       {/* Custom */}
       {pomodoroType === "custom" && (
-        <div style={{ marginTop: "0.5rem" }}>
+        <div className="task-form__field">
           <label>Duración custom (minutos):</label>
 
           <input
@@ -164,22 +156,14 @@ const handleSubmit = (e: React.FormEvent) => {
         </div>
       )}
       {/* 📊 Resumen */}
-      <div style={{ marginTop: "0.75rem", fontSize: "0.9rem", opacity: 0.8 }}>
+      <div className="task-form__summary">
         <p>
           ⏳ Tiempo total: <strong>{totalMinutes} min</strong> (
           {(totalMinutes / 60).toFixed(1)} hrs)
         </p>
       </div>
 
-      <button
-        style={{
-          marginTop: "1rem",
-          background: "linear-gradient(135deg, #f9bfd8, #ef9fc5)",
-          border: "1px solid #e285b3",
-          color: "#ffffff",
-          boxShadow: "0 6px 14px #ef9fc566",
-        }}
-      >
+      <button className="task-form__submit">
         Agregar
       </button>
     </form>

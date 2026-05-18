@@ -3,7 +3,7 @@ import { usePomodoroDisplay } from "@/features/pomodoro/hooks/usePomodoroDisplay
 import { WaifuAssistant } from "@/features/waifu/components/WaifuAssistant/WaifuAssistant";
 import "./PomodoroPage.css";
 import { useState } from "react";
-import { useWaifu } from "@/features/waifu/hooks/useWaifu";
+import { useWaifuContext } from "@/features/waifu/context/WaifuContext";
 
 interface Props {
   onClose?: () => void;
@@ -35,7 +35,8 @@ const PomodoroPage = ({ onClose }: Props) => {
     />
   ));
 
-  const { waifuId } = useWaifu();
+  const { waifu } = useWaifuContext();
+  const waifuId = waifu?.id ?? "waifu1";
 
   const phaseLabel =
     phase === "focus"

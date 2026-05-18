@@ -17,6 +17,7 @@ CATEGORY FILTER CHIPS
   transition: all 0.15s ease;
   background: transparent;
   color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
 }
 
 .task-list__filter-chip:hover {
@@ -25,6 +26,9 @@ CATEGORY FILTER CHIPS
 
 .task-list__filter-chip--active {
   font-weight: 600;
+  color: var(--text-primary);
+  border: 2px solid var(--category-color, var(--pink));
+  background: color-mix(in srgb, var(--category-color, var(--pink)) 18%, transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -46,6 +50,9 @@ CATEGORY BADGE ON TASK ITEM
   border-radius: 50%;
   font-size: 0.85rem;
   flex-shrink: 0;
+  color: var(--category-color);
+  background: color-mix(in srgb, var(--category-color) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--category-color) 40%, transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -62,7 +69,7 @@ TASK LIST — KAWAII STYLE 🌸
 
 /* ─── Task Card ─────────────────────────────────────────── */
 .task-item {
-  background: var(--bg-surface);
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: var(--space-md) var(--space-lg);
@@ -72,7 +79,7 @@ TASK LIST — KAWAII STYLE 🌸
   justify-content: space-between;
   gap: var(--space-md);
 
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-panel);
 
   transition: all 0.2s ease;
   position: relative;
@@ -81,7 +88,7 @@ TASK LIST — KAWAII STYLE 🌸
 /* Hover cute */
 .task-item:hover {
   transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-panel-hover);
 }
 
 /* ✨ sparkle decor */
@@ -110,8 +117,64 @@ TASK LIST — KAWAII STYLE 🌸
 
 /* Sub info (pomodoros, etc) */
 .task-item__meta {
-  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
+}
+
+.task-form {
+  margin-top: 1rem;
+}
+
+.task-form__field {
+  margin-top: 0.5rem;
+}
+
+.task-form__field:first-of-type {
+  margin-top: 0.75rem;
+}
+
+.task-form__field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.task-form__category-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.task-form__category-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task-form__category-chip.is-active {
+  border: 2px solid var(--category-color);
+  background: color-mix(in srgb, var(--category-color) 18%, transparent);
+}
+
+.task-form__summary {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  opacity: 0.88;
+}
+
+.task-form__submit {
+  margin-top: 1rem;
+  border: 1px solid var(--border-bright);
+  background: var(--primary-gradient);
+  color: var(--text-on-primary);
+  box-shadow: 0 6px 14px var(--pink-soft);
 }
 
 /* ─── Right actions ────────────────────────────────────── */
@@ -137,7 +200,7 @@ TASK LIST — KAWAII STYLE 🌸
   height: 28px;
   border-radius: 50%;
   border: 1px solid var(--border-subtle);
-  background: #fff;
+  background: var(--bg-control);
 
   display: flex;
   align-items: center;
@@ -158,7 +221,7 @@ TASK LIST — KAWAII STYLE 🌸
 /* Estado completado */
 .pomodoro-btn.completed {
   background: linear-gradient(135deg, var(--peach), var(--pink));
-  color: #fff;
+  color: var(--text-on-primary);
   border: none;
   box-shadow: 0 4px 10px var(--pink-soft);
 }
@@ -177,7 +240,7 @@ TASK LIST — KAWAII STYLE 🌸
 .pomodoro-btn.active {
   animation: pulse 1s infinite;
   background: linear-gradient(135deg, var(--peach), var(--pink));
-  color: #fff;
+  color: var(--text-on-primary);
 }
 
 @keyframes pulse {

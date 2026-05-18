@@ -33,5 +33,14 @@ export const usePomodoroAutoStart = ({
     onFocusStart?.();
     reset(durationInSeconds);
     start();
-  }, [activePomodoro?.pomodoroId]);
+  }, [
+    activePomodoro,
+    dispatch,
+    durationInSeconds,
+    onFocusStart,
+    playPomodoroSound,
+    reset,
+    resetCelebration,
+    start,
+  ]);
 };

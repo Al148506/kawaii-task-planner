@@ -1,7 +1,7 @@
 /* ─── Day Progress — kawaii ─────────────────────────────── */
 .tasks-page__progress {
-  background: var(--bg-elevated);
-  border: 1px solid rgba(255, 182, 193, 0.35);
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
   border-radius: 20px;
   padding: 1.1rem 1.25rem 1rem;
   margin-bottom: var(--space-lg);
@@ -18,7 +18,7 @@
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 182, 193, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--pink-soft) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -88,7 +88,7 @@
 /* barra */
 .tasks-page__progress-bar {
   height: 7px;
-  background: rgba(180, 150, 200, 0.12);
+  background: var(--bg-elevated);
   border-radius: 999px;
   overflow: hidden;
   margin-bottom: 10px;
@@ -110,7 +110,7 @@
   right: 4px;
   height: 2px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.4);
+  background: color-mix(in srgb, var(--text-on-primary) 42%, transparent);
 }
 
 /* footer */
@@ -138,8 +138,8 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(180, 150, 200, 0.18);
-  border: 1.5px solid rgba(180, 150, 200, 0.25);
+  background: var(--bg-elevated);
+  border: 1.5px solid var(--border-default);
   transition: all 0.2s ease;
   flex-shrink: 0;
 }

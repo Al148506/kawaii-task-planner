@@ -4,14 +4,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: color-mix(in srgb, var(--bg-void) 24%, rgba(0, 0, 0, 0.72));
   z-index: 999;
+  backdrop-filter: blur(10px);
 }
 
 .modal-content {
   width: 100%;
   height: 100%;
-  background: #1a1a2e;
+  background: var(--bg-page-gradient);
   position: relative;
 
   display: flex;

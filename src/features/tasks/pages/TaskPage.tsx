@@ -81,7 +81,6 @@ const TasksPage = () => {
             <button
               className={`task-list__filter-chip ${selectedCategory === null ? "task-list__filter-chip--active" : ""}`}
               onClick={() => setSelectedCategory(null)}
-              style={selectedCategory === null ? { border: "2px solid var(--pink)", background: "var(--pink-soft)" } : { border: "1px solid var(--border-subtle)" }}
             >
               Todas
             </button>
@@ -90,7 +89,7 @@ const TasksPage = () => {
                 key={cat.id}
                 className={`task-list__filter-chip ${selectedCategory === cat.id ? "task-list__filter-chip--active" : ""}`}
                 onClick={() => setSelectedCategory(selectedCategory === cat.id ? null : cat.id)}
-                style={selectedCategory === cat.id ? { border: `2px solid ${cat.color}`, background: `${cat.color}33` } : { border: "1px solid var(--border-subtle)" }}
+                style={{ "--category-color": cat.color } as React.CSSProperties}
               >
                 {cat.emoji} {cat.label}
               </button>

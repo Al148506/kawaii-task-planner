@@ -48,7 +48,7 @@ const WaifuSelector = ({ onClose }: Props) => {
             }`}
             onClick={() => handleSelect(waifu.id)}
           >
-            <img src={waifu.images.happy} alt={waifu.name} />
+            {waifu.images.happy && <img src={waifu.images.happy} alt={waifu.name} />}
             <p>{waifu.name}</p>
             <div className="waifu-skin-list">
               {waifuSkinUnlocks

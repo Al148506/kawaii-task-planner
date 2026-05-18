@@ -32,7 +32,10 @@ const CategoryBreakdownChart = ({ breakdown }: Props) => {
                 <div className="dashboard-time-row__track">
                   <div
                     className="dashboard-time-row__fill"
-                    style={{ width: `${width}%`, background: config.color }}
+                    style={{
+                      width: `${width}%`,
+                      "--category-color": config.color,
+                    } as React.CSSProperties}
                   />
                 </div>
                 <strong>{formatMinutes(item.estimatedMinutes)}</strong>

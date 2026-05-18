@@ -2,12 +2,12 @@
 .waifu-selector {
   position: relative;
   padding: 2rem 1.5rem 2.5rem;
-  background: linear-gradient(135deg, #ffe0f0 0%, #fff5fb 50%, #e6f0ff 100%);
+  background: var(--surface-gradient);
   border-radius: 28px;
   box-shadow:
-    0 10px 40px rgba(255, 182, 213, 0.35),
-    0 0 0 4px #fff inset,
-    0 0 0 6px #ffd6ec inset;
+    var(--shadow-panel),
+    inset 0 0 0 1px var(--border-subtle),
+    var(--shadow-glow);
   font-family: "Quicksand", "Comic Sans MS", system-ui, sans-serif;
   max-width: 900px;
   margin: 0 auto;
@@ -20,7 +20,7 @@
   content: "✿";
   position: absolute;
   font-size: 2rem;
-  color: #ffc2dd;
+  color: var(--pink);
   opacity: 0.5;
   pointer-events: none;
 }
@@ -40,19 +40,18 @@
   font-size: 2rem;
   font-weight: 700;
   margin: 0 0 1.75rem;
-  color: #d6336c;
+  color: var(--text-hero);
   letter-spacing: 0.5px;
   text-shadow:
-    2px 2px 0 #fff,
-    4px 4px 0 #ffd1e6;
+    0 0 18px var(--pink-soft);
 }
 .waifu-selector h2::before {
   content: "♡ ";
-  color: #ff8fc5;
+  color: var(--pink);
 }
 .waifu-selector h2::after {
   content: " ♡";
-  color: #ff8fc5;
+  color: var(--pink);
 }
 
 /* grid */
@@ -66,8 +65,8 @@
 /* card */
 .waifu-card {
   position: relative;
-  background: #ffffff;
-  border: 3px solid #ffd6ec;
+  background: var(--bg-card);
+  border: 3px solid var(--border-subtle);
   border-radius: 22px;
   padding: 0.9rem 0.75rem 1rem;
   cursor: pointer;
@@ -77,16 +76,16 @@
     box-shadow 0.25s ease,
     border-color 0.25s ease;
   box-shadow:
-    0 4px 0 #ffd6ec,
-    0 8px 18px rgba(255, 170, 210, 0.25);
+    0 4px 0 var(--border-subtle),
+    var(--shadow-panel);
 }
 
 .waifu-card:hover {
   transform: translateY(-6px) rotate(-1deg);
-  border-color: #ffaed1;
+  border-color: var(--border-bright);
   box-shadow:
-    0 8px 0 #ffaed1,
-    0 14px 26px rgba(255, 140, 195, 0.35);
+    0 8px 0 var(--border-bright),
+    var(--shadow-panel-hover);
 }
 
 .waifu-card img {
@@ -94,8 +93,8 @@
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 16px;
-  background: linear-gradient(135deg, #fff0f7, #e8f3ff);
-  border: 2px dashed #ffc2dd;
+  background: var(--surface-gradient-soft);
+  border: 2px dashed var(--border-default);
   margin-bottom: 0.6rem;
 }
 
@@ -103,7 +102,7 @@
   margin: 0;
   font-weight: 700;
   font-size: 1rem;
-  color: #b83268;
+  color: var(--text-primary);
   letter-spacing: 0.3px;
 }
 
@@ -121,13 +120,13 @@
   font-size: 0.58rem;
   letter-spacing: 0.06em;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--bg-control);
   border: 1px solid var(--border-subtle);
 }
 
 .waifu-skin-chip.is-selected {
-  color: #fff;
-  background: linear-gradient(135deg, var(--peach), var(--pink));
+  color: var(--text-on-primary);
+  background: var(--primary-gradient);
 }
 
 .waifu-skin-chip:disabled {
@@ -137,12 +136,12 @@
 
 /* selected state */
 .waifu-card.selected {
-  border-color: #ff6fae;
-  background: linear-gradient(180deg, #fff5fb 0%, #ffe3f1 100%);
+  border-color: var(--pink);
+  background: var(--surface-gradient-soft);
   transform: translateY(-4px) scale(1.02);
   box-shadow:
-    0 6px 0 #ff6fae,
-    0 12px 28px rgba(255, 111, 174, 0.45);
+    0 6px 0 var(--pink),
+    var(--shadow-glow);
   animation: kawaii-pop 0.4s ease;
 }
 
@@ -155,13 +154,13 @@
   height: 34px;
   display: grid;
   place-items: center;
-  background: #ff6fae;
-  color: #fff;
+  background: var(--pink);
+  color: var(--text-on-primary);
   border-radius: 50%;
   font-size: 1rem;
   box-shadow:
-    0 3px 0 #d6458a,
-    0 6px 12px rgba(255, 111, 174, 0.5);
+    0 3px 0 color-mix(in srgb, var(--pink) 70%, #000),
+    var(--shadow-glow);
   animation: heart-beat 1.2s ease-in-out infinite;
 }
 
@@ -175,8 +174,8 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: #ffd1e8;
-  color: #ff4f93;
+  background: var(--bg-control);
+  color: var(--pink);
   font-size: 22px;
   line-height: 1; /* clave: evita el offset vertical */
   font-family:
@@ -185,13 +184,14 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 3px 8px rgba(255, 105, 180, 0.25);
+  box-shadow: var(--shadow-panel);
   transition:
     transform 0.2s ease,
     background 0.2s ease;
 }
 .modal-close-btn:hover {
-  background: #ff6fae;
+  background: var(--pink);
+  color: var(--text-on-primary);
   transform: scale(1.08);
 }
 .modal-close-btn:active {

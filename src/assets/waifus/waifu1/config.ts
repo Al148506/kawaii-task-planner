@@ -1,4 +1,4 @@
 export default {
-  name: "Rei",
-  personality: "Dandere",
+  name: "Sakura",
+  personality: "Supportive",
 };

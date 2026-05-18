@@ -1,11 +1,11 @@
-// src/context/WaifuProvider.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { WaifuContext } from "./WaifuContext";
 import { waifus } from "@/features/waifu/data/waifus";
 import type { WaifuConfig } from "@/features/waifu/types/waifuTypes";
 
 const LOCAL_KEY = "selectedWaifu";
 const SKINS_KEY = "selectedWaifuSkins:v1";
+const DEFAULT_WAIFU = "waifu1";
 
 const loadSelectedSkins = () => {
   try {
@@ -17,19 +17,13 @@ const loadSelectedSkins = () => {
 };
 
 export const WaifuProvider = ({ children }: { children: React.ReactNode }) => {
-  const [waifu, setWaifuState] = useState<WaifuConfig | null>(null);
+  const [waifu, setWaifuState] = useState<WaifuConfig | null>(() => {
+    const savedId = localStorage.getItem(LOCAL_KEY);
+    return waifus[savedId ?? ""] ?? waifus[DEFAULT_WAIFU] ?? null;
+  });
   const [selectedSkinByWaifu, setSelectedSkinByWaifu] =
     useState<Record<string, string>>(loadSelectedSkins);
 
-  // 🔥 cargar desde localStorage una sola vez
-  useEffect(() => {
-    const savedId = localStorage.getItem(LOCAL_KEY);
-    if (savedId && waifus[savedId]) {
-      setWaifuState(waifus[savedId]);
-    }
-  }, []);
-
-  // 🔥 setter centralizado
   const setWaifu = (id: string) => {
     const selected = waifus[id];
     if (!selected) return;

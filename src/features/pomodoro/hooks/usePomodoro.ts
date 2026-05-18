@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export const usePomodoro = (initialSeconds: number = 1500) => {
   const [timeLeft, setTimeLeft] = useState(initialSeconds);
@@ -26,18 +26,15 @@ export const usePomodoro = (initialSeconds: number = 1500) => {
 
   
 
-  // ▶ Start
-  const start = () => setIsRunning(true);
+  const start = useCallback(() => setIsRunning(true), []);
 
-  // ⏸ Pause
-  const pause = () => setIsRunning(false);
+  const pause = useCallback(() => setIsRunning(false), []);
 
-  // 🔄 Reset (ahora acepta duración dinámica)
-  const reset = (newTime?: number) => {
-    clearInterval(intervalRef.current!); // 🔥 importante evitar interval duplicado
+  const reset = useCallback((newTime?: number) => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
     setIsRunning(false);
     setTimeLeft(newTime ?? initialSeconds);
-  };
+  }, [initialSeconds]);
 
   const isCompleted = timeLeft === 0;
 

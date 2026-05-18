@@ -3,7 +3,7 @@ export type WaifuMood =
   | "blush"
   | "sad"
   | "surprised"
-  | "angry"
+  | "upset"
   | "focused"
   | "selected"
   | "break"
@@ -16,7 +16,7 @@ export type WaifuId = string;
 export type WaifuConfig = {
   id: WaifuId;
   name: string;
-  images: Record<WaifuMood, string>;
+  images: Partial<Record<WaifuMood, string>>;
   skins?: Record<string, Partial<Record<WaifuMood, string>>>;
-  sounds?: Record<WaifuMood, string>;
+  sounds?: Partial<Record<WaifuMood, string>>;
 };

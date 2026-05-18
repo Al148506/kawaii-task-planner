@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 
 type PlayOptions = {
   volume?: number;
@@ -9,7 +9,7 @@ export const useSound = () => {
   const audioCache = useRef<Record<string, HTMLAudioElement>>({});
   const currentAudio = useRef<HTMLAudioElement | null>(null);
 
-  const play = (url?: string, options?: PlayOptions) => {
+  const play = useCallback((url?: string, options?: PlayOptions) => {
     if (!url) return;
 
     try {
@@ -33,29 +33,27 @@ export const useSound = () => {
       }
 
       audio.currentTime = 0;
-      audio.play().catch((error) => {
-        console.warn("Error reproduciendo audio:", error);
-      });
+      audio.play().catch(() => undefined);
 
       currentAudio.current = audio;
-    } catch (error) {
-      console.warn("Error reproduciendo sonido:", error);
+    } catch {
+      return;
     }
-  };
+  }, []);
 
-  const stop = () => {
+  const stop = useCallback(() => {
     if (currentAudio.current) {
       currentAudio.current.pause();
       currentAudio.current.currentTime = 0;
     }
-  };
+  }, []);
 
-  const stopAll = () => {
+  const stopAll = useCallback(() => {
     Object.values(audioCache.current).forEach((audio) => {
       audio.pause();
       audio.currentTime = 0;
     });
-  };
+  }, []);
 
   return {
     play,
