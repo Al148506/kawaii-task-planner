@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CategoryBreakdownChart from "@/features/dashboard/components/CategoryBreakdownChart";
 import CompletedTasksChart from "@/features/dashboard/components/CompletedTasksChart";
 import DashboardSummaryCards from "@/features/dashboard/components/DashboardSummaryCards";
 import PeriodSelector from "@/features/dashboard/components/PeriodSelector";
@@ -32,6 +33,7 @@ const DashboardPage = () => {
         <CompletedTasksChart series={stats.currentSeries} />
         <TimeSpentChart series={stats.currentSeries} />
         <TaskProgressChart stats={stats} />
+        <CategoryBreakdownChart breakdown={stats.categoryBreakdown} />
       </div>
     </div>
   );

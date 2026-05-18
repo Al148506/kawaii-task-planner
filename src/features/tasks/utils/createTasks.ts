@@ -1,6 +1,7 @@
 import type { PomodoroType } from "@/features/pomodoro/types/PomodoroSettings";
 import type { RepetitionSettings } from "@/features/tasks/types/RepetitionSettings";
 import type { Task } from "@/features/tasks/types/Task";
+import type { TaskCategory } from "@/features/tasks/types/Category";
 import type { Pomodoro } from "@/features/pomodoro/types/Pomodoro";
 import { generateDatesByRepetition } from "@/features/tasks/utils/generateDatesByRepetition";
 
@@ -11,6 +12,7 @@ interface CreateTasksParams {
   pomodoroType: PomodoroType;
   customDuration: number;
   repetitionType: RepetitionSettings;
+  category: TaskCategory;
 }
 
 // 👉 helper para crear pomodoros
@@ -35,6 +37,7 @@ export const createTasks = ({
   pomodoroType,
   customDuration,
   repetitionType,
+  category,
 }: CreateTasksParams): Task[] => {
   const dates =
     repetitionType === "None"
@@ -45,6 +48,7 @@ export const createTasks = ({
     id: crypto.randomUUID(),
     title,
     date: d,
+    category,
     pomodoroType,
     customDuration: pomodoroType === "custom" ? customDuration : undefined,
     pomodoros: createPomodoros(pomodoroCount, pomodoroType, customDuration),

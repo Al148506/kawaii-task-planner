@@ -40,6 +40,9 @@ Theme: Soft / Cute / Cozy Productivity
   --border-default: #e0c8e0;
   --border-bright: #cdb8d8;
 
+  /* Cristal / glass */
+  --bg-glass: rgba(255, 255, 255, 0.72);
+
   /* El resto no cambia */
   --shadow-panel: 0 8px 25px rgba(90, 50, 120, 0.06);
   --font-display: "Cinzel Decorative", serif;
@@ -55,6 +58,182 @@ Theme: Soft / Cute / Cozy Productivity
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
   --radius-xl: 2rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
+DARK MODE 🌙
+═══════════════════════════════════════════════════════════ */
+[data-theme="dark"] {
+  --bg-void: #13111c;
+  --bg-deep: #1e1a2e;
+  --bg-surface: #262135;
+  --bg-elevated: #2f2942;
+  --bg-overlay: #3a3350;
+  --bg-glass: rgba(38, 33, 53, 0.78);
+
+  --text-hero: #e2d5f0;
+  --text-primary: #cbb8e0;
+  --text-secondary: #ab93c8;
+  --text-muted: #7d699a;
+  --text-ghost: #5d4d75;
+
+  --border-subtle: #38304d;
+  --border-default: #4a4062;
+  --border-bright: #5d4d75;
+
+  --shadow-panel: 0 8px 25px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(160deg, #1a1630 0%, #13111c 40%, #0f0d18 100%);
+}
+
+[data-theme="dark"] body::before {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(150, 80, 180, 0.15), transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba(60, 100, 180, 0.12), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(100, 60, 150, 0.1), transparent 50%);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-ghost {
+  background: var(--bg-elevated);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .btn-danger {
+  background: rgba(180, 50, 80, 0.2);
+  color: #f5a0b8;
+}
+
+/* ─── Component dark overrides ──────────────────────────────── */
+
+/* App */
+[data-theme="dark"] .app-nav {
+  background: rgba(38, 33, 53, 0.7);
+}
+[data-theme="dark"] .app-header-inner > button {
+  background: linear-gradient(135deg, rgba(60, 40, 90, 0.6), rgba(40, 30, 70, 0.5));
+  color: var(--text-secondary);
+  border-color: var(--border-subtle);
+}
+
+/* Pomodoro glass panels */
+[data-theme="dark"] .pomodoro-progress,
+[data-theme="dark"] .pomodoro-phase-tag,
+[data-theme="dark"] .pomodoro-speech,
+[data-theme="dark"] .pomodoro-context,
+[data-theme="dark"] .pomodoro-confirm {
+  background: var(--bg-glass);
+  backdrop-filter: blur(6px);
+}
+[data-theme="dark"] .pomodoro-controls button:last-child {
+  background: var(--bg-glass);
+}
+[data-theme="dark"] .pomodoro-controls button:first-child {
+  background: linear-gradient(135deg, #2a1f3e, #33254a);
+  border-color: #7a5a90;
+  color: #d49fd8;
+}
+[data-theme="dark"] .pomodoro-controls button:first-child:hover {
+  background: linear-gradient(135deg, #33254a, #3d2d58);
+}
+[data-theme="dark"] .pomodoro-cancel:hover {
+  background: rgba(60, 30, 40, 0.5);
+}
+[data-theme="dark"] .pomodoro-confirm__btn--yes {
+  background: rgba(60, 25, 35, 0.7);
+  border-color: #8a5a5a;
+  color: #e8a0a0;
+}
+[data-theme="dark"] .pomodoro-confirm__btn--no {
+  background: linear-gradient(135deg, #2a1f3e, #33254a);
+  border-color: #7a5a90;
+  color: #c77dcc;
+}
+[data-theme="dark"] .pomodoro-finished__btn {
+  background: linear-gradient(135deg, #2a1f3e, #33254a);
+  border-color: #7a5a90;
+  color: #d49fd8;
+}
+
+/* Waifu Assistant */
+[data-theme="dark"] .waifu-dialog,
+[data-theme="dark"] .waifu-music-hint,
+[data-theme="dark"] .waifu-music-panel,
+[data-theme="dark"] .waifu-music-btn {
+  background: var(--bg-glass);
+}
+[data-theme="dark"] .waifu-dialog {
+  border-color: var(--border-subtle);
+}
+[data-theme="dark"] .waifu-dialog::before {
+  background: var(--bg-elevated);
+  border-color: var(--border-subtle);
+}
+[data-theme="dark"] .waifu-music-hint--playing,
+[data-theme="dark"] .waifu-music-btn--active {
+  background: rgba(60, 35, 65, 0.85);
+}
+[data-theme="dark"] .waifu-music-btn:hover {
+  background: var(--bg-elevated);
+}
+
+/* Dashboard */
+[data-theme="dark"] .dashboard-period {
+  background: rgba(38, 33, 53, 0.6);
+}
+[data-theme="dark"] .dashboard-card,
+[data-theme="dark"] .dashboard-panel {
+  background: var(--bg-glass);
+}
+
+/* Progression */
+[data-theme="dark"] .progression-achievement,
+[data-theme="dark"] .progression-skin {
+  background: rgba(38, 33, 53, 0.5);
+}
+[data-theme="dark"] .progression-achievement.is-unlocked,
+[data-theme="dark"] .progression-skin.is-unlocked {
+  background: linear-gradient(135deg, rgba(38, 33, 53, 0.8), var(--bg-elevated));
+}
+
+/* Calendar */
+[data-theme="dark"] .rdp-today:not(.rdp-selected):not(.rdp-outside) {
+  background: rgba(60, 40, 80, 0.6);
+}
+[data-theme="dark"] :root {
+  --rdp-accent-background-color: #2a1f3e !important;
+}
+
+/* Task List */
+[data-theme="dark"] .pomodoro-btn {
+  background: var(--bg-surface);
+}
+
+/* Waifu Selector */
+[data-theme="dark"] .waifu-card {
+  background: var(--bg-surface);
+  border-color: var(--border-subtle);
+  box-shadow: 0 4px 0 var(--border-subtle), 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+[data-theme="dark"] .waifu-card:hover {
+  border-color: var(--border-bright);
+  box-shadow: 0 8px 0 var(--border-bright), 0 14px 26px rgba(0, 0, 0, 0.35);
+}
+[data-theme="dark"] .waifu-card img {
+  background: var(--bg-elevated);
+  border-color: var(--border-subtle);
+}
+[data-theme="dark"] .waifu-skin-chip {
+  background: var(--bg-elevated);
 }
 
 /* ─── Reset ─────────────────────────────────────────────── */

@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 import type { Task } from "@/features/tasks/types/Task";
+import { DEFAULT_CATEGORY } from "@/features/tasks/types/Category";
 
 export const useTasks = () => {
   const [tasks, setTasks] = useState<Task[]>(() => {
     try {
       const saved = localStorage.getItem("tasks");
-      return saved ? JSON.parse(saved) : [];
+      const parsed: Task[] = saved ? JSON.parse(saved) : [];
+      return parsed.map((task) => ({
+        ...task,
+        category: task.category ?? DEFAULT_CATEGORY,
+      }));
     } catch {
       return [];
     }

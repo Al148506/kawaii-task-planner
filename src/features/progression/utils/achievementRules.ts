@@ -32,6 +32,9 @@ const getCompletedTasksForDay = (tasks: Task[], date: string) =>
 const getPomodorosForDay = (sessions: PomodoroSession[], date: string) =>
   sessions.filter((session) => getDateKey(session.completedAt) === date).length;
 
+const getCompletedTasksByCategory = (tasks: Task[], category: string) =>
+  tasks.filter((task) => task.category === category && isTaskCompleted(task)).length;
+
 export const evaluateAchievements = ({
   sessions,
   tasks,
@@ -53,6 +56,7 @@ export const evaluateAchievements = ({
     ["first_full_task", tasks.some(isTaskCompleted)],
     ["one_hour_focus", totalEstimatedMinutes >= 60],
     ["daily_warrior", getPomodorosForDay(sessions, latestDate) >= 3],
+    ["study_dedication", getCompletedTasksByCategory(tasks, "estudio") >= 5],
   ];
 
   checks.forEach(([id, passed]) => {

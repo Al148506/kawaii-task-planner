@@ -5,6 +5,8 @@ import {
   PomodoroDurations,
 } from "@/features/pomodoro/types/PomodoroSettings";
 import type { RepetitionSettings } from "@/features/tasks/types/RepetitionSettings";
+import type { TaskCategory } from "@/features/tasks/types/Category";
+import { TASK_CATEGORIES, DEFAULT_CATEGORY } from "@/features/tasks/types/Category";
 import { createTasks } from "@/features/tasks/utils/createTasks";
 import { showDuplicateTaskAlert } from "@/shared/utils/alerts";
 interface Props {
@@ -15,6 +17,7 @@ const TaskForm = ({ date }: Props) => {
   const { addTask } = useTasksContext();
 
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState<TaskCategory>(DEFAULT_CATEGORY);
   const [pomodoroCount, setPomodoroCount] = useState(1);
   const [pomodoroType, setPomodoroType] = useState<PomodoroType>("classic");
   const [customDuration, setCustomDuration] = useState(25);
@@ -43,6 +46,7 @@ const handleSubmit = (e: React.FormEvent) => {
     pomodoroType,
     customDuration,
     repetitionType,
+    category,
   });
 
     let duplicates = 0;
@@ -57,6 +61,7 @@ const handleSubmit = (e: React.FormEvent) => {
   }
 
   setTitle("");
+  setCategory(DEFAULT_CATEGORY);
   setPomodoroCount(1);
   setPomodoroType("classic");
   setCustomDuration(25);
@@ -72,6 +77,34 @@ const handleSubmit = (e: React.FormEvent) => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
+      {/* Categoría */}
+      <div style={{ marginTop: "0.75rem" }}>
+        <label style={{ display: "block", marginBottom: "0.35rem", fontSize: "0.85rem" }}>
+          Categoría:
+        </label>
+        <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+          {TASK_CATEGORIES.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              onClick={() => setCategory(cat.id)}
+              style={{
+                padding: "4px 10px",
+                borderRadius: "999px",
+                border: category === cat.id ? `2px solid ${cat.color}` : "1px solid var(--border-subtle)",
+                background: category === cat.id ? `${cat.color}33` : "transparent",
+                color: "var(--text-primary)",
+                fontSize: "0.8rem",
+                cursor: "pointer",
+                transition: "all 0.15s ease",
+              }}
+            >
+              {cat.emoji} {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/*Cantidad de pomodoros */}
       <div style={{ marginTop: "0.5rem" }}>

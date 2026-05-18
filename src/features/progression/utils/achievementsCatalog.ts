@@ -60,6 +60,13 @@ export const achievementsCatalog: Achievement[] = [
     xpReward: 160,
     category: "pomodoro",
   },
+  {
+    id: "study_dedication",
+    title: "Dedicación al estudio",
+    description: "Completa 5 tareas de estudio.",
+    xpReward: 200,
+    category: "tasks",
+  },
 ];
 
 export const waifuSkinUnlocks: WaifuSkinUnlock[] = [

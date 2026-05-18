@@ -1,5 +1,6 @@
 import { getPomodoroDuration } from "@/features/pomodoro/utils/pomodoro";
 import type { Task } from "@/features/tasks/types/Task";
+import type { TaskCategory } from "@/features/tasks/types/Category";
 
 export type DashboardPeriod = "day" | "week" | "month";
 
@@ -9,6 +10,12 @@ export type DashboardSeriesItem = {
   totalTasks: number;
   estimatedMinutes: number;
   completedPomodoros: number;
+};
+
+export type CategoryStat = {
+  category: TaskCategory;
+  count: number;
+  estimatedMinutes: number;
 };
 
 export type DashboardStats = {
@@ -28,6 +35,7 @@ export type DashboardStats = {
     completedPomodoros: number;
     estimatedMinutes: number;
   }>;
+  categoryBreakdown: CategoryStat[];
 };
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -147,6 +155,23 @@ export const formatMinutes = (minutes: number) => {
   return `${hours} h ${remainingMinutes} min`;
 };
 
+const getCategoryBreakdown = (tasks: Task[]): CategoryStat[] => {
+  const groups: Record<string, { count: number; estimatedMinutes: number }> = {};
+
+  tasks.forEach((task) => {
+    const cat = task.category;
+    if (!groups[cat]) groups[cat] = { count: 0, estimatedMinutes: 0 };
+    groups[cat].count++;
+    groups[cat].estimatedMinutes += getEstimatedMinutes(task);
+  });
+
+  return Object.entries(groups).map(([category, data]) => ({
+    category: category as TaskCategory,
+    count: data.count,
+    estimatedMinutes: data.estimatedMinutes,
+  })).sort((a, b) => b.estimatedMinutes - a.estimatedMinutes);
+};
+
 export const getDashboardStats = (
   tasks: Task[],
   period: DashboardPeriod,
@@ -200,5 +225,6 @@ export const getDashboardStats = (
       .filter((task) => task.completedPomodoros > 0)
       .sort((taskA, taskB) => taskB.estimatedMinutes - taskA.estimatedMinutes)
       .slice(0, 5),
+    categoryBreakdown: getCategoryBreakdown(tasks),
   };
 };

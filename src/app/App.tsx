@@ -7,47 +7,50 @@ import ProgressionPage from "@/features/progression/pages/ProgressionPage";
 import { useState } from "react";
 import GenericModal from "@/shared/components/modal/GenericModal";
 import WaifuSelector from "@/features/waifu/components/WaifuSelector/WaifuSelector";
+import { useTheme } from "./hooks/useTheme";
 
 function App() {
+  const { isDark, toggle } = useTheme();
   const [isWaifuModalOpen, setIsWaifuModalOpen] = useState(false);
 
-  const handleOpenWaifuModal = () => {
-    setIsWaifuModalOpen(true);
-  };
-
-  const handleCloseWaifuModal = () => {
-    setIsWaifuModalOpen(false);
-  };
   return (
     <>
+      <button
+        className="theme-toggle"
+        onClick={toggle}
+        aria-label={isDark ? "Activar tema claro" : "Activar tema obscuro"}
+        title={isDark ? "Tema claro" : "Tema obscuro"}
+      >
+        {isDark ? "☀️" : "🌙"}
+      </button>
+
       <header className="app-header">
         <div className="app-header-inner">
           <span className="header-ornament">estudio · descanso · flujo</span>
-          <h1>Pomodoro Senpai</h1>
+          <h1 className="app-title">Pomodoro Senpai</h1>
           <p className="app-subtitle">your kawaii productivity companion</p>
-          <div className="header-divider">
+
+          <div className="header-divider" aria-hidden="true">
             <div className="header-divider-line" />
             <span className="header-divider-icon">✦</span>
             <div className="header-divider-line" />
           </div>
-          <nav className="app-nav" aria-label="Navegacion principal">
-            <NavLink to="/" className={({ isActive }) => (isActive ? "is-active" : undefined)}>
+
+          <nav className="app-nav" aria-label="Navegación principal">
+            <NavLink to="/" className={({ isActive }) => isActive ? "is-active" : undefined}>
               Misiones
             </NavLink>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) => (isActive ? "is-active" : undefined)}
-            >
+            <NavLink to="/dashboard" className={({ isActive }) => isActive ? "is-active" : undefined}>
               Dashboard
             </NavLink>
-            <NavLink
-              to="/progress"
-              className={({ isActive }) => (isActive ? "is-active" : undefined)}
-            >
+            <NavLink to="/progress" className={({ isActive }) => isActive ? "is-active" : undefined}>
               Progreso
             </NavLink>
           </nav>
-          <button onClick={handleOpenWaifuModal}>💕 Seleccionar Acompañante</button>
+
+          <button className="btn-companion" onClick={() => setIsWaifuModalOpen(true)}>
+            💕 Seleccionar Acompañante
+          </button>
         </div>
       </header>
 
@@ -58,8 +61,8 @@ function App() {
           <Route path="/progress" element={<ProgressionPage />} />
           <Route path="/pomodoro" element={<PomodoroPage />} />
         </Routes>
-        <GenericModal isOpen={isWaifuModalOpen} onClose={handleCloseWaifuModal}>
-          <WaifuSelector onClose={handleCloseWaifuModal} />
+        <GenericModal isOpen={isWaifuModalOpen} onClose={() => setIsWaifuModalOpen(false)}>
+          <WaifuSelector onClose={() => setIsWaifuModalOpen(false)} />
         </GenericModal>
       </main>
     </>

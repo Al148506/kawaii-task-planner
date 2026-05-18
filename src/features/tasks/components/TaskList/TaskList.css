@@ -1,4 +1,54 @@
 /* ═══════════════════════════════════════════════════════════
+CATEGORY FILTER CHIPS
+═══════════════════════════════════════════════════════════ */
+
+.task-list__filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-md);
+}
+
+.task-list__filter-chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.task-list__filter-chip:hover {
+  transform: translateY(-1px);
+}
+
+.task-list__filter-chip--active {
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════
+CATEGORY BADGE ON TASK ITEM
+═══════════════════════════════════════════════════════════ */
+
+.task-item__title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-item__category-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
 TASK LIST — KAWAII STYLE 🌸
 ═══════════════════════════════════════════════════════════ */
 
