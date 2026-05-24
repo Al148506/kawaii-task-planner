@@ -10,25 +10,242 @@ CATEGORY FILTER CHIPS
 }
 
 .task-list__filter-chip {
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
   font-size: 0.8rem;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.15s ease;
-  background: transparent;
+  background: var(--bg-elevated);
   color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
 }
 
 .task-list__filter-chip:hover {
   transform: translateY(-1px);
+  background: var(--bg-control-hover);
 }
 
 .task-list__filter-chip--active {
   font-weight: 600;
+  color: var(--text-on-primary);
+  border: none;
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+  box-shadow: 0 2px 8px var(--pink-soft);
+}
+
+/* ═══════════════════════════════════════════════════════════
+TASK FORM STYLES
+═══════════════════════════════════════════════════════════ */
+
+.task-form {
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.task-form__input {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  width: 100%;
   color: var(--text-primary);
-  border: 2px solid var(--category-color, var(--pink));
-  background: color-mix(in srgb, var(--category-color, var(--pink)) 18%, transparent);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.task-form__input:focus {
+  border-color: var(--pink);
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+.task-form__input::placeholder {
+  color: var(--text-muted);
+}
+
+.task-form__input--small {
+  max-width: 120px;
+}
+
+.task-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-form__field--half {
+  flex: 1;
+  min-width: 0;
+}
+
+.task-form__row {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.task-form__label {
+  font-family: var(--font-title);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.task-form__category-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.task-form__category-chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.task-form__category-chip:hover {
+  background: var(--bg-control-hover);
+  transform: translateY(-1px);
+}
+
+.task-form__category-chip.is-active {
+  border: 2px solid var(--category-color);
+  background: color-mix(in srgb, var(--category-color) 18%, transparent);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Counter */
+.task-form__counter {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  width: fit-content;
+}
+
+.task-form__counter-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  padding: 0;
+  border-radius: 0;
+}
+
+.task-form__counter-btn:hover {
+  background: var(--bg-control-hover);
+  color: var(--pink);
+}
+
+.task-form__counter-value {
+  min-width: 40px;
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Select */
+.task-form__select {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.task-form__select:focus {
+  border-color: var(--pink);
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+
+/* Time Display */
+.task-form__time-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+
+.task-form__time-icon {
+  font-size: 0.9rem;
+}
+
+.task-form__time-value {
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.task-form__time-hours {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Submit Button */
+.task-form__submit {
+  margin-top: var(--space-sm);
+  padding: 14px 24px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  color: var(--text-on-primary);
+  font-family: var(--font-title);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  box-shadow: 0 4px 16px var(--pink-soft);
+  transition: all 0.2s ease;
+}
+
+.task-form__submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--pink-soft);
+}
+
+.task-form__submit:active {
+  transform: scale(0.98);
+}
+
+.task-form__submit-icon {
+  font-size: 1rem;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -45,67 +262,88 @@ CATEGORY BADGE ON TASK ITEM
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
   flex-shrink: 0;
-  color: var(--category-color);
+  color: var(--text-primary);
   background: color-mix(in srgb, var(--category-color) 18%, transparent);
   border: 1px solid color-mix(in srgb, var(--category-color) 40%, transparent);
 }
 
 /* ═══════════════════════════════════════════════════════════
-TASK LIST — KAWAII STYLE 🌸
+TASK LIST — KAWAII STYLE
 ═══════════════════════════════════════════════════════════ */
 
-/* ─── Wrapper ───────────────────────────────────────────── */
 .task-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  margin-top: var(--space-lg);
+  gap: var(--space-sm);
 }
 
-/* ─── Task Card ─────────────────────────────────────────── */
+/* Task Card */
 .task-item {
-  background: var(--bg-card);
+  background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: var(--space-md) var(--space-lg);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
-
   box-shadow: var(--shadow-panel);
-
   transition: all 0.2s ease;
   position: relative;
 }
 
-/* Hover cute */
 .task-item:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   box-shadow: var(--shadow-panel-hover);
 }
 
-/* ✨ sparkle decor */
 .task-item::after {
-  content: "✨";
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  font-size: 0.75rem;
-  opacity: 0.5;
+  content: none;
 }
 
-/* ─── Left content ─────────────────────────────────────── */
+/* Left content */
 .task-item__content {
   display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1;
+  min-width: 0;
+}
+
+.task-item__checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border-default);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.task-item__checkbox:hover {
+  border-color: var(--pink);
+  background: var(--pink-soft);
+}
+
+.task-item__checkbox--completed {
+  border-color: var(--pink);
+  background: linear-gradient(135deg, var(--peach), var(--pink));
+}
+
+.task-item__info {
+  display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 4px;
+  min-width: 0;
 }
 
 /* Title */
@@ -115,110 +353,62 @@ TASK LIST — KAWAII STYLE 🌸
   color: var(--text-primary);
 }
 
-/* Sub info (pomodoros, etc) */
+/* Sub info */
 .task-item__meta {
-  margin-top: 0.25rem;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
-}
-
-.task-form {
-  margin-top: 1rem;
-}
-
-.task-form__field {
-  margin-top: 0.5rem;
-}
-
-.task-form__field:first-of-type {
-  margin-top: 0.75rem;
-}
-
-.task-form__field label {
-  display: block;
-  margin-bottom: 0.35rem;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.task-form__category-list {
   display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
-.task-form__category-chip {
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border-subtle);
-  background: transparent;
-  color: var(--text-primary);
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.task-form__category-chip.is-active {
-  border: 2px solid var(--category-color);
-  background: color-mix(in srgb, var(--category-color) 18%, transparent);
-}
-
-.task-form__summary {
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-  opacity: 0.88;
-}
-
-.task-form__submit {
-  margin-top: 1rem;
-  border: 1px solid var(--border-bright);
-  background: var(--primary-gradient);
-  color: var(--text-on-primary);
-  box-shadow: 0 6px 14px var(--pink-soft);
-}
-
-/* ─── Right actions ────────────────────────────────────── */
+/* Right actions */
 .task-item__actions {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
 }
 
-/* ─── Pomodoro bubbles ─────────────────*
-/* ─── Pomodoro buttons (interactive) ───────────────────── */
+/* Pomodoro badge */
+.task-item__pomodoro-badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--pink-soft);
+  color: var(--pink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
 
-/* Contenedor */
+/* ═══════════════════════════════════════════════════════════
+POMODORO BUTTONS
+═══════════════════════════════════════════════════════════ */
+
 .pomodoro-list {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-/* Botón base */
 .pomodoro-btn {
   width: 28px;
   height: 28px;
   border-radius: 50%;
   border: 1px solid var(--border-subtle);
   background: var(--bg-control);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 0.9rem;
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
-/* Hover (solo si no está completado) */
 .pomodoro-btn:hover:not(:disabled) {
   background: var(--pink-soft);
   transform: scale(1.1);
 }
 
-/* Estado completado */
 .pomodoro-btn.completed {
   background: linear-gradient(135deg, var(--peach), var(--pink));
   color: var(--text-on-primary);
@@ -226,13 +416,11 @@ TASK LIST — KAWAII STYLE 🌸
   box-shadow: 0 4px 10px var(--pink-soft);
 }
 
-/* Estado deshabilitado */
 .pomodoro-btn:disabled {
   cursor: default;
   opacity: 0.9;
 }
 
-/* Click feedback */
 .pomodoro-btn:active:not(:disabled) {
   transform: scale(0.95);
 }
@@ -244,11 +432,47 @@ TASK LIST — KAWAII STYLE 🌸
 }
 
 @keyframes pulse {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
     transform: scale(1.2);
+  }
+}
+
+/* Delete button */
+.task-item__delete {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-control);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.task-item__delete:hover {
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
+  color: var(--danger);
+}
+
+/* ═══════════════════════════════════════════════════════════
+RESPONSIVE
+═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .task-form__row {
+    flex-direction: column;
+  }
+  
+  .task-form__field--half {
+    width: 100%;
   }
 }

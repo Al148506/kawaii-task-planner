@@ -21,7 +21,7 @@ const DayProgress = ({ tasks }: Props) => {
     totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
   const getMessage = () => {
-    if (progress === 100) return "Misión completada";
+    if (progress === 100) return "Mision completada";
     if (progress >= 70) return "Casi lo logras";
     if (progress >= 40) return "Buen progreso";
     return "Comienza tu aventura";
@@ -30,14 +30,18 @@ const DayProgress = ({ tasks }: Props) => {
   return (
     <div className="tasks-page__progress">
       <div className="tasks-page__progress-header">
-        <div>
-          <div className="tasks-page__progress-title">progreso del día</div>
-          <p className="tasks-page__progress-message">{getMessage()}</p>
+        <div className="tasks-page__progress-left">
+          <div className="tasks-page__progress-title">Progreso del Dia</div>
         </div>
         <div className="tasks-page__progress-pct">
           <span className="tasks-page__progress-pct-number">{progress}</span>
           <span className="tasks-page__progress-pct-label">%</span>
         </div>
+      </div>
+
+      <div className="tasks-page__progress-message-row">
+        <span className="tasks-page__progress-star">⭐</span>
+        <p className="tasks-page__progress-message">{getMessage()}</p>
       </div>
 
       <div className="tasks-page__progress-bar">
@@ -51,16 +55,6 @@ const DayProgress = ({ tasks }: Props) => {
         <span className="tasks-page__progress-count">
           {completedTasks} / {totalTasks} completadas
         </span>
-        <div className="tasks-page__progress-dots">
-          {tasks.map((task, i) => (
-            <div
-              key={i}
-              className={`tasks-page__progress-dot${
-                isTaskCompleted(task) ? " tasks-page__progress-dot--done" : ""
-              }`}
-            />
-          ))}
-        </div>
       </div>
     </div>
   );

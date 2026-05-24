@@ -1,12 +1,12 @@
 /* ─── Day Progress — kawaii ─────────────────────────────── */
 .tasks-page__progress {
-  background: var(--bg-card);
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: 20px;
-  padding: 1.1rem 1.25rem 1rem;
-  margin-bottom: var(--space-lg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-panel);
 }
 
 /* manchita decorativa */
@@ -26,10 +26,15 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 14px;
+  margin-bottom: var(--space-sm);
 }
 
-/* reutiliza el mismo estilo que .tasks-section__label */
+.tasks-page__progress-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .tasks-page__progress-title {
   font-family: var(--font-title);
   font-size: 0.65rem;
@@ -40,7 +45,6 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 4px;
 }
 
 .tasks-page__progress-title::before {
@@ -49,26 +53,38 @@
   opacity: 0.8;
 }
 
+/* Message row */
+.tasks-page__progress-message-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: var(--space-md);
+}
+
+.tasks-page__progress-star {
+  font-size: 0.9rem;
+}
+
 .tasks-page__progress-message {
   font-family: var(--font-title);
-  font-size: 0.95rem;
-  font-weight: 800;
+  font-size: 0.9rem;
+  font-weight: 700;
   color: var(--text-primary);
   margin: 0;
   line-height: 1.2;
 }
 
-/* número grande con gradiente */
+/* numero grande con gradiente */
 .tasks-page__progress-pct {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  align-items: baseline;
+  gap: 2px;
   line-height: 1;
 }
 
 .tasks-page__progress-pct-number {
   font-family: var(--font-title);
-  font-size: 1.9rem;
+  font-size: 2.5rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   background: linear-gradient(90deg, var(--peach), var(--pink), var(--lavender));
@@ -78,20 +94,20 @@
 
 .tasks-page__progress-pct-label {
   font-family: var(--font-title);
-  font-size: 0.6rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
+  background: linear-gradient(90deg, var(--peach), var(--pink), var(--lavender));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* barra */
 .tasks-page__progress-bar {
-  height: 7px;
+  height: 8px;
   background: var(--bg-elevated);
   border-radius: 999px;
   overflow: hidden;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-sm);
 }
 
 .tasks-page__progress-fill {
@@ -116,35 +132,14 @@
 /* footer */
 .tasks-page__progress-info {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .tasks-page__progress-count {
   font-family: var(--font-title);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
-}
-
-.tasks-page__progress-dots {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-}
-
-.tasks-page__progress-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--bg-elevated);
-  border: 1.5px solid var(--border-default);
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.tasks-page__progress-dot--done {
-  background: linear-gradient(135deg, var(--peach), var(--pink));
-  border-color: transparent;
 }

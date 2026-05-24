@@ -3,6 +3,7 @@ import { useTasksContext } from "@/features/tasks/context/TasksContext";
 import { usePomodoroContext } from "@/features/pomodoro/context/PomodoroContext";
 import { getPomodoroDuration, getTotalTaskDuration } from "@/features/pomodoro/utils/pomodoro";
 import { getCategoryConfig } from "@/features/tasks/types/Category";
+
 interface Props {
   task: Task;
   onStartPomodoro: () => void;
@@ -13,34 +14,48 @@ const TaskItem = ({ task, onStartPomodoro }: Props) => {
   const { startPomodoro, activePomodoro } = usePomodoroContext();
   const duration = getPomodoroDuration(task);
   const category = getCategoryConfig(task.category);
+  
+  const completedCount = task.pomodoros.filter(p => p.completed).length;
+  const totalPomodoros = task.pomodoros.length;
 
   const handleStartPomodoro = (taskId: string, pomodoroId: string) => {
     if (activePomodoro) return;
-    startPomodoro(
-      taskId,
-      pomodoroId,
-      task.date,
-      task.title,
-      duration
-    );
-
+    startPomodoro(taskId, pomodoroId, task.date, task.title, duration);
     onStartPomodoro();
   };
 
   return (
     <div className="task-item">
       <div className="task-item__content">
-        <div className="task-item__title-row">
-          <span
-            className="task-item__category-badge"
-            style={{ "--category-color": category.color } as React.CSSProperties}
-          >
-            {category.emoji}
-          </span>
-          <span className="task-item__title">{task.title}</span>
+        {/* Checkbox visual */}
+        <div className={`task-item__checkbox ${completedCount === totalPomodoros ? "task-item__checkbox--completed" : ""}`}>
+          {completedCount === totalPomodoros && "✓"}
         </div>
+        
+        <div className="task-item__info">
+          <div className="task-item__title-row">
+            <span className="task-item__title">{task.title}</span>
+            <span
+              className="task-item__category-badge"
+              style={{ "--category-color": category.color } as React.CSSProperties}
+            >
+              {category.label}
+            </span>
+          </div>
 
-        {/* 🍅 Lista de pomodoros */}
+          <div className="task-item__meta">
+            <span>⏱ {getTotalTaskDuration(task)} min</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="task-item__actions">
+        {/* Pomodoro badge */}
+        <span className="task-item__pomodoro-badge">
+          {completedCount}/{totalPomodoros} pomodoro{totalPomodoros > 1 ? "s" : ""}
+        </span>
+
+        {/* Pomodoro buttons */}
         <div className="pomodoro-list">
           {task.pomodoros.map((p) => (
             <button
@@ -51,28 +66,22 @@ const TaskItem = ({ task, onStartPomodoro }: Props) => {
               `}
               disabled={p.completed}
               onClick={() => handleStartPomodoro(task.id, p.id)}
+              title={p.completed ? "Completado" : "Iniciar pomodoro"}
             >
-              {p.completed ? "✔" : "🍅"}
+              {p.completed ? "✔" : "▶"}
             </button>
           ))}
         </div>
 
-        {/* ⏱ Info opcional (muy útil para UX) */}
-        <div className="task-item__meta">
-          {task.pomodoroType === "custom"
-            ? `Custom (${task.customDuration ?? 25} min)`
-            : `${task.pomodoroType} ${getTotalTaskDuration(task)} min)`
-          }
-        </div>
+        {/* Delete button */}
+        <button
+          className="task-item__delete"
+          onClick={() => deleteTask(task.id)}
+          title="Eliminar tarea"
+        >
+          ⋮
+        </button>
       </div>
-
-      {/* 🗑 Eliminar */}
-      <button
-        className="task-item__delete"
-        onClick={() => deleteTask(task.id)}
-      >
-        Eliminar
-      </button>
     </div>
   );
 };
