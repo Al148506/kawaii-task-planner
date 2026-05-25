@@ -8,64 +8,67 @@ import { useState } from "react";
 import GenericModal from "@/shared/components/modal/GenericModal";
 import WaifuSelector from "@/features/waifu/components/WaifuSelector/WaifuSelector";
 import { useTheme } from "./hooks/useTheme";
+import { useWaifuContext } from "@/features/waifu/context/WaifuContext";
+import { SidebarCompanion } from "@/features/waifu/components/SidebarCompanion/SidebarCompanion";
+import { AppSidebar } from "@/shared/layout/AppSidebar/AppSidebar";
+
+const navItems = [
+  { to: "/", label: "Misiones", icon: "📋", helper: "Quest board" },
+  { to: "/dashboard", label: "Dashboard", icon: "📊", helper: "Estadisticas" },
+  { to: "/progress", label: "Progreso", icon: "📈", helper: "RPG log" },
+];
 
 function App() {
   const { isDark, toggle } = useTheme();
+  const { waifu } = useWaifuContext();
   const [isWaifuModalOpen, setIsWaifuModalOpen] = useState(false);
 
   return (
-    <>
-      <button
-        className="theme-toggle"
-        onClick={toggle}
-        aria-label={isDark ? "Activar tema claro" : "Activar tema obscuro"}
-        title={isDark ? "Tema claro" : "Tema obscuro"}
-      >
-        {isDark ? "☀️" : "🌙"}
-      </button>
+    <div className="app-shell">
+      <AppSidebar onOpenWaifuModal={() => setIsWaifuModalOpen(true)} />
 
-      <header className="app-header">
-        <div className="app-header-inner">
-          <span className="header-ornament">estudio · descanso · flujo</span>
-          <h1 className="app-title">Pomodoro Senpai</h1>
-          <p className="app-subtitle">your kawaii productivity companion</p>
-
-          <div className="header-divider" aria-hidden="true">
-            <div className="header-divider-line" />
-            <span className="header-divider-icon">✦</span>
-            <div className="header-divider-line" />
+      <div className="app-content">
+        <header className="app-topbar">
+          <div>
+            <p className="app-subtitle">estudio · descanso · flujo</p>
+            <h2>Productivity dashboard</h2>
           </div>
+          <div className="app-topbar__actions">
+            <button
+              className="theme-toggle"
+              onClick={toggle}
+              aria-label={
+                isDark ? "Activar tema claro" : "Activar tema obscuro"
+              }
+              title={isDark ? "Tema claro" : "Tema obscuro"}
+            >
+              {isDark ? "☀️" : "🌙"}
+            </button>
+            <button
+              className="btn-companion app-topbar__companion"
+              onClick={() => setIsWaifuModalOpen(true)}
+            >
+              💕 Waifu
+            </button>
+          </div>
+        </header>
 
-          <nav className="app-nav" aria-label="Navegación principal">
-            <NavLink to="/" className={({ isActive }) => isActive ? "is-active" : undefined}>
-              Misiones
-            </NavLink>
-            <NavLink to="/dashboard" className={({ isActive }) => isActive ? "is-active" : undefined}>
-              Dashboard
-            </NavLink>
-            <NavLink to="/progress" className={({ isActive }) => isActive ? "is-active" : undefined}>
-              Progreso
-            </NavLink>
-          </nav>
-
-          <button className="btn-companion" onClick={() => setIsWaifuModalOpen(true)}>
-            💕 Seleccionar Acompañante
-          </button>
-        </div>
-      </header>
-
-      <main className="app-main">
-        <Routes>
-          <Route path="/" element={<TasksPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/progress" element={<ProgressionPage />} />
-          <Route path="/pomodoro" element={<PomodoroPage />} />
-        </Routes>
-        <GenericModal isOpen={isWaifuModalOpen} onClose={() => setIsWaifuModalOpen(false)}>
-          <WaifuSelector onClose={() => setIsWaifuModalOpen(false)} />
-        </GenericModal>
-      </main>
-    </>
+        <main className="app-main">
+          <Routes>
+            <Route path="/" element={<TasksPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/progress" element={<ProgressionPage />} />
+            <Route path="/pomodoro" element={<PomodoroPage />} />
+          </Routes>
+          <GenericModal
+            isOpen={isWaifuModalOpen}
+            onClose={() => setIsWaifuModalOpen(false)}
+          >
+            <WaifuSelector onClose={() => setIsWaifuModalOpen(false)} />
+          </GenericModal>
+        </main>
+      </div>
+    </div>
   );
 }
 

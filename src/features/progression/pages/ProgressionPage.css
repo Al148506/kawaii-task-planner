@@ -1,8 +1,5 @@
 .progression-page {
   width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 var(--space-lg) var(--space-2xl);
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
@@ -15,13 +12,17 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   background:
-    radial-gradient(circle at 10% 15%, var(--peach-soft), transparent 34%),
+    radial-gradient(circle at 10% 15%, var(--pink-soft), transparent 34%),
+    radial-gradient(circle at 90% 10%, var(--lavender-soft), transparent 30%),
     var(--surface-gradient);
   box-shadow: var(--shadow-panel);
 }
 
 .progression-hero {
-  padding: var(--space-lg);
+  min-height: 170px;
+  padding: var(--space-xl);
+  display: flex;
+  align-items: flex-end;
 }
 
 .progression-kicker {
@@ -36,7 +37,7 @@
 .progression-hero h2 {
   margin: var(--space-xs) 0 var(--space-sm);
   font-family: var(--font-display);
-  font-size: clamp(1.35rem, 4vw, 2.1rem);
+  font-size: clamp(1.7rem, 4vw, 3rem);
   color: var(--text-hero);
 }
 
@@ -53,10 +54,11 @@
   gap: var(--space-md);
   color: var(--text-primary);
   background: linear-gradient(135deg, var(--pink-soft), var(--mint-soft));
+  box-shadow: var(--shadow-glow);
 }
 
 .progression-level-card {
-  padding: var(--space-lg);
+  padding: var(--space-xl);
   display: grid;
   grid-template-columns: 0.6fr 1fr;
   gap: var(--space-xl);
@@ -66,7 +68,7 @@
 .progression-level-card__level {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(2rem, 7vw, 4rem);
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
   color: var(--text-hero);
 }
 
@@ -88,7 +90,7 @@
 }
 
 .progression-level-card__bar {
-  height: 18px;
+  height: 20px;
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
   background: var(--bg-elevated);
@@ -98,17 +100,19 @@
 .progression-level-card__bar div {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--peach), var(--pink), var(--mint));
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent-cyan));
 }
 
 .progression-grid {
   display: grid;
-  grid-template-columns: 1.4fr 0.8fr;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.85fr);
   gap: var(--space-lg);
 }
 
 .progression-panel {
   padding: var(--space-lg);
+  background: var(--surface-glass);
+  backdrop-filter: blur(18px);
 }
 
 .progression-panel__header {
@@ -133,14 +137,25 @@
   padding: var(--space-md);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  background: var(--bg-card);
+  background: color-mix(in srgb, var(--surface-2) 76%, transparent);
   opacity: 0.62;
+  transition:
+    transform var(--transition-interactive),
+    opacity var(--transition-interactive),
+    border-color var(--transition-interactive),
+    background var(--transition-interactive);
+}
+
+.progression-achievement:hover,
+.progression-skin:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-default);
 }
 
 .progression-achievement.is-unlocked,
 .progression-skin.is-unlocked {
   opacity: 1;
-  background: var(--surface-gradient-soft);
+  background: var(--surface-glass-strong);
 }
 
 .progression-achievement__icon,
@@ -153,7 +168,8 @@
   font-family: var(--font-title);
   font-weight: 800;
   color: var(--text-on-primary);
-  background: linear-gradient(135deg, var(--peach), var(--pink));
+  background: var(--primary-gradient);
+  box-shadow: 0 8px 20px var(--pink-soft);
 }
 
 .progression-skin__badge {
@@ -177,7 +193,7 @@
 
 @media (max-width: 560px) {
   .progression-page {
-    padding-inline: var(--space-sm);
+    padding-inline: 0;
   }
 
   .progression-unlock-alert,

@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap");
-
 /* ═══════════════════════════════════════════════════════════
 KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 ═══════════════════════════════════════════════════════════ */
@@ -29,12 +27,13 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 
 
   margin: 0;
-  padding: 1.5rem;
-  background: var(--bg-panel);
-  border: 1px solid var(--border-soft);
-  border-radius: 1.5rem;
-  box-shadow: var(--panel-shadow);
-  font-family: "Noto Sans JP", sans-serif;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--text-primary);
   position: relative;
@@ -68,8 +67,8 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 }
 
 .rdp-caption_label {
-  font-family: "Cinzel", serif;
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
   font-weight: 600;
   letter-spacing: 0.08em;
 
@@ -96,7 +95,7 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
   height: 30px;
   border-radius: 50%;
   border: 1px solid var(--border-default);
-  background: var(--surface-gradient-soft);
+  background: var(--surface-glass-strong);
   color: var(--calendar-accent-pastel);
   display: flex;
   align-items: center;
@@ -132,8 +131,8 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 /* ─── Weekdays ─────────────────────────────────────────── */
 .rdp-head_cell,
 .rdp-weekday {
-  font-family: "Cinzel", serif;
-  font-size: 0.9rem;
+  font-family: var(--font-title);
+  font-size: 0.72rem;
   letter-spacing: 0.12em;
   color: var(--text-primary);
   text-align: center;
@@ -157,9 +156,9 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 .rdp-day_button {
   width: var(--rdp-cell-size);
   height: var(--rdp-cell-size);
-  border-radius: 0.75rem;
+  border-radius: 14px;
   border: 1px solid transparent;
-  background: var(--bg-cell);
+  background: var(--surface-glass-strong);
   color: var(--text-primary);
   font-size: 0.85rem;
   display: flex;

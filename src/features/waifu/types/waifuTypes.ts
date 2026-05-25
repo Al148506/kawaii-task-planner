@@ -15,8 +15,20 @@ export type WaifuId = string;
 
 export type WaifuConfig = {
   id: WaifuId;
+
   name: string;
+
+  description?: string;
+
+  personality?: string;
+
+  sidebarImage?: string;
+
+  accentColor?: string;
+
   images: Partial<Record<WaifuMood, string>>;
+
   skins?: Record<string, Partial<Record<WaifuMood, string>>>;
+
   sounds?: Partial<Record<WaifuMood, string>>;
 };

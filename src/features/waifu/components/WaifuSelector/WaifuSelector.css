@@ -1,14 +1,14 @@
 /* Kawaii pastel palette */
 .waifu-selector {
   position: relative;
-  padding: 2rem 1.5rem 2.5rem;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
   background: var(--surface-gradient);
-  border-radius: 28px;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
   box-shadow:
     var(--shadow-panel),
-    inset 0 0 0 1px var(--border-subtle),
     var(--shadow-glow);
-  font-family: "Quicksand", "Comic Sans MS", system-ui, sans-serif;
+  font-family: var(--font-body);
   max-width: 900px;
   margin: 0 auto;
   overflow: hidden;
@@ -37,7 +37,8 @@
 
 .waifu-selector h2 {
   text-align: center;
-  font-size: 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
   font-weight: 700;
   margin: 0 0 1.75rem;
   color: var(--text-hero);
@@ -66,8 +67,8 @@
 .waifu-card {
   position: relative;
   background: var(--bg-card);
-  border: 3px solid var(--border-subtle);
-  border-radius: 22px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
   padding: 0.9rem 0.75rem 1rem;
   cursor: pointer;
   text-align: center;
@@ -75,17 +76,13 @@
     transform 0.25s ease,
     box-shadow 0.25s ease,
     border-color 0.25s ease;
-  box-shadow:
-    0 4px 0 var(--border-subtle),
-    var(--shadow-panel);
+  box-shadow: var(--shadow-panel);
 }
 
 .waifu-card:hover {
-  transform: translateY(-6px) rotate(-1deg);
+  transform: translateY(-5px);
   border-color: var(--border-bright);
-  box-shadow:
-    0 8px 0 var(--border-bright),
-    var(--shadow-panel-hover);
+  box-shadow: var(--shadow-panel-hover);
 }
 
 .waifu-card img {
@@ -94,7 +91,7 @@
   object-fit: cover;
   border-radius: 16px;
   background: var(--surface-gradient-soft);
-  border: 2px dashed var(--border-default);
+  border: 1px solid var(--border-default);
   margin-bottom: 0.6rem;
 }
 
@@ -139,9 +136,7 @@
   border-color: var(--pink);
   background: var(--surface-gradient-soft);
   transform: translateY(-4px) scale(1.02);
-  box-shadow:
-    0 6px 0 var(--pink),
-    var(--shadow-glow);
+  box-shadow: var(--shadow-glow), var(--shadow-panel-hover);
   animation: kawaii-pop 0.4s ease;
 }
 
@@ -158,9 +153,7 @@
   color: var(--text-on-primary);
   border-radius: 50%;
   font-size: 1rem;
-  box-shadow:
-    0 3px 0 color-mix(in srgb, var(--pink) 70%, #000),
-    var(--shadow-glow);
+  box-shadow: var(--shadow-glow);
   animation: heart-beat 1.2s ease-in-out infinite;
 }
 

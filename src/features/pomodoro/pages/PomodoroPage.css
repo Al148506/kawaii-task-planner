@@ -1,14 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;700;800&family=Yomogi&display=swap");
-
 /* ─── Root ──────────────────────────────────────────────────── */
 .pomodoro-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 20px 20px 22px;
-  background: var(--bg-page-gradient);
-  font-family: "Nunito", sans-serif;
+  gap: var(--space-md);
+  max-width: 620px;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  background: var(--surface-gradient);
+  box-shadow: var(--shadow-panel-hover), var(--shadow-glow);
+  font-family: var(--font-body);
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -126,7 +128,7 @@
   font-weight: 800;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--pink);
+  color: var(--primary);
   background: var(--bg-glass);
   padding: 2px 12px;
   border-radius: 50px;
@@ -134,10 +136,10 @@
 }
 
 .pomodoro-time {
-  font-family: "Yomogi", cursive;
-  font-size: 3.8rem;
-  color: var(--pink);
-  letter-spacing: 6px;
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 10vw, 5.8rem);
+  color: var(--text-hero);
+  letter-spacing: 0.04em;
   margin: 0;
   line-height: 1;
   text-shadow:
@@ -216,7 +218,7 @@
   padding: 8px 22px;
   border-radius: 50px;
   border: 2px solid;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.88rem;
   font-weight: 800;
   cursor: pointer;
@@ -261,7 +263,7 @@
   border: 1.5px dashed var(--danger-border);
   background: transparent;
   color: var(--danger);
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.74rem;
   font-weight: 700;
   cursor: pointer;
@@ -315,7 +317,7 @@
 .pomodoro-confirm__btn {
   padding: 6px 16px;
   border-radius: 50px;
-  font-family: "Nunito", sans-serif;
+  font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 800;
   cursor: pointer;
@@ -358,9 +360,9 @@
   padding: 10px 28px;
   border-radius: 50px;
   border: 2px solid var(--border-bright);
-  background: var(--surface-gradient-soft);
-  color: var(--text-primary);
-  font-family: "Nunito", sans-serif;
+  background: var(--primary-gradient);
+  color: var(--text-on-primary);
+  font-family: var(--font-body);
   font-size: 0.92rem;
   font-weight: 800;
   cursor: pointer;

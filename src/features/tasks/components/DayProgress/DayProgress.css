@@ -1,12 +1,15 @@
 /* ─── Day Progress — kawaii ─────────────────────────────── */
 .tasks-page__progress {
-  background: var(--bg-card);
+  background:
+    radial-gradient(circle at 92% 0%, var(--mint-soft), transparent 30%),
+    var(--surface-gradient);
   border: 1px solid var(--border-subtle);
-  border-radius: 20px;
-  padding: 1.1rem 1.25rem 1rem;
-  margin-bottom: var(--space-lg);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  margin-bottom: 0;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-panel);
 }
 
 /* manchita decorativa */
@@ -51,7 +54,7 @@
 
 .tasks-page__progress-message {
   font-family: var(--font-title);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: var(--text-primary);
   margin: 0;
@@ -87,7 +90,7 @@
 
 /* barra */
 .tasks-page__progress-bar {
-  height: 7px;
+  height: 10px;
   background: var(--bg-elevated);
   border-radius: 999px;
   overflow: hidden;
@@ -145,6 +148,6 @@
 }
 
 .tasks-page__progress-dot--done {
-  background: linear-gradient(135deg, var(--peach), var(--pink));
+  background: var(--primary-gradient);
   border-color: transparent;
 }

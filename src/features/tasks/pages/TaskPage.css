@@ -1,152 +1,178 @@
-/* ═══════════════════════════════════════════════════════════
-TASK PAGE — KAWAII QUEST LOG 🌸
-═══════════════════════════════════════════════════════════ */
-
-/* ─── Page shell ─────────────────────────────────────────── */
 .tasks-page {
-width: 100%;
-max-width: 1100px;
-margin: 0 auto;
-padding: 0 var(--space-lg) var(--space-2xl);
-display: flex;
-flex-direction: column;
-gap: var(--space-lg);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
 }
 
-/* ─── Top layout ────────────────────────────────────────── */
-.tasks-page__top {
-display: grid;
-grid-template-columns: auto 1fr;
-gap: var(--space-lg);
-align-items: start;
-}
-
-/* ─── Section label ─────────────────────────────────────── */
-.tasks-section__label {
-font-family: var(--font-title);
-font-size: 0.65rem;
-font-weight: 700;
-letter-spacing: 0.2em;
-text-transform: uppercase;
-color: var(--text-muted);
-display: flex;
-align-items: center;
-gap: var(--space-sm);
-margin-bottom: var(--space-md);
-}
-
-/* 🎀 Puntito kawaii */
-.tasks-section__label::before {
-content: "🌸";
-font-size: 0.7rem;
-opacity: 0.8;
-}
-
-/* Línea suave */
-.tasks-section__label::after {
-content: "";
-flex: 1;
-height: 1px;
-background: linear-gradient(90deg, var(--border-subtle), transparent);
-}
-
-/* ─── Columns ───────────────────────────────────────────── */
-.tasks-page__calendar-col {
-animation: fade-up 0.4s ease 0.1s both;
-}
-
-.tasks-page__form-col {
-animation: fade-up 0.4s ease 0.2s both;
-}
-
-/* ─── Date display ─────────────────────────────────────── */
-.tasks-page__date-display {
-font-family: var(--font-title);
-font-size: 0.85rem;
-font-weight: 600;
-color: var(--text-secondary);
-
-background: var(--bg-elevated);
-border: 1px solid var(--border-subtle);
-border-radius: 999px;
-padding: var(--space-sm) var(--space-md);
-
-display: inline-flex;
-align-items: center;
-gap: var(--space-sm);
-
-box-shadow: var(--shadow-panel);
-}
-
-/* Gradiente cute */
-.tasks-page__date-display span {
-background: linear-gradient(
-90deg,
-var(--peach),
-var(--pink),
-var(--lavender)
-);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-}
-
-/* ─── Task list ────────────────────────────────────────── */
+.tasks-hero,
+.tasks-page__calendar-col,
+.tasks-page__form-col,
 .tasks-page__list-section {
-animation: fade-up 0.4s ease 0.3s both;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  background: var(--surface-gradient);
+  box-shadow: var(--shadow-panel);
 }
 
-/* ─── Empty state ─────────────────────────────────────── */
-.tasks-page__empty {
-text-align: center;
-padding: var(--space-2xl) var(--space-lg);
-color: var(--text-muted);
-font-family: var(--font-title);
-font-size: 0.8rem;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: var(--space-md);
+.tasks-hero {
+  min-height: 150px;
+  padding: var(--space-xl);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-lg);
 }
 
-/* 🧸 Icono flotante */
-.tasks-page__empty-icon {
-font-size: 2.5rem;
-opacity: 0.5;
-animation: float 3s ease-in-out infinite;
+.tasks-hero::before,
+.tasks-page__form-col::before,
+.tasks-page__list-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 15%, var(--pink-soft), transparent 32%),
+    radial-gradient(circle at 92% 18%, var(--lavender-soft), transparent 30%);
+  pointer-events: none;
 }
 
-/* ─── Animaciones ──────────────────────────────────────── */
-@keyframes fade-up {
-from {
-opacity: 0;
-transform: translateY(12px);
-}
-to {
-opacity: 1;
-transform: translateY(0);
-}
+.tasks-hero > *,
+.tasks-page__form-col > *,
+.tasks-page__list-section > * {
+  position: relative;
+  z-index: 1;
 }
 
-@keyframes float {
-0%, 100% {
-transform: translateY(0);
-}
-50% {
-transform: translateY(-6px);
-}
+.tasks-hero h2 {
+  margin: var(--space-xs) 0 var(--space-sm);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  color: var(--text-hero);
 }
 
-/* ─── Responsive ───────────────────────────────────────── */
-@media (max-width: 768px) {
+.tasks-hero p:last-child {
+  max-width: 620px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
 .tasks-page__top {
-grid-template-columns: 1fr;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+  gap: var(--space-lg);
+  align-items: start;
+}
+
+.tasks-page__calendar-col,
+.tasks-page__form-col,
+.tasks-page__list-section {
+  padding: var(--space-lg);
 }
 
 .tasks-page__calendar-col {
-display: flex;
-justify-content: center;
+  background: var(--surface-glass);
+  backdrop-filter: blur(18px);
 }
+
+.tasks-section__label {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-title);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.tasks-section__label::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  box-shadow: 0 0 18px var(--pink-soft);
+}
+
+.tasks-section__label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-default), transparent);
+}
+
+.tasks-page__date-display {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  border: 1px solid var(--border-default);
+  border-radius: 999px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface-glass-strong);
+  box-shadow: var(--shadow-panel);
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.tasks-page__date-display span {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.day-progress {
+  display: block;
+}
+
+.tasks-page__list-section {
+  min-height: 260px;
+}
+
+.tasks-page__empty {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-md);
+  border: 1px dashed var(--border-default);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  background: color-mix(in srgb, var(--surface-2) 68%, transparent);
+  text-align: center;
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tasks-page__empty-icon {
+  font-size: 2.1rem;
+  opacity: 0.78;
+}
+
+@media (max-width: 1100px) {
+  .tasks-page__top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .tasks-hero {
+    padding: var(--space-lg);
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .tasks-page__calendar-col,
+  .tasks-page__form-col,
+  .tasks-page__list-section {
+    padding: var(--space-md);
+  }
 }

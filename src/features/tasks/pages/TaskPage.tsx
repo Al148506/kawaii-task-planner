@@ -46,10 +46,18 @@ const TasksPage = () => {
 
   return (
     <div className="tasks-page">
-      {/* ── Top: Calendario + Formulario ── */}
-      <div className="tasks-page__top">
-       
+      <section className="tasks-hero">
+        <div>
+          <p className="tasks-section__label">Quest command</p>
+          <h2>Misiones del día</h2>
+          <p>Organiza tus sesiones Pomodoro por categoria, energia y progreso diario.</p>
+        </div>
+        <div className="tasks-page__date-display">
+          ⚔️&nbsp;<span>{displayDate}</span>
+        </div>
+      </section>
 
+      <div className="tasks-page__top">
         <div className="tasks-page__calendar-col">
           <p className="tasks-section__label">Calendario</p>
           <Calendar
@@ -61,11 +69,6 @@ const TasksPage = () => {
 
         <div className="tasks-page__form-col">
           <p className="tasks-section__label">Nueva misión</p>
-
-          <div className="tasks-page__date-display">
-            ⚔️&nbsp;<span>{displayDate}</span>
-          </div>
-
           <TaskForm date={formattedDate} />
         </div>
       </div>

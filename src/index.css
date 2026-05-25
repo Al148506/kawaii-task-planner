@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Marcellus&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 /* ═══════════════════════════════════════════════════════════
 KAWAII PASTEL DESIGN SYSTEM 🌸
@@ -7,29 +7,46 @@ Theme: Soft / Cute / Cozy Productivity
 
 /* ─── Design Tokens ──────────────────────────────────────── */
 :root {
-  /* Fondos */
-  --bg-void: #fff5f8;
-  --bg-deep: #fde8f4;
-  --bg-surface: #ffffff;
-  --bg-elevated: #fdf0fa;
-  --bg-overlay: #f0ecf8;
-  --bg-card: rgba(255, 255, 255, 0.78);
-  --bg-card-strong: rgba(255, 255, 255, 0.92);
-  --bg-control: rgba(255, 255, 255, 0.72);
-  --bg-control-hover: #fce4ec;
-  --bg-glass: rgba(255, 255, 255, 0.72);
-  --bg-glass-strong: rgba(255, 245, 252, 0.9);
-  --bg-page-gradient: linear-gradient(160deg, #fce4ec 0%, #f3e5f5 40%, #e8eaf6 100%);
-  --surface-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(253, 240, 250, 0.78));
-  --surface-gradient-soft: linear-gradient(135deg, rgba(255, 255, 255, 0.72), var(--bg-elevated));
-  --primary-gradient: linear-gradient(135deg, var(--peach), var(--pink));
+  /* Premium surfaces */
+  --background: #f7f1fb;
+  --surface: #fffafd;
+  --surface-2: #f2ebf8;
+  --surface-3: #e9def2;
+  --surface-panel: #fff7fc;
+  --surface-panel-strong: #ffffff;
+  --surface-glass: rgba(255, 250, 253, 0.78);
+  --surface-glass-strong: rgba(255, 250, 253, 0.92);
+  --surface-sidebar: rgba(255, 250, 253, 0.74);
+  --overlay: rgba(32, 18, 48, 0.42);
+  --bg-void: var(--background);
+  --bg-deep: var(--surface-2);
+  --bg-surface: var(--surface);
+  --bg-elevated: var(--surface-2);
+  --bg-overlay: var(--surface-3);
+  --bg-card: var(--surface-glass);
+  --bg-card-strong: var(--surface-glass-strong);
+  --bg-control: rgba(255, 255, 255, 0.7);
+  --bg-control-hover: rgba(236, 72, 153, 0.12);
+  --bg-glass: var(--surface-glass);
+  --bg-glass-strong: var(--surface-glass-strong);
+  --bg-page-gradient:
+    radial-gradient(circle at 8% 8%, rgba(236, 72, 153, 0.16), transparent 28%),
+    radial-gradient(circle at 82% 10%, rgba(139, 92, 246, 0.14), transparent 30%),
+    linear-gradient(145deg, #fbf5ff 0%, #f6effa 42%, #efe7f7 100%);
+  --surface-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(246, 238, 250, 0.78));
+  --surface-gradient-soft: linear-gradient(145deg, rgba(255, 255, 255, 0.74), rgba(242, 235, 248, 0.72));
+  --primary-gradient: linear-gradient(135deg, #ec4899, #8b5cf6);
 
   /* Paleta pastel — rosa → lila → periwinkle */
-  --peach: #f9b8cc;
-  --rose: #f48fb1;
-  --pink: #d97ba8;
-  --lavender: #c89fc8;
-  --mint: #85bfc8;
+  --peach: #f9a8d4;
+  --rose: #f472b6;
+  --pink: #ec4899;
+  --lavender: #8b5cf6;
+  --mint: #22d3ee;
+  --primary: #ec4899;
+  --primary-hover: #db2777;
+  --secondary: #8b5cf6;
+  --accent-cyan: #22d3ee;
 
   /* Versiones suaves */
   --peach-soft: #f9b8cc33;
@@ -39,28 +56,32 @@ Theme: Soft / Cute / Cozy Productivity
   --mint-soft: #85bfc833;
 
   /* Texto */
-  --text-hero: #5c4a72;
-  --text-primary: #7a5e8a;
-  --text-secondary: #9e80ae;
-  --text-muted: #bda8cc;
-  --text-ghost: #ddd0e8;
+  --text: #2b2340;
+  --text-hero: #2b2340;
+  --text-primary: #3b3054;
+  --text-secondary: #6f6086;
+  --text-muted: #8f82a5;
+  --text-ghost: #c8bbd8;
   --text-on-primary: #ffffff;
 
   /* Bordes */
-  --border-subtle: #f0d8e8;
-  --border-default: #e0c8e0;
-  --border-bright: #cdb8d8;
+  --border: rgba(90, 60, 120, 0.12);
+  --border-subtle: rgba(90, 60, 120, 0.1);
+  --border-default: rgba(90, 60, 120, 0.16);
+  --border-bright: rgba(236, 72, 153, 0.34);
 
   --danger: #d6456b;
   --danger-soft: #ffe4ea;
   --danger-border: #f5b8b8;
   --focus-ring: 0 0 0 3px var(--pink-soft);
-  --shadow-panel: 0 8px 25px rgba(90, 50, 120, 0.06);
-  --shadow-panel-hover: 0 12px 30px rgba(90, 50, 120, 0.1);
-  --shadow-glow: 0 0 28px rgba(217, 123, 168, 0.18);
-  --font-display: "Cinzel Decorative", serif;
+  --shadow-soft: 0 10px 30px rgba(140, 90, 180, 0.08);
+  --shadow-medium: 0 18px 48px rgba(80, 40, 120, 0.13);
+  --shadow-panel: var(--shadow-soft);
+  --shadow-panel-hover: var(--shadow-medium);
+  --shadow-glow: 0 0 34px rgba(236, 72, 153, 0.18), 0 18px 50px rgba(139, 92, 246, 0.1);
+  --font-display: "Marcellus", serif;
   --font-title: "Cinzel", serif;
-  --font-body: "Noto Sans JP", sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -71,28 +92,46 @@ Theme: Soft / Cute / Cozy Productivity
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
   --radius-xl: 2rem;
+  --sidebar-width: 260px;
+  --topbar-height: 68px;
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ═══════════════════════════════════════════════════════════
 DARK MODE 🌙
 ═══════════════════════════════════════════════════════════ */
 [data-theme="dark"] {
-  --bg-void: #080611;
+  --background: #090614;
+  --surface: #12101d;
+  --surface-2: #1a1629;
+  --surface-3: #241d37;
+  --surface-panel: #151222;
+  --surface-panel-strong: #1c172c;
+  --surface-glass: rgba(16, 13, 27, 0.86);
+  --surface-glass-strong: rgba(24, 20, 36, 0.96);
+  --surface-sidebar: rgba(10, 7, 18, 0.9);
+  --overlay: rgba(3, 2, 10, 0.72);
+  --bg-void: var(--background);
   --bg-deep: #100b1d;
-  --bg-surface: #171225;
-  --bg-elevated: #211932;
-  --bg-overlay: #2b2140;
-  --bg-card: rgba(23, 18, 37, 0.86);
-  --bg-card-strong: rgba(33, 25, 50, 0.94);
+  --bg-surface: var(--surface);
+  --bg-elevated: var(--surface-2);
+  --bg-overlay: var(--surface-3);
+  --bg-card: var(--surface-glass);
+  --bg-card-strong: var(--surface-glass-strong);
   --bg-control: rgba(33, 25, 50, 0.82);
   --bg-control-hover: rgba(55, 41, 82, 0.86);
   --bg-glass: rgba(23, 18, 37, 0.78);
   --bg-glass-strong: rgba(25, 19, 39, 0.92);
-  --bg-page-gradient: linear-gradient(160deg, #0b0612 0%, #100b1d 44%, #070b1a 100%);
-  --surface-gradient: linear-gradient(135deg, rgba(33, 25, 50, 0.88), rgba(16, 11, 29, 0.82));
-  --surface-gradient-soft: linear-gradient(135deg, rgba(33, 25, 50, 0.78), rgba(43, 33, 64, 0.72));
+  --bg-page-gradient:
+    radial-gradient(circle at 10% 12%, rgba(236, 72, 153, 0.14), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(139, 92, 246, 0.12), transparent 30%),
+    radial-gradient(circle at 70% 92%, rgba(34, 211, 238, 0.08), transparent 26%),
+    linear-gradient(145deg, #090614 0%, #100b1d 48%, #070b18 100%);
+  --surface-gradient: linear-gradient(135deg, rgba(28, 23, 44, 0.96), rgba(15, 11, 26, 0.94));
+  --surface-gradient-soft: linear-gradient(135deg, rgba(32, 25, 49, 0.92), rgba(21, 17, 34, 0.9));
   --primary-gradient: linear-gradient(135deg, #ec4899, #a855f7);
 
+  --text: #f5ecff;
   --text-hero: #f5ecff;
   --text-primary: #eadcff;
   --text-secondary: #c8b6e6;
@@ -100,6 +139,7 @@ DARK MODE 🌙
   --text-ghost: #6f5b8e;
   --text-on-primary: #ffffff;
 
+  --border: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-default: rgba(255, 255, 255, 0.14);
   --border-bright: rgba(236, 72, 153, 0.36);
@@ -114,7 +154,9 @@ DARK MODE 🌙
   --danger-soft: rgba(127, 29, 29, 0.36);
   --danger-border: rgba(248, 113, 113, 0.42);
   --focus-ring: 0 0 0 3px rgba(236, 72, 153, 0.24);
-  --shadow-panel: 0 18px 48px rgba(0, 0, 0, 0.42);
+  --shadow-soft: 0 14px 34px rgba(0, 0, 0, 0.38);
+  --shadow-medium: 0 24px 60px rgba(0, 0, 0, 0.58);
+  --shadow-panel: var(--shadow-soft);
   --shadow-panel-hover: 0 24px 58px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 34px rgba(236, 72, 153, 0.22), 0 0 60px rgba(59, 130, 246, 0.08);
 }
@@ -149,6 +191,7 @@ body {
   color: var(--text-primary);
   background: var(--bg-page-gradient);
   min-height: 100dvh;
+  overflow-x: hidden;
 }
 
 /* Fondo decorativo suave */
@@ -169,15 +212,6 @@ body::before {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-/* Layout */
-.app-wrapper,
-#root > * {
-  width: 100%;
-  max-width: 1100px;
-  padding: var(--space-xl) var(--space-lg);
 }
 
 /* ─── Títulos ──────────────────────────────────────────── */
@@ -186,7 +220,7 @@ h1 {
   font-size: clamp(1.4rem, 4vw, 2.4rem);
   font-weight: 900;
   text-align: center;
-  padding: var(--space-xl) 0;
+  padding: 0;
 
   background: linear-gradient(
     135deg,
@@ -249,6 +283,21 @@ button {
   padding: 0.6rem 1.3rem;
   cursor: pointer;
   border: none;
+  transition:
+    transform var(--transition-interactive),
+    box-shadow var(--transition-interactive),
+    background var(--transition-interactive),
+    color var(--transition-interactive),
+    border-color var(--transition-interactive);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
 }
 
 /* Primary */
@@ -286,6 +335,7 @@ select {
   padding: 0.6rem 1rem;
   width: 100%;
   color: var(--text-primary);
+  font: inherit;
 }
 
 input::placeholder,

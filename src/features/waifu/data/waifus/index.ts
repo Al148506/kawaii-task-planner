@@ -8,6 +8,15 @@ const images = import.meta.glob<string>("/src/assets/waifus/*/images/*.png", {
   import: "default",
 });
 
+const sidebarImages = import.meta.glob<string>(
+  "/src/assets/waifus/*/sidebar/*.png",
+  {
+    eager: true,
+    query: "?url",
+    import: "default",
+  },
+);
+
 const skinImages = import.meta.glob<string>(
   "/src/assets/waifus/*/skins/*/images/*.png",
   {
@@ -44,11 +53,11 @@ const buildConfigMap = (): Record<string, Partial<WaifuConfig>> =>
     Object.entries(configs).map(([path, module]) => [
       extractSegment(path, -2),
       (module as ConfigModule).default ?? {},
-    ])
+    ]),
   );
 
 const buildImageMap = (
-  configMap: Record<string, Partial<WaifuConfig>>
+  configMap: Record<string, Partial<WaifuConfig>>,
 ): Record<string, WaifuConfig> =>
   Object.entries(images as GlobRecord).reduce<Record<string, WaifuConfig>>(
     (waifuMap, [path, url]) => {
@@ -60,6 +69,8 @@ const buildImageMap = (
         waifuMap[waifuId] = {
           id: waifuId,
           name: config.name ?? waifuId,
+          description: config.description ?? "",
+          accentColor: config.accentColor ?? "#ff69b4",
           images: {},
         };
       }
@@ -67,12 +78,24 @@ const buildImageMap = (
       waifuMap[waifuId].images[mood] = url;
       return waifuMap;
     },
-    {}
+    {},
   );
 
-  //Builder para sonidos
+const buildSidebarImageMap = () => {
+  return Object.entries(sidebarImages as GlobRecord).reduce<
+    Record<string, string>
+  >((acc, [path, url]) => {
+    const waifuId = extractSegment(path, -3);
 
-  const buildSoundMap = () => {
+    acc[waifuId] = url;
+
+    return acc;
+  }, {});
+};
+
+//Builder para sonidos
+
+const buildSoundMap = () => {
   return Object.entries(sounds as GlobRecord).reduce<
     Record<string, Partial<Record<Mood, string>>>
   >((acc, [path, url]) => {
@@ -107,9 +130,12 @@ const buildWaifus = (): Record<string, WaifuConfig> => {
   const configMap = buildConfigMap();
   const waifuMap = buildImageMap(configMap);
   const soundMap = buildSoundMap();
+  const sidebarImageMap = buildSidebarImageMap();
 
   Object.keys(waifuMap).forEach((id) => {
     waifuMap[id].sounds = soundMap[id] ?? {};
+
+    waifuMap[id].sidebarImage = sidebarImageMap[id];
   });
 
   attachSkinImages(waifuMap);
