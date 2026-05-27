@@ -1,0 +1,145 @@
+.app-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: var(--topbar-height);
+  margin: 0;
+  padding: 0.75rem 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(255, 255, 255, 0.16),
+      transparent 55%
+    ),
+    color-mix(in srgb, var(--surface-glass) 60%, transparent);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+}
+
+.app-topbar__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.app-topbar__subtitle {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.app-topbar__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.1vw, 1.8rem);
+  color: var(--text-hero);
+}
+
+/* Acciones */
+
+.app-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* Botón de tema */
+
+.topbar-icon-button {
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--border-subtle) 70%, transparent);
+  background: color-mix(in srgb, var(--surface-glass) 75%, transparent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background 160ms ease-out,
+    border-color 160ms ease-out,
+    transform 120ms ease-out,
+    box-shadow 160ms ease-out;
+}
+
+.topbar-icon-button:hover {
+  background: color-mix(in srgb, var(--surface-glass) 90%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border-subtle));
+  color: var(--text-hero);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.topbar-icon-button:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+/* Enfoque accesible */
+
+.topbar-icon-button:focus-visible,
+.btn-companion:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Botón Waifu */
+
+.btn-companion {
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 65%, transparent);
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--accent-soft) 65%, transparent),
+    transparent
+  );
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--accent-strong);
+  cursor: pointer;
+  transition:
+    background 160ms ease-out,
+    border-color 160ms ease-out,
+    transform 120ms ease-out,
+    box-shadow 160ms ease-out;
+}
+
+.btn-companion:hover {
+  background: linear-gradient(
+    120deg,
+    color-mix(in srgb, var(--accent-soft) 85%, transparent),
+    transparent
+  );
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.24);
+  transform: translateY(-1px);
+}
+
+.btn-companion__label {
+  white-space: nowrap;
+}
+
+/* Responsivo */
+
+@media (max-width: 600px) {
+  .app-topbar {
+    padding-inline: 1rem;
+    gap: var(--space-md);
+  }
+
+  .app-topbar__subtitle {
+    font-size: 0.7rem;
+  }
+
+  .app-topbar__title {
+    font-size: 1.2rem;
+  }
+}

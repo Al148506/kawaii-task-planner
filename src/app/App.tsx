@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import "./App.css";
 import TasksPage from "@/features/tasks/pages/TaskPage";
 import PomodoroPage from "@/features/pomodoro/pages/PomodoroPage";
@@ -8,9 +8,8 @@ import { useState } from "react";
 import GenericModal from "@/shared/components/modal/GenericModal";
 import WaifuSelector from "@/features/waifu/components/WaifuSelector/WaifuSelector";
 import { useTheme } from "./hooks/useTheme";
-import { useWaifuContext } from "@/features/waifu/context/WaifuContext";
-import { SidebarCompanion } from "@/features/waifu/components/SidebarCompanion/SidebarCompanion";
 import { AppSidebar } from "@/shared/layout/AppSidebar/AppSidebar";
+import { AppTopbar } from "@/shared/layout/AppTopbar/AppTopbar";
 
 const navItems = [
   { to: "/", label: "Misiones", icon: "📋", helper: "Quest board" },
@@ -20,7 +19,6 @@ const navItems = [
 
 function App() {
   const { isDark, toggle } = useTheme();
-  const { waifu } = useWaifuContext();
   const [isWaifuModalOpen, setIsWaifuModalOpen] = useState(false);
 
   return (
@@ -28,30 +26,10 @@ function App() {
       <AppSidebar onOpenWaifuModal={() => setIsWaifuModalOpen(true)} />
 
       <div className="app-content">
-        <header className="app-topbar">
-          <div>
-            <p className="app-subtitle">estudio · descanso · flujo</p>
-            <h2>Productivity dashboard</h2>
-          </div>
-          <div className="app-topbar__actions">
-            <button
-              className="theme-toggle"
-              onClick={toggle}
-              aria-label={
-                isDark ? "Activar tema claro" : "Activar tema obscuro"
-              }
-              title={isDark ? "Tema claro" : "Tema obscuro"}
-            >
-              {isDark ? "☀️" : "🌙"}
-            </button>
-            <button
-              className="btn-companion app-topbar__companion"
-              onClick={() => setIsWaifuModalOpen(true)}
-            >
-              💕 Waifu
-            </button>
-          </div>
-        </header>
+        <AppTopbar
+          isDark={isDark}
+          toggle={toggle}
+        />
 
         <main className="app-main">
           <Routes>
