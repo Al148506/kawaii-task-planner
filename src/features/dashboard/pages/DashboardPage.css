@@ -15,10 +15,16 @@
   border: 1px solid var(--border-default);
   border-radius: 24px;
   background:
-    linear-gradient(90deg, color-mix(in srgb, var(--primary) 12%, transparent), transparent 34%),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--primary) 12%, transparent),
+      transparent 34%
+    ),
     radial-gradient(circle at 92% 10%, var(--lavender-soft), transparent 28%),
     var(--surface-panel-strong, var(--surface-gradient));
-  box-shadow: var(--shadow-panel), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow:
+    var(--shadow-panel),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .dashboard-kicker,
@@ -84,10 +90,12 @@
   border: 1px solid var(--border-default);
   border-radius: 22px;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.035), transparent),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent),
     var(--surface-panel, var(--surface-glass));
   backdrop-filter: blur(18px);
-  box-shadow: var(--shadow-panel), inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  box-shadow:
+    var(--shadow-panel),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
   transition:
     transform var(--transition-interactive),
     box-shadow var(--transition-interactive),
@@ -146,8 +154,16 @@
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.dashboard-left,
+.dashboard-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .dashboard-panel {
@@ -211,7 +227,12 @@
 .dashboard-bars__fill {
   width: 100%;
   border-radius: 999px 999px 0 0;
-  background: linear-gradient(180deg, var(--accent-cyan), var(--secondary), var(--primary));
+  background: linear-gradient(
+    180deg,
+    var(--accent-cyan),
+    var(--secondary),
+    var(--primary)
+  );
   box-shadow: 0 -8px 18px var(--pink-soft);
 }
 
@@ -251,7 +272,12 @@
 .dashboard-time-row__fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--category-color, var(--peach)), var(--pink), var(--mint));
+  background: linear-gradient(
+    90deg,
+    var(--category-color, var(--peach)),
+    var(--pink),
+    var(--mint)
+  );
 }
 
 .dashboard-progress-ring {
@@ -262,8 +288,13 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: conic-gradient(var(--primary) var(--progress), var(--surface-2) 0);
-  box-shadow: inset 0 0 0 1px var(--border-subtle), 0 16px 32px var(--pink-soft);
+  background: conic-gradient(
+    var(--primary) var(--progress),
+    var(--surface-2) 0
+  );
+  box-shadow:
+    inset 0 0 0 1px var(--border-subtle),
+    0 16px 32px var(--pink-soft);
 }
 
 .dashboard-progress-ring__inner {
@@ -304,7 +335,11 @@
   padding: 0.8rem;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  background: color-mix(in srgb, var(--surface-panel-strong, var(--surface-glass-strong)) 82%, transparent);
+  background: color-mix(
+    in srgb,
+    var(--surface-panel-strong, var(--surface-glass-strong)) 82%,
+    transparent
+  );
 }
 
 .dashboard-top-task div {

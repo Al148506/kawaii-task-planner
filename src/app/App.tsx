@@ -11,11 +11,6 @@ import { useTheme } from "./hooks/useTheme";
 import { AppSidebar } from "@/shared/layout/AppSidebar/AppSidebar";
 import { AppTopbar } from "@/shared/layout/AppTopbar/AppTopbar";
 
-const navItems = [
-  { to: "/", label: "Misiones", icon: "📋", helper: "Quest board" },
-  { to: "/dashboard", label: "Dashboard", icon: "📊", helper: "Estadisticas" },
-  { to: "/progress", label: "Progreso", icon: "📈", helper: "RPG log" },
-];
 
 function App() {
   const { isDark, toggle } = useTheme();

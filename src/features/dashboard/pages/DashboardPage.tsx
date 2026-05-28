@@ -20,8 +20,8 @@ const DashboardPage = () => {
           <p className="dashboard-kicker">Registro de aventura</p>
           <h2>Dashboard de progreso</h2>
           <p>
-            Visualiza misiones completadas, pomodoros terminados y tiempo enfocado
-            estimado segun tu avance.
+            Visualiza misiones completadas, pomodoros terminados y tiempo
+            enfocado estimado segun tu avance.
           </p>
         </div>
         <PeriodSelector period={period} onChange={setPeriod} />
@@ -30,10 +30,15 @@ const DashboardPage = () => {
       <DashboardSummaryCards stats={stats} />
 
       <div className="dashboard-grid">
-        <CompletedTasksChart series={stats.currentSeries} />
-        <TimeSpentChart series={stats.currentSeries} />
-        <TaskProgressChart stats={stats} />
-        <CategoryBreakdownChart breakdown={stats.categoryBreakdown} />
+        <div className="dashboard-left">
+          <CompletedTasksChart series={stats.currentSeries} />
+          <TaskProgressChart stats={stats} />
+        </div>
+
+        <div className="dashboard-right">
+          <TimeSpentChart series={stats.currentSeries} />
+          <CategoryBreakdownChart breakdown={stats.categoryBreakdown} />
+        </div>
       </div>
     </div>
   );

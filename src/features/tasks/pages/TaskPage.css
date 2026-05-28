@@ -60,9 +60,31 @@
 
 .tasks-page__top {
   display: grid;
-  grid-template-columns: minmax(320px, 0.82fr) minmax(0, 1.18fr);
+
+  grid-template-columns:
+    minmax(340px, 0.82fr)
+    minmax(0, 1.18fr);
+
   gap: var(--space-lg);
+
   align-items: start;
+}
+
+/* LEFT COLUMN */
+.tasks-page__left-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* RIGHT COLUMN */
+.tasks-page__form-col {
+  height: 100%;
+}
+
+/* REMOVE OLD WRAPPER */
+.day-progress {
+  display: none;
 }
 
 .tasks-page__calendar-col,
@@ -126,9 +148,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-.day-progress {
-  display: block;
-}
 
 .tasks-page__list-section {
   min-height: 260px;

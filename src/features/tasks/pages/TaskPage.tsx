@@ -1,18 +1,20 @@
 import { useState } from "react";
+
 import Calendar from "@/features/tasks/components/Calendar/Calendar";
 import TaskList from "@/features/tasks/components/TaskList/TaskList";
 import TaskForm from "@/features/tasks/components/TaskForm";
 import GenericModal from "@/shared/components/modal/GenericModal";
 import PomodoroPage from "@/features/pomodoro/pages/PomodoroPage";
+import DayProgress from "@/features/tasks/components/DayProgress/DayProgress";
 
 import { useTaskDate } from "@/features/tasks/hooks/useTaskDate";
 import { useTasksOfDay } from "@/features/tasks/hooks/useTasksOfDay";
 import { usePomodoroContext } from "@/features/pomodoro/context/PomodoroContext";
+
 import type { TaskCategory } from "@/features/tasks/types/Category";
 import { TASK_CATEGORIES } from "@/features/tasks/types/Category";
 
 import "./TaskPage.css";
-import DayProgress from "@/features/tasks/components/DayProgress/DayProgress";
 
 const TasksPage = () => {
   const { selectedDate, setSelectedDate, formattedDate, displayDate } =
@@ -22,77 +24,108 @@ const TasksPage = () => {
 
   const { activePomodoro, clearPomodoro } = usePomodoroContext();
 
-  // 🔥 estado del modal
   const [isPomodoroOpen, setIsPomodoroOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<TaskCategory | null>(null);
+
+  const [selectedCategory, setSelectedCategory] = useState<TaskCategory | null>(
+    null,
+  );
 
   const filteredTasks = selectedCategory
     ? tasksOfSelectedDay.filter((task) => task.category === selectedCategory)
     : tasksOfSelectedDay;
 
-  // 🔥 handler para abrir modal
   const handleOpenPomodoro = () => {
-    if (activePomodoro) return; // evita múltiples pomodoros
+    if (activePomodoro) return;
     setIsPomodoroOpen(true);
   };
 
-  // 🔥 handler para cerrar modal
   const handleClosePomodoro = () => {
     clearPomodoro();
     setIsPomodoroOpen(false);
   };
 
-  
-
   return (
     <div className="tasks-page">
+      {/* ── Hero ───────────────────────────── */}
       <section className="tasks-hero">
         <div>
           <p className="tasks-section__label">Quest command</p>
+
           <h2>Misiones del día</h2>
-          <p>Organiza tus sesiones Pomodoro por categoria, energia y progreso diario.</p>
+
+          <p>
+            Organiza tus sesiones Pomodoro por categoria, energia y progreso
+            diario.
+          </p>
         </div>
+
         <div className="tasks-page__date-display">
           ⚔️&nbsp;<span>{displayDate}</span>
         </div>
       </section>
 
+      {/* ── Layout principal ───────────────── */}
       <div className="tasks-page__top">
-        <div className="tasks-page__calendar-col">
-          <p className="tasks-section__label">Calendario</p>
-          <Calendar
-            selectedDate={selectedDate}
-            onSelectDate={setSelectedDate}
-            daysWithTasks={daysWithTasks}
-          />
+        {/* LEFT COLUMN */}
+        <div className="tasks-page__left-column">
+          {/* Calendar */}
+          <div className="tasks-page__calendar-col">
+            <p className="tasks-section__label">Calendario</p>
+
+            <Calendar
+              selectedDate={selectedDate}
+              onSelectDate={setSelectedDate}
+              daysWithTasks={daysWithTasks}
+            />
+          </div>
+
+          {/* Progress */}
+          <DayProgress tasks={tasksOfSelectedDay} />
         </div>
 
+        {/* RIGHT COLUMN */}
         <div className="tasks-page__form-col">
           <p className="tasks-section__label">Nueva misión</p>
+
           <TaskForm date={formattedDate} />
         </div>
       </div>
-      <div className="day-progress">
-        <DayProgress tasks={tasksOfSelectedDay} />
-      </div>
-      {/* ── Lista de tareas ── */}
+
+      {/* ── Lista de tareas ───────────────── */}
       <div className="tasks-page__list-section">
         <p className="tasks-section__label">Misiones del día</p>
 
         {tasksOfSelectedDay.length > 0 && (
           <div className="task-list__filters">
             <button
-              className={`task-list__filter-chip ${selectedCategory === null ? "task-list__filter-chip--active" : ""}`}
+              className={`task-list__filter-chip ${
+                selectedCategory === null
+                  ? "task-list__filter-chip--active"
+                  : ""
+              }`}
               onClick={() => setSelectedCategory(null)}
             >
               Todas
             </button>
+
             {TASK_CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
-                className={`task-list__filter-chip ${selectedCategory === cat.id ? "task-list__filter-chip--active" : ""}`}
-                onClick={() => setSelectedCategory(selectedCategory === cat.id ? null : cat.id)}
-                style={{ "--category-color": cat.color } as React.CSSProperties}
+                className={`task-list__filter-chip ${
+                  selectedCategory === cat.id
+                    ? "task-list__filter-chip--active"
+                    : ""
+                }`}
+                onClick={() =>
+                  setSelectedCategory(
+                    selectedCategory === cat.id ? null : cat.id,
+                  )
+                }
+                style={
+                  {
+                    "--category-color": cat.color,
+                  } as React.CSSProperties
+                }
               >
                 {cat.emoji} {cat.label}
               </button>
@@ -118,12 +151,10 @@ const TasksPage = () => {
         )}
       </div>
 
-      {/* ── Modal Pomodoro ── */}
+      {/* ── Modal Pomodoro ───────────────── */}
       <GenericModal isOpen={isPomodoroOpen} onClose={handleClosePomodoro}>
         <PomodoroPage onClose={handleClosePomodoro} />
       </GenericModal>
-      {/* ── Modal Waifu Selector ── */}
-     
     </div>
   );
 };

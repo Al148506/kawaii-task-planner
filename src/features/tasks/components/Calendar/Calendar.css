@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
+KAWAII CALENDAR 🌸  (react-day-picker v9)
 ═══════════════════════════════════════════════════════════ */
 
 /* ─── Variables ─────────────────────────────────────────── */
@@ -10,31 +10,34 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
   --border-soft: var(--border-subtle);
   --panel-shadow: var(--shadow-panel);
   --calendar-accent-pastel: var(--pink);
-}
 
-/* ─── Wrapper (v9 raíz: .rdp-root) ─────────────────────── */
-.rdp-root {
-  --rdp-cell-size: 42px;
-  /* !important: el style.css de la librería define blue en el mismo bloque */
+  /* ✨ MÁS GRANDE EN ALTURA */
+  --rdp-cell-size: clamp(56px, 5vw, 96px);
+
+  /* React Day Picker vars */
   --rdp-accent-color: var(--calendar-accent-pastel) !important;
   --rdp-accent-background-color: var(--bg-control-hover) !important;
   --rdp-today-color: var(--calendar-accent-pastel) !important;
   --rdp-selected-border: 2px solid var(--calendar-accent-pastel) !important;
   --rdp-background-color: var(--bg-cell);
-  --rdp-day_button-border-radius: 0.75rem;
+
+  --rdp-day_button-border-radius: 1rem;
   --rdp-day_button-width: var(--rdp-cell-size);
   --rdp-day_button-height: var(--rdp-cell-size);
 
-
   margin: 0;
   width: 100%;
-  padding: 0;
+  padding: 1rem 0;
+
   background: transparent;
   border: 0;
   border-radius: 0;
   box-shadow: none;
+
   font-family: var(--font-body);
-  font-size: 0.85rem;
+
+  font-size: clamp(0.9rem, 1vw, 1.1rem);
+
   color: var(--text-primary);
   position: relative;
   animation: fade-in 0.35s ease;
@@ -45,9 +48,11 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
   content: "";
   position: absolute;
   inset: 0;
+
   background:
     radial-gradient(circle at 20% 20%, var(--pink-soft), transparent 40%),
     radial-gradient(circle at 80% 80%, var(--mint-soft), transparent 40%);
+
   pointer-events: none;
 }
 
@@ -55,7 +60,10 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 .rdp-months {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
+
+  /* ✨ MÁS AIRE */
+  padding-bottom: 1rem;
 }
 
 .rdp-caption,
@@ -63,21 +71,26 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.5rem;
+
+  margin-bottom: 1.2rem;
 }
 
 .rdp-caption_label {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+
+  /* ✨ TÍTULO MÁS GRANDE */
+  font-size: clamp(1.6rem, 2vw, 2.6rem);
+
   font-weight: 600;
   letter-spacing: 0.08em;
 
   background: linear-gradient(
     90deg,
-    var(--peach),
-    var(--pink),
-    var(--lavender)
+    var(--peach) 0%,
+    var(--pink) 50%,
+    var(--lavender) 100%
   );
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -85,22 +98,27 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 /* ─── Nav buttons ─────────────────────────────────────── */
 .rdp-nav {
   display: flex;
-  gap: 0.4rem;
+  gap: 0.7rem;
 }
 
 .rdp-nav_button,
 .rdp-button_previous,
 .rdp-button_next {
-  width: 30px;
-  height: 30px;
+  width: clamp(36px, 3vw, 48px);
+  height: clamp(36px, 3vw, 48px);
+
   border-radius: 50%;
   border: 1px solid var(--border-default);
+
   background: var(--surface-glass-strong);
   color: var(--calendar-accent-pastel);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
+
   box-shadow: var(--shadow-panel);
   transition: all 0.2s ease;
 }
@@ -110,15 +128,17 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 .rdp-button_next:hover {
   background: var(--bg-control-hover);
   color: var(--pink);
+
   transform: scale(1.1);
+
   box-shadow: var(--shadow-glow);
 }
 
 .rdp-nav_button svg,
 .rdp-button_previous svg,
 .rdp-button_next svg {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
 }
 
 .rdp-nav_button .rdp-chevron,
@@ -132,11 +152,16 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 .rdp-head_cell,
 .rdp-weekday {
   font-family: var(--font-title);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+
+  font-size: clamp(0.8rem, 1vw, 1.05rem);
+
+  letter-spacing: 0.14em;
   color: var(--text-primary);
+
   text-align: center;
-  padding: 0.4rem 0;
+
+  padding: 0.7rem 0;
+
   width: var(--rdp-cell-size);
 }
 
@@ -144,7 +169,9 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 .rdp-table,
 .rdp-month_grid {
   border-collapse: separate;
-  border-spacing: 6px;
+
+  /* ✨ MÁS ESPACIO ENTRE FILAS */
+  border-spacing: clamp(6px, 1vw, 16px);
 }
 
 .rdp-cell,
@@ -152,33 +179,46 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
   padding: 0;
 }
 
-/* ─── Days (v9: botón .rdp-day_button dentro de td .rdp-day) ─ */
+/* ─── Days ────────────────────────────────────────────── */
 .rdp-day_button {
   width: var(--rdp-cell-size);
   height: var(--rdp-cell-size);
-  border-radius: 14px;
+
+  border-radius: 20px;
   border: 1px solid transparent;
+
   background: var(--surface-glass-strong);
   color: var(--text-primary);
-  font-size: 0.85rem;
+
+  /* ✨ NÚMEROS MÁS GRANDES */
+  font-size: clamp(1rem, 1vw, 1.2rem);
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   position: relative;
-  transition: all 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 /* Hover */
 .rdp-day:not(.rdp-selected):not(.rdp-disabled)
   .rdp-day_button:hover:not(:disabled) {
   background: var(--pink-soft);
-  transform: translateY(-2px);
+
+  transform: translateY(-2px) scale(1.05);
+
+  box-shadow: var(--shadow-glow);
 }
 
-/* ─── Today (no seleccionado) ─────────────────────────── */
+/* ─── Today ───────────────────────────────────────────── */
 .rdp-today:not(.rdp-selected):not(.rdp-outside) {
   background: var(--pink-soft);
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   color: var(--pink);
 }
 
@@ -191,22 +231,16 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 /* ─── Selected ────────────────────────────────────────── */
 .rdp-selected {
   background: var(--primary-gradient);
+
   color: var(--text-on-primary) !important;
+
   font-weight: 600;
-  border-radius: 0.75rem;
+
+  border-radius: 1rem;
+
   box-shadow: var(--shadow-glow);
 }
-/*
-.rdp-selected .rdp-day_button {
-  color: var(--text-on-primary) !important;
-  border: 1px solid var(--pink) !important;
-  background: transparent;
-}
 
-
- * Hoy + seleccionado: la librería aplica .rdp-today:not(.rdp-outside) { color: var(--rdp-today-color) }
- * con mayor especificidad que .rdp-selected, y el número queda azul/rosa acento. Forzar texto blanco.
- */
 .rdp-day.rdp-selected.rdp-today:not(.rdp-outside),
 .rdp-selected.rdp-today:not(.rdp-outside) {
   color: var(--text-on-primary) !important;
@@ -220,7 +254,7 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 /* ─── Outside days ────────────────────────────────────── */
 .rdp-outside {
   color: var(--text-disabled);
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 /* ─── Disabled ───────────────────────────────────────── */
@@ -230,7 +264,7 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
   cursor: not-allowed;
 }
 
-/* Día con tareas — fondo más oscuro */
+/* ─── Days with tasks ────────────────────────────────── */
 .has-tasks {
   background: var(--lavender-soft) !important;
   font-weight: 500;
@@ -239,19 +273,30 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 /* Punto indicador */
 .has-tasks .rdp-day_button::after {
   content: "";
+
   position: absolute;
-  bottom: 6px;
+
+  bottom: 10px;
   left: 50%;
+
   transform: translateX(-50%);
-  width: 5px;
-  height: 5px;
+
+  width: 7px;
+  height: 7px;
+
   border-radius: 50%;
+
   background: var(--pink);
 }
 
-/* Cuando está seleccionado, el gradiente gana */
+/* Selected + tasks */
 .rdp-selected.has-tasks {
-  background: linear-gradient(135deg, var(--peach), var(--pink)) !important;
+  background: linear-gradient(
+    135deg,
+    var(--peach),
+    var(--pink)
+  ) !important;
+
   color: var(--text-on-primary) !important;
 }
 
@@ -262,14 +307,39 @@ KAWAII CALENDAR 🌸  (react-day-picker v9: .rdp-root, .rdp-selected, …)
 /* ─── Focus ───────────────────────────────────────────── */
 .rdp-day_button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px var(--lavender-soft);
+  box-shadow: 0 0 0 4px var(--lavender-soft);
 }
 
+/* ─── Ultra wide screens ✨ ───────────────────────────── */
+@media (min-width: 1600px) {
+  .rdp-root {
+    --rdp-cell-size: 110px;
+  }
+}
+
+/* ─── Mobile ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .rdp-root {
+    --rdp-cell-size: 48px;
+  }
+
+  .rdp-caption_label {
+    font-size: 1.5rem;
+  }
+
+  .rdp-table,
+  .rdp-month_grid {
+    border-spacing: 6px;
+  }
+}
+
+/* ─── Animation ─────────────────────────────────────── */
 @keyframes fade-in {
   from {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
