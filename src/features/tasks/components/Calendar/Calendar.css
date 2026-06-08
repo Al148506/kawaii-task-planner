@@ -270,32 +270,9 @@ KAWAII CALENDAR 🌸  (react-day-picker v9)
   font-weight: 500;
 }
 
-/* Punto indicador */
-.has-tasks .rdp-day_button::after {
-  content: "";
-
-  position: absolute;
-
-  bottom: 10px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  width: 7px;
-  height: 7px;
-
-  border-radius: 50%;
-
-  background: var(--pink);
-}
-
 /* Selected + tasks */
 .rdp-selected.has-tasks {
-  background: linear-gradient(
-    135deg,
-    var(--peach),
-    var(--pink)
-  ) !important;
+  background: linear-gradient(135deg, var(--peach), var(--pink)) !important;
 
   color: var(--text-on-primary) !important;
 }
@@ -344,4 +321,33 @@ KAWAII CALENDAR 🌸  (react-day-picker v9)
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Elimina el círculo del número seleccionado */
+.rdp-selected .rdp-day_button {
+  border-radius: 1rem !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Mantiene el fondo de toda la celda seleccionada */
+.rdp-selected {
+  background: var(--primary-gradient);
+  color: var(--text-on-primary) !important;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-glow);
+}
+
+.has-tasks .rdp-day_button::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+  background: var(--peach);
 }
